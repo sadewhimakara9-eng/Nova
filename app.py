@@ -5,7 +5,7 @@ import google.generativeai as genai
 st.set_page_config(page_title="Nova AI", page_icon="🤖")
 
 # API Key එක සම්බන්ධ කිරීම (මෙතන Quotes දාලා තියෙන්නේ දැන්)
-genai.configure(api_key="AIzaSyBUWBL0tDxB7orebDecsNStsZsgmIwWnh8")
+genai.configure(api_key="AIzaSyCthzTiHqgDOg3PQJZwRLLUsvOoxhPkjOk")
 
 st.title("🤖 Nova AI Assistant")
 st.markdown("---")
