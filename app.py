@@ -1,7 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
 
-# පිටුවේ සැකසුම්
+# පිටුවේ පෙනුම සැකසීම
 st.set_page_config(page_title="Nova AI", page_icon="🤖")
 
 # API Key එක සම්බන්ධ කිරීම
@@ -25,12 +25,17 @@ if prompt := st.chat_input("Nova ගෙන් අහන්න..."):
 
     with st.chat_message("assistant"):
         try:
-            # මෙතන නම 'models/gemini-1.5-pro-latest' කියලා වෙනස් කළා
-            model = genai.GenerativeModel('models/gemini-1.5-pro-latest')
+            # මෙතන 'models/' කෑල්ල අයින් කරලා නම විතරක් පාවිච්චි කරනවා
+            # මෙය ඕනෑම Gemini API එකක වැඩ කරන ස්ථාවරම ක්‍රමයයි
+            model = genai.GenerativeModel('gemini-1.5-flash-latest')
             
-            response = model.generate_content("Respond in Sinhala: " + prompt)
+            response = model.generate_content("Respond clearly in Sinhala: " + prompt)
             
-            st.markdown(response.text)
-            st.session_state.messages.append({"role": "assistant", "content": response.text})
+            if response.text:
+                st.markdown(response.text)
+                st.session_state.messages.append({"role": "assistant", "content": response.text})
+            else:
+                st.error("පිළිතුරක් ලබා ගැනීමට නොහැකි විය.")
         except Exception as e:
-            st.error(f"Error: {e}")
+            # වැරැද්ද හරියටම පෙන්වීමට debug කිරීම
+            st.error(f"තාක්ෂණික ගැටලුවක්: {str(e)}")
