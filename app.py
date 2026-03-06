@@ -21,9 +21,9 @@ if prompt := st.chat_input("Nova ගෙන් අහන්න..."):
 
     with st.chat_message("assistant"):
         try:
-            # මේ Model එක අනිවාර්යයෙන්ම වැඩ කරන්න ඕනේ
-            model = genai.GenerativeModel('gemini-1.0-pro')
-            response = model.generate_content("Respond in Sinhala: " + prompt)
+            # මේ නම තමයි 0.3.1 version එකට හරියන නම
+            model = genai.GenerativeModel('gemini-pro')
+            response = model.generate_content(prompt)
             
             st.markdown(response.text)
             st.session_state.messages.append({"role": "assistant", "content": response.text})
