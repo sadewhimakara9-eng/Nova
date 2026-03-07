@@ -3,4 +3,3 @@ groq
 Pillow
 mcstatus
 requests
-beautifulsoup4
