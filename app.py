@@ -10,14 +10,43 @@ st.set_page_config(page_title="Nova Ultra Max", page_icon="🤖", layout="wide",
 # 2. Groq API Key
 client = Groq(api_key="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")
 
-# 3. CSS - Black Theme
+# 3. CSS - අකුරු වල පාට සහ කොටු වල පෙනුම පැහැදිලිව හැදීම
 st.markdown("""
     <style>
+    /* මුළු පසුබිම කළු පාටයි */
     .stApp { background-color: #000000 !important; }
+    
+    /* සාමාන්‍ය අකුරු සුදු පාටයි */
     h1, h2, h3, p, span, div, label, .stMarkdown { color: #ffffff !important; }
-    .stChatMessage { background-color: #1a1a1a !important; border-radius: 12px; border: 1px solid #333333; margin-bottom: 10px; }
-    section[data-testid="stSidebar"] { background-color: #111111 !important; border-right: 1px solid #333333; }
-    .stButton>button { background-color: #ffffff; color: #000000; width: 100%; font-weight: bold; border-radius: 8px; }
+
+    /* Input Boxes (කොටු) ඇතුලේ අකුරු කළු පාටින් පේන්න හැදීම */
+    .stTextInput input, .stSelectbox div, .stNumberInput input {
+        color: #000000 !important; 
+        background-color: #ffffff !important;
+        font-weight: bold !important;
+    }
+
+    /* Command එක පේන Code Block එකේ පාට වෙනස් කිරීම */
+    code {
+        color: #00ff00 !important; /* Command එක කොළ පාටින් පේන්න */
+        background-color: #1a1a1a !important;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    /* Sidebar එකේ පෙනුම */
+    section[data-testid="stSidebar"] {
+        background-color: #111111 !important;
+        border-right: 1px solid #333333;
+    }
+
+    /* Buttons */
+    .stButton>button {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        font-weight: bold !important;
+        border-radius: 8px !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -32,7 +61,6 @@ with st.sidebar:
         "🎵 Music Studio",
         "📊 System Info"
     ])
-    st.markdown("---")
 
 # 5. MAIN LOGIC
 if mode == "💬 Smart Chat":
@@ -68,34 +96,34 @@ elif mode == "🎮 Minecraft Monitor":
 
 elif mode == "⚔️ MC Command Helper":
     st.title("⚔️ MC Command Helper")
-    st.write("සර්වර් එකේ වැඩ වලට ඕන කමාන්ඩ් ඉක්මනින් හදාගන්න.")
-    cmd_type = st.selectbox("Command වර්ගය:", ["Give Item", "Teleport", "GameMode", "Clear Inventory"])
+    st.write("කමාන්ඩ් එක පල්ලෙහා කොටුවේ කොළ පාටින් පේනු ඇත.")
+    cmd_type = st.selectbox("Command වර්ගය:", ["Give Item", "Teleport", "GameMode"])
     player_name = st.text_input("Player ගේ නම:", value="DeathnatorMC")
     
     if cmd_type == "Give Item":
-        item = st.text_input("Item එක (e.g. diamond_sword):", value="oak_log")
+        item = st.text_input("Item එක (e.g. oak_log):", value="oak_log")
         amount = st.number_input("ප්‍රමාණය:", min_value=1, value=64)
-        st.code(f"/give {player_name} {item} {amount}")
+        generated_cmd = f"/give {player_name} {item} {amount}"
     elif cmd_type == "Teleport":
         coords = st.text_input("Coordinates (x y z):", value="0 64 0")
-        st.code(f"/tp {player_name} {coords}")
+        generated_cmd = f"/tp {player_name} {coords}"
+    
+    st.markdown("### මෙන්න ඔයාගේ Command එක:")
+    st.code(generated_cmd) # මෙතන දැන් අකුරු පැහැදිලිව පෙනේවි
 
 elif mode == "🖼️ Image Vision":
     st.title("🖼️ Image Vision")
-    up = st.file_uploader("පින්තූරයක් අප්ලෝඩ් කරන්න", type=["jpg", "png"])
+    up = st.file_uploader("Image එකක් අප්ලෝඩ් කරන්න", type=["jpg", "png"])
     if up:
         st.image(Image.open(up), use_container_width=True)
-        st.info("Nova පින්තූරය කියවීමට සූදානම්.")
 
 elif mode == "🎵 Music Studio":
-    st.title("🎵 Music Studio")
+    st.title("🎵 Nova Music Studio")
     if st.button("Create Track"):
-        st.success("ට්‍රැක් එක සාර්ථකව නිර්මාණය විය! (30s)")
+        st.success("ට්‍රැක් එක සාර්ථකව හැදුණා!")
         st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
 
 elif mode == "📊 System Info":
     st.title("📊 Nova System Info")
-    st.write(f"**අද දිනය:** {datetime.date.today()}")
+    st.write(f"**දිනය:** {datetime.date.today()}")
     st.write(f"**වේලාව:** {datetime.datetime.now().strftime('%H:%M:%S')}")
-    st.write("**Model:** Llama 3.3 (Groq API)")
-    st.write("**Region:** Colombo, Sri Lanka")
