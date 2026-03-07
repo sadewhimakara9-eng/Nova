@@ -1,6 +1,7 @@
 import streamlit as st
 from groq import Groq
 
+# පිටුවේ සැකසුම්
 st.set_page_config(page_title="Nova AI", page_icon="🤖")
 
 # Groq API Key
@@ -10,13 +11,19 @@ st.title("🤖 Nova AI Assistant")
 st.caption("Powered by Groq - Super Fast AI")
 st.markdown("---")
 
+# චැට් එක මතක තබා ගැනීම
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    # ආරම්භක පණිවිඩය මෙතනට දාමු
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Hi! How can I help you today? (ඔබට අද මම උදවු කරන්නේ කොහොමද?)"}
+    ]
 
+# පණිවිඩ පෙන්වීම
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+# පරිශීලකයාගෙන් අහන දේ
 if prompt := st.chat_input("Nova ගෙන් මොනවා හරි අහන්න..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -24,13 +31,15 @@ if prompt := st.chat_input("Nova ගෙන් මොනවා හරි අහ�
 
     with st.chat_message("assistant"):
         try:
+            # මෙතන තමයි උපදෙස් දෙන්නේ
             chat_completion = client.chat.completions.create(
                 messages=[
                     {
                         "role": "system", 
-                        "content": "You are Nova, a friendly AI assistant. You must ONLY respond in Sinhala language. Do not use Tamil or any other languages. If the user asks something in English, still reply in clear and natural Sinhala."
+                        "content": "You are Nova, a friendly AI assistant. You must respond in clear, natural Sinhala language only. Avoid Tamil, Thai, or any mixed languages. If the user greets you, greet them back warmly in Sinhala."
                     },
-                    {"role": "user", "content": prompt}
+                    # කලින් කරපු චැට් එකත් මොළයට දෙනවා
+                    *st.session_state.messages
                 ],
                 model="llama-3.1-8b-instant",
             )
