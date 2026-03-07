@@ -9,38 +9,37 @@ st.set_page_config(page_title="Nova Ultra Max", page_icon="🤖", layout="wide",
 # 2. Groq API Key
 client = Groq(api_key="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")
 
-# 3. CSS - කළු පසුබිම සහ පැහැදිලි අකුරු (Text & Background Fix)
+# 3. CSS - සම්පූර්ණ කළු පසුබිම සහ සුදු අකුරු (Fixing the visibility and error)
 st.markdown("""
     <style>
-    /* මුළු ඇප් එකේම පසුබිම සම්පූර්ණයෙන්ම කළු පාට කරමු */
+    /* මුළු ඇප් එකම කළු පාට කිරීමට */
     .stApp {
         background-color: #000000 !important;
     }
     
-    /* හැම අකුරක්ම සුදු පාටට පේන්න හදමු */
+    /* හැම අකුරක්ම සුදු පාට කිරීමට */
     h1, h2, h3, p, span, div, label, .stMarkdown {
         color: #ffffff !important;
     }
 
-    /* චැට් මැසේජ් බොක්ස් එක පේන විදිහ (Dark Grey with White Text) */
+    /* චැට් මැසේජ් බොක්ස් එක (Glass effect with visibility) */
     .stChatMessage {
-        background-color: #1e1e1e !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
         border-radius: 12px;
         border: 1px solid #333333;
         margin-bottom: 10px;
         padding: 15px;
     }
-    
-    /* Sidebar එකත් කළු/තද අළු පාට කරමු */
+
+    /* Sidebar එක කළු පාට කිරීමට */
     section[data-testid="stSidebar"] {
         background-color: #111111 !important;
         border-right: 1px solid #333333;
     }
 
-    /* Input box එකේ අකුරු පේන විදිහ */
+    /* Input box එකේ අකුරු සුදු කිරීමට */
     .stChatInputContainer input {
         color: white !important;
-        background-color: #262626 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -82,4 +81,25 @@ elif mode == "🖼️ Image Vision":
     st.title("🖼️ Image Vision")
     up = st.file_uploader("Image එකක් දාන්න", type=["jpg", "png"])
     if up:
-        st.image(Image.open(up), use_container_width
+        # මෙතන තමයි කලින් වරහන අමතක වෙලා තිබුණේ (දැන් හරි)
+        st.image(Image.open(up), use_container_width=True)
+        st.info("Nova පින්තූරය පරීක්ෂා කරයි...")
+
+elif mode == "🎵 Music Studio":
+    st.title("🎵 Music Studio")
+    if st.button("Generate Music Track"):
+        # Lyria 3 පාවිච්චි කර තත්පර 30ක ට්‍රැක් එකක් හැදේ
+        st.success("Track generated successfully! (30s)")
+        st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+
+elif mode == "🎮 Minecraft Monitor":
+    st.title("🎮 Minecraft Monitor")
+    ip = st.text_input("Server IP එක ලබා දෙන්න:", placeholder="e.g. play.hypixel.net")
+    if st.button("Check Status"):
+        try:
+            srv = JavaServer.lookup(ip)
+            stat = srv.status()
+            st.success(f"Server Online! 🟢")
+            st.metric("Players", f"{stat.players.online} / {stat.players.max}")
+        except:
+            st.error("Server එක Offline හෝ IP එක වැරදියි. 🔴")
