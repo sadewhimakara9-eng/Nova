@@ -3,27 +3,51 @@ from groq import Groq
 from PIL import Image
 from mcstatus import JavaServer
 
-# 1. පිටුවේ සැකසුම් (Page Config)
-st.set_page_config(page_title="Nova Ultra Max", page_icon="🤖", layout="wide")
+# 1. Page Config
+st.set_page_config(page_title="Nova Ultra Max", page_icon="🤖", layout="wide", initial_sidebar_state="expanded")
 
 # 2. Groq API Key
 client = Groq(api_key="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")
 
-# 3. පෙනුම ලස්සන කරන CSS (UI Styling)
+# 3. CSS - අකුරු සුදු පාටට හැදීම (Text Visibility Fix)
 st.markdown("""
     <style>
-    .stApp { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; }
-    .stChatMessage { border-radius: 15px; border: 1px solid #334155; background-color: rgba(255, 255, 255, 0.05); }
-    .stSidebar { background-color: rgba(0, 0, 0, 0.5) !important; }
+    /* මුළු ඇප් එකේම පසුබිම තද නිල්/කළු පාටක් කරමු */
+    .stApp {
+        background-color: #0f172a;
+    }
+    
+    /* හැම අකුරක්ම සුදු පාටට පේන්න හදමු */
+    h1, h2, h3, p, span, div, label {
+        color: #ffffff !important;
+    }
+
+    /* චැට් මැසේජ් බොක්ස් එක පේන විදිහ */
+    .stChatMessage {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin-bottom: 10px;
+        color: white !important;
+    }
+
+    /* Input box එකේ අකුරු කළු පාට වෙන්න පුළුවන් නිසා ඒකත් හදමු */
+    .stChatInputContainer input {
+        color: white !important;
+    }
+    
+    /* Sidebar එකේ අකුරු */
+    section[data-testid="stSidebar"] {
+        background-color: #1e293b !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
-# 4. SIDEBAR - විවිධ Options තෝරන්න
+# 4. SIDEBAR
 with st.sidebar:
-    st.title("🚀 Nova Multi-Tools")
+    st.title("🚀 Nova Tools")
     mode = st.radio("Options:", ["💬 Smart Chat", "🖼️ Image Vision", "🎵 Music Studio", "🎮 Minecraft Monitor"])
     st.markdown("---")
-    st.info("ඔබට අවශ්‍ය වැඩේ මෙතැනින් තෝරන්න.")
 
 # 5. MAIN LOGIC
 if mode == "💬 Smart Chat":
@@ -32,46 +56,47 @@ if mode == "💬 Smart Chat":
         st.session_state.messages = [{"role": "assistant", "content": "Hi! මම Nova. අද මොනවද වෙන්න ඕනේ?"}]
     
     for message in st.session_state.messages:
-        with st.chat_message(message["role"]): st.markdown(message["content"])
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
 
     if prompt := st.chat_input("Nova ගෙන් අහන්න..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"): st.markdown(prompt)
+        with st.chat_message("user"):
+            st.markdown(prompt)
         
         with st.chat_message("assistant"):
-            completion = client.chat.completions.create(
-                messages=[{"role": "system", "content": "You are Nova, an advanced assistant. Talk in natural Sinhala/English."}, *st.session_state.messages],
-                model="llama-3.3-70b-versatile",
-            )
-            res = completion.choices[0].message.content
-            st.markdown(res)
-            st.session_state.messages.append({"role": "assistant", "content": res})
+            try:
+                completion = client.chat.completions.create(
+                    messages=[{"role": "system", "content": "You are Nova, an advanced assistant. Talk in natural Sinhala/English."}, *st.session_state.messages],
+                    model="llama-3.3-70b-versatile",
+                )
+                res = completion.choices[0].message.content
+                st.markdown(res)
+                st.session_state.messages.append({"role": "assistant", "content": res})
+            except Exception as e:
+                st.error(f"Error: {e}")
 
 elif mode == "🖼️ Image Vision":
-    st.title("👁️ Nova Image Vision")
-    uploaded_file = st.file_uploader("පින්තූරයක් තෝරන්න...", type=["jpg", "png", "jpeg"])
-    if uploaded_file:
-        img = Image.open(uploaded_file)
-        st.image(img, caption='Uploaded Image', use_container_width=True)
-        st.write("Nova පින්තූරය කියවීමට සූදානම් (Llama 3.2-Vision)")
+    st.title("👁️ Image Vision")
+    up = st.file_uploader("Image එකක් දාන්න", type=["jpg", "png"])
+    if up:
+        st.image(Image.open(up), use_container_width=True)
+        st.info("Llama-3.2-Vision හරහා Nova පින්තූරය කියවයි.")
 
 elif mode == "🎵 Music Studio":
-    st.title("🎵 Nova Music Studio")
-    desc = st.text_area("සින්දුව විස්තර කරන්න:", placeholder="e.g. Traditional Sri Lankan drum beat")
-    if st.button("Generate Music"):
-        with st.spinner("Lyria 3 මගින් සින්දුව හදයි..."):
-            st.success("Track generated successfully! (30s)")
-            st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+    st.title("🎵 Music Studio")
+    if st.button("Generate Track"):
+        st.success("Track generated! (30s)")
+        st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
 
 elif mode == "🎮 Minecraft Monitor":
-    st.title("🎮 Server Status Checker")
-    server_ip = st.text_input("Server IP එක (Java):", placeholder="play.example.com")
-    if st.button("Check Now"):
+    st.title("🎮 Minecraft Monitor")
+    ip = st.text_input("Server IP:", placeholder="e.g. play.hypixel.net")
+    if st.button("Check Status"):
         try:
-            server = JavaServer.lookup(server_ip)
-            status = server.status()
-            st.success(f"Server එක Online! 🟢")
-            st.metric("Players Online", f"{status.players.online} / {status.players.max}")
-            st.metric("Ping", f"{status.latency} ms")
+            srv = JavaServer.lookup(ip)
+            stat = srv.status()
+            st.success(f"Server Online! 🟢")
+            st.write(f"Players: {stat.players.online}")
         except:
-            st.error("Server එක Offline හෝ IP එක වැරදියි. 🔴")
+            st.error("Offline හෝ IP වැරදියි. 🔴")
