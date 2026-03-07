@@ -2,4 +2,4 @@ streamlit
 groq
 Pillow
 mcstatus
-requests
+yfinance
