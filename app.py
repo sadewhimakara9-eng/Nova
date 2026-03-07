@@ -1,11 +1,15 @@
 import streamlit as st
 import google.generativeai as genai
 
+# පිටුවේ පෙනුම සැකසීම
 st.set_page_config(page_title="Nova AI", page_icon="🤖")
-st.title("🤖 Nova AI Assistant")
 
-# API Key සම්බන්ධ කිරීම
-genai.configure(api_key="AIzaSyBUWBL0tDxB7orebDecsNStsZsgmIwWnh8")
+# ඔයා එවපු අලුත්ම API Key එක මෙන්න
+genai.configure(api_key="AIzaSyD2y83ac1I40JHexIWSlm9rm_LOodZWEUQ")
+
+st.title("🤖 Nova AI Assistant")
+st.caption("දැන් මම වැඩ! මගෙන් ඕනෑම දෙයක් අහන්න.")
+st.markdown("---")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -20,20 +24,13 @@ if prompt := st.chat_input("Nova ගෙන් අහන්න..."):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        # පිළිවෙළින් මොඩල් වර්ග 3ක්ම ට්‍රයි කරනවා
-        models_to_try = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro']
-        success = False
-        
-        for model_name in models_to_try:
-            try:
-                model = genai.GenerativeModel(model_name)
-                response = model.generate_content("Respond in Sinhala: " + prompt)
-                st.markdown(response.text)
-                st.session_state.messages.append({"role": "assistant", "content": response.text})
-                success = True
-                break # එකක් වැඩ කළොත් ඉතිරි ඒවා බලන්නේ නැහැ
-            except:
-                continue
-        
-        if not success:
-            st.error("කනගාටුයි, කිසිදු මොඩලයක් සම්බන්ධ කරගත නොහැකි විය. කරුණාකර මද වෙලාවකින් උත්සාහ කරන්න.")
+        try:
+            # ස්ථාවරම මොඩල් එක
+            model = genai.GenerativeModel('gemini-1.5-flash')
+            # සිංහලෙන් පිළිතුරු දීමට උපදෙස් දීම
+            response = model.generate_content("Respond in Sinhala: " + prompt)
+            
+            st.markdown(response.text)
+            st.session_state.messages.append({"role": "assistant", "content": response.text})
+        except Exception as e:
+            st.error(f"Error: {e}")
