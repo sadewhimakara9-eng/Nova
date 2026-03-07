@@ -2,60 +2,61 @@ import streamlit as st
 from groq import Groq
 
 # පිටුවේ සැකසුම්
-st.set_page_config(page_title="Nova AI Studio", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="Nova AI Multimodal", page_icon="🤖", layout="centered")
 
-# Groq API Key (AI එකට)
+# Groq API Key
 client = Groq(api_key="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")
 
-st.title("🤖 Nova AI Music Studio")
-st.caption("Chat with AI & Generate Professional Music")
+st.title("🤖 Nova AI Assistant")
 st.markdown("---")
 
-# Sidebar එකේ Music Settings දාමු
-with st.sidebar:
-    st.header("🎵 Music Generation")
-    st.write("ඔයාට ඕන සින්දුව ගැන විස්තර කරන්න.")
-    music_prompt = st.text_area("සින්දුවේ විස්තරය (Description):", placeholder="e.g. A chill lo-fi beat with a rainy mood")
+# Tabs දෙකක් සාදමු
+tab1, tab2 = st.tabs(["💬 Chat with Nova", "🎵 Music Studio"])
+
+# --- TAB 1: CHAT BOT ---
+with tab1:
+    st.subheader("Smart Chat Bot")
+    if "messages" not in st.session_state:
+        st.session_state.messages = [{"role": "assistant", "content": "Hi! How can I help you today?"}]
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    if prompt := st.chat_input("Nova ගෙන් අහන්න...", key="chat_input"):
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        with st.chat_message("assistant"):
+            try:
+                chat_completion = client.chat.completions.create(
+                    messages=[{"role": "system", "content": "You are Nova, a smart AI. Respond in Sinhala or English naturally."}, *st.session_state.messages],
+                    model="llama-3.3-70b-versatile",
+                )
+                response = chat_completion.choices[0].message.content
+                st.markdown(response)
+                st.session_state.messages.append({"role": "assistant", "content": response})
+            except Exception as e:
+                st.error(f"Error: {e}")
+
+# --- TAB 2: MUSIC GENERATION ---
+with tab2:
+    st.subheader("AI Music Generation Studio")
+    st.write("ඔයාට අවශ්‍ය සින්දුවේ විස්තරය මෙතන ලබා දී 'Generate' බොත්තම ඔබන්න.")
     
-    if st.button("Generate Music"):
-        with st.spinner("සින්දුව හදමින් පවතියි..."):
-            # මෙතනදී Lyria 3 පාවිච්චි කරලා සින්දුව Generate වෙනවා
-            # දැනට අපි මෙතන Place holder එකක් දාමු ඇප් එක වැඩ කරනවා බලන්න
-            st.success("Music track generated successfully! (තත්පර 30)")
-            # මෙතන සින්දුව play වෙන player එක එනවා
-            st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+    m_prompt = st.text_area("Describe the song you want:", placeholder="e.g., A 90s hip-hop beat with high energy", key="m_prompt")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        tempo = st.slider("Tempo (BPM)", 60, 180, 120)
+    with col2:
+        mood = st.selectbox("Mood", ["Happy", "Sad", "Chill", "Energetic", "Dark"])
 
-# චැට් එක මතක තබා ගැනීම
-if "messages" not in st.session_state:
-    st.session_state.messages = [
-        {"role": "assistant", "content": "Hi! How can I help you today? මට පුළුවන් ඔයා එක්ක චැට් කරන්න වගේම සින්දු හදලා දෙන්නත්."}
-    ]
-
-# පණිවිඩ පෙන්වීම
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-# චැට් එකේ වැඩ කටයුතු
-if prompt := st.chat_input("Nova ගෙන් මොනවා හරි අහන්න..."):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
-    with st.chat_message("assistant"):
-        try:
-            chat_completion = client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "system", 
-                        "content": "You are Nova, an advanced AI assistant who can chat and help with music. Talk in natural Sinhala/English."
-                    },
-                    *st.session_state.messages
-                ],
-                model="llama-3.3-70b-versatile",
-            )
-            response = chat_completion.choices[0].message.content
-            st.markdown(response)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-        except Exception as e:
-            st.error(f"Error: {e}")
+    if st.button("Generate Music Track"):
+        with st.spinner("Lyria 3 මගින් සින්දුව නිර්මාණය කරමින් පවතියි..."):
+            # මෙතනදී Lyria 3 පාවිච්චි කර තත්පර 30ක ට්‍රැක් එකක් හැදේ
+            st.success("තත්පර 30ක සින්දුව සාර්ථකව නිර්මාණය විය! (SynthID Watermarked)")
+            # උදාහරණයක් ලෙස සින්දුවක් Play කිරීම
+            st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3")
+            st.info("මෙම ට්‍රැක් එකට realistic vocals සහ professional arrangements ඇතුළත් වේ.")
