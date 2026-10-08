@@ -1,0 +1,2 @@
+# The new agent uses only Streamlit plus Python's standard library.
+streamlit==1.65.0
