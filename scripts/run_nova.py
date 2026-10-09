@@ -1,5 +1,6 @@
 """One-command bootstrap for the new Nova dashboard on Windows/macOS/Linux."""
 
+import argparse
 import os
 from pathlib import Path
 import subprocess
@@ -7,10 +8,14 @@ import sys
 import venv
 
 
-def main():
+def main(argv=None):
+    parser = argparse.ArgumentParser(description="Install and launch Nova.")
+    parser.add_argument("--browser", action="store_true", help="Open the browser dashboard without installing native desktop components.")
+    args = parser.parse_args(argv)
     if sys.version_info < (3, 11):
         print("Nova needs Python 3.11 or newer. Install it from https://www.python.org/downloads/ and launch again.")
         return 1
+    os.environ["PYTHONUTF8"] = "1"
     root = Path(__file__).resolve().parent.parent
     environment = root / ".venv-nova"
     python = environment / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
@@ -25,12 +30,26 @@ def main():
         print("Installing the dashboard. Internet access is needed on the first launch.")
         subprocess.run([str(python), "-m", "pip", "install", "--disable-pip-version-check",
                         "-r", str(root / "nova-requirements.txt")], check=True)
-    print("Opening Nova. Keep this window open; press Ctrl+C to close Nova.")
-    return subprocess.call([
-        str(python), "-m", "streamlit", "run", str(root / "nova_app.py"),
-        "--server.address", "127.0.0.1", "--server.port", "8502",
-        "--browser.gatherUsageStats", "false",
-    ], cwd=root)
+    use_desktop = sys.platform == "win32" and not args.browser
+    if use_desktop:
+        desktop_check = subprocess.run(
+            [str(python), "-c", "import importlib.metadata; assert importlib.metadata.version('pywebview') == '6.2.1'; import webview"],
+            capture_output=True, check=False,
+        )
+        if desktop_check.returncode:
+            print("Installing the optional Windows desktop window. First launch needs internet access.")
+            try:
+                subprocess.run([str(python), "-m", "pip", "install", "--disable-pip-version-check",
+                                "-r", str(root / "nova-desktop-requirements.txt")], check=True)
+            except (OSError, subprocess.CalledProcessError):
+                use_desktop = False
+                print("The optional desktop component could not be installed. Nova will open in your browser.")
+    print("Opening Nova. Keep this console open; press Ctrl+C to close Nova.")
+    command = [str(python), str(root / "scripts" / "desktop.py")]
+    if not use_desktop:
+        command.append("--browser")
+    # The child owns its Streamlit process and reliably cleans it up on exit.
+    return subprocess.call(command, cwd=root)
 
 
 if __name__ == "__main__":

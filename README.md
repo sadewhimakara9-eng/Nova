@@ -1,16 +1,19 @@
-# NOVA — personal agent foundation
+# NOVA Glass — personal AI workspace
 
-A working first release built from the [NOVA v6 master specification](docs/spec/NOVA_MASTER_PROMPT.md). This is **version 0.1**, the foundation for that larger product: a local dashboard, Sinhala-aware commands, persistent memory, concurrent missions, workspace tools, and optional AI chat/planning.
+A working **v0.2 release** following the [NOVA v8 master specification](docs/NOVA_MASTER_SPEC.md). The white-glass desktop interface connects to the existing local agent core: Sinhala-aware chat, memory, missions, safe file tools and optional AI providers. The complete v8 operating-system vision is a staged roadmap, not a completed product.
+
+![NOVA Glass home screen](docs/images/nova-glass-home.png)
 
 ## Start on your Windows PC
 
 1. Install **Python 3.11 or newer** from [python.org](https://www.python.org/downloads/), if it is not already installed.
 2. Open this project folder and double-click **Start Nova.bat**.
-3. The first launch installs the dashboard automatically. Keep its console window open while using Nova. Open the local address printed by Streamlit if your browser does not open automatically.
+3. The first launch installs dependencies automatically and opens a **native desktop window on Windows** when pywebview and Microsoft WebView2 are available. If native mode cannot start, Nova explains the issue and opens the same interface in your browser.
+4. Keep the console open while using Nova. Closing the native window shuts down its owned dashboard process. In browser mode, press **Ctrl+C** in the console to stop it.
 
-You do not need to edit JSON or create a Python environment manually. Internet is needed to install dependencies the first time. Later launches reuse them. The launcher uses port **8502**, listens only on your own computer, and keeps Streamlit's CORS/XSRF protections enabled. The Windows batch wrapper has been reviewed but needs a real Windows machine for execution testing; the Python bootstrap and dashboard have been run on Linux.
+You do not need to edit JSON or create a Python environment manually. Internet is needed to install dependencies the first time. Later launches reuse them. The launcher uses port **8502**, listens only on your own computer, and keeps Streamlit's CORS/XSRF protections enabled. Native Windows window behavior has automated mocked coverage and still needs testing on a real Windows PC. Actual process startup, health, shutdown, relaunch and the complete browser interface were tested on Linux.
 
-On Linux/macOS, run `sh start-nova.sh`. Developers with dependencies installed can run `python -m streamlit run nova_app.py --server.address 127.0.0.1 --server.port 8502 --browser.gatherUsageStats false`.
+On Linux/macOS, run `sh start-nova.sh`. To force browser mode on Windows, run `python scripts/run_nova.py --browser`. Developers with dependencies installed can run `python -m streamlit run nova_app.py --server.address 127.0.0.1 --server.port 8502 --browser.gatherUsageStats false`.
 
 ## Try it now
 
@@ -41,7 +44,20 @@ Built-in commands work immediately without an AI connection. Free-form conversat
 
 Keys entered in Settings stay in the current Streamlit session, are not written to the database, and can be cleared there. Provider settings are session-local. The `.env.example` is documentation, not an automatically loaded secret file. The old app's embedded key is never used by the new agent.
 
-Cloud requests receive the current prompt and fixed system instructions only. Nova does not automatically send saved memory, mission history, or files to a model. Model answers are conversational text, not executed commands. A generated mission must pass the tool allowlist and be reviewed before execution. Live model inference was not tested in this environment; provider tests use mocked HTTP responses.
+Cloud requests receive the current prompt and fixed system instructions only. Nova does not automatically send saved memory, mission history, or files to a model. Model answers are conversational text, not executed commands. A generated mission queries the installed capability registry, must pass the tool allowlist, and is reviewed before execution. Missing capabilities are reported without scheduling a misleading partial result. Built-in commands remain shortcuts; natural-language planning uses the selected model rather than an exact-phrase command list. Live model inference was not tested in this environment; provider tests use mocked HTTP responses.
+
+## Explore the new interface
+
+- **Home:** the original glass orb, a Sinhala greeting, actual mission/memory counts, and a floating composer.
+- **Chat / Voice:** switch modes with the pill control. Voice says **not connected**; its optional visual preview never opens a microphone or executes sample text.
+- **Missions:** filter running/queued/waiting/completed work, inspect verified results, and review a local-action approval dialog.
+- **Projects:** open the actual local workspace; named project management is marked coming soon.
+- **Agents / Tools:** inspect installed workers, their permissions, measured recent reliability, and capability metadata.
+- **Privacy:** change local-only protection and inspect the limited history of successful cloud responses. It is not a system-wide network monitor.
+- **Settings → Appearance:** persist glass intensity, transparency, blur, scale, animations and performance mode locally.
+- **Attach:** import UTF-8 text into the workspace through a reviewed file-creation plan. Image/PDF/screenshot/folder/clipboard actions are visibly disabled.
+
+All 13 navigation destinations are available. Missing automation, device, speech and external service backends remain honestly disconnected. The latest reference upload contained text only; the original glass artwork follows its written visual direction.
 
 ## Data and privacy
 
@@ -55,7 +71,10 @@ Emergency stop persists across restarts and pauses queued work. An atomic operat
 
 | Capability | Status |
 | --- | --- |
-| Local dashboard, chat commands, memory viewer | Working; tested |
+| White-glass Home, Chat, Missions, Memory, Privacy and Settings | Working; tested |
+| Orb states, Chat/Voice switch, appearance controls, reduced motion | Working; voice animation preview is explicitly simulated |
+| Projects, Agents, Tools and integration status views | Connected to existing workspace/agents; future services clearly disconnected |
+| Native Windows window + browser fallback | Implemented; Windows calls tested with mocks, real Windows test pending |
 | Sinhala text and selected Sinhala/Singlish commands | Working; tested; not general language understanding without a model |
 | File listing, UTF-8 reading/creation, system info | Working in Nova's workspace |
 | Concurrent missions, durable stop, recovery, verified file receipts | Working; tested |
@@ -65,7 +84,7 @@ Emergency stop persists across restarts and pauses queued work. An atomic operat
 | Windows UI control, browser control, Office, email, payments, smart home | Not implemented |
 | Self-updates, plugin sandbox, encrypted vault, native installer | Not implemented |
 
-This is a modular monolith, not the complete autonomous operating system in the specification. See [project status](docs/PROJECT_STATUS.md) for the next milestones and [architecture](docs/architecture.md) for design details.
+This is a modular monolith, not the complete autonomous operating system in the specification. [Requirement status](docs/REQUIREMENTS_STATUS.md) distinguishes working, partial and not-started v8 requirements. See [project status](docs/PROJECT_STATUS.md) for the next milestones and [architecture](docs/architecture.md) for design details.
 
 ## Development and tests
 
@@ -75,3 +94,7 @@ python -m unittest discover -s tests -v
 ```
 
 The suite covers functional tools, concurrency, recovery, permissions, credential handling, mocked providers, and a real-core Streamlit interaction workflow. It uses isolated temporary data folders and no live model calls. Existing `app.py` and `requirements.txt` remain the legacy app; start the new agent through **Start Nova.bat** or `nova_app.py`.
+
+## Release packaging
+
+`python scripts/package_release.py` creates `downloads/Nova-agent-v0.2.zip` from an explicit source allowlist, verifies the ZIP, and checks high-confidence credential formats. It excludes legacy `app.py`, runtime data, virtual environments and previous archives. This narrow scanner is not a full repository secret audit.

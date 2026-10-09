@@ -10,6 +10,7 @@ from pathlib import Path
 
 from .config import MAX_PLAN_STEPS, MAX_TEXT, WORKERS, data_directory
 from .agents import AgentRegistry
+from .capabilities import CapabilityRegistry
 from .providers import contains_credentials
 from .storage import Store, now
 from .tools import ToolError, ToolRegistry
@@ -74,6 +75,7 @@ class NovaCore:
         self.workspace = Path(workspace or self.data_dir / "workspace").resolve()
         self.registry = ToolRegistry(self.workspace)
         self.agents = AgentRegistry()
+        self.capability_registry = CapabilityRegistry(self.registry, self.agents)
         self.store = Store(self.data_dir / "nova.sqlite3")
         self._guard = threading.RLock()
         self._closing = threading.Event()
@@ -117,6 +119,10 @@ class NovaCore:
 
     def tools(self) -> list[dict]:
         return self.registry.descriptions()
+
+    def capabilities(self) -> list[dict]:
+        """Return only registered, executable capabilities with measured history."""
+        return self.capability_registry.describe(self.missions())
 
     def enqueue(self, tool: str, args: dict, goal: str = "", *, mode="LOCAL_ONLY",
                 idempotency_key=None, dependency=None) -> str:
@@ -378,9 +384,13 @@ class NovaCore:
         if not provider:
             raise NovaError("Connect a model in Settings to prepare a natural-language mission, or use local file commands.")
         prompt = (SYSTEM_PROMPT + "\nYou are the Planner. Return ONLY a JSON array with 1 to 8 steps. "
-                  "Each step must have exactly tool, args, goal. Allowed tools: " + json.dumps(self.tools()) +
+                  "Each step must have exactly tool, args, goal. Infer the owner's intended outcome, "
+                  "including Sinhala and mixed-language paraphrases; examples are not an intent whitelist. "
+                  "Compose installed capabilities as needed. Installed capability registry: " + json.dumps(self.capabilities()) +
                   "\nUse relative workspace paths. Never invent additional tools. Do not execute anything. "
-                  "Steps execute sequentially. If the request cannot be met using these tools, return []. "
+                  "Steps execute sequentially. If any essential capability is missing, return an object "
+                  "with exactly steps (an empty array) and missing_capabilities (a short list of names). "
+                  "Never present partial execution as completion of the full goal. "
                   "Do not place credentials in generated files. Existing files cannot be overwritten.")
         response = provider.complete([{"role": "system", "content": prompt}, {"role": "user", "content": goal}],
                                      mode=mode, classification=classification)
@@ -388,6 +398,17 @@ class NovaCore:
             steps = json.loads(response)
         except (ValueError, TypeError):
             raise NovaError("The model did not return a valid plan. No actions were taken; try a more specific goal.") from None
+        if isinstance(steps, dict):
+            if (set(steps) != {"steps", "missing_capabilities"} or steps["steps"] != []
+                    or not isinstance(steps["missing_capabilities"], list)
+                    or not 1 <= len(steps["missing_capabilities"]) <= 8):
+                raise NovaError("The model did not return a valid capability-gap report. No actions were taken.")
+            missing = [self._text(name, "Missing capability") for name in steps["missing_capabilities"]]
+            if any(len(name) > 100 for name in missing):
+                raise NovaError("The capability-gap report was too long. No actions were taken.")
+            self.store.event("CAPABILITY_GAP", count=len(missing))
+            raise NovaError("This goal needs capabilities that are not installed: " + ", ".join(missing) +
+                            ". Review Tools for available capabilities. No actions were taken; automatic plugin installation is not enabled.")
         self._validate_plan(steps)
         self.store.event("PLAN_PREPARED", steps=len(steps))
         return steps

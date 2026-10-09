@@ -55,3 +55,16 @@ The current chat sends only the latest input and fixed instructions to the selec
 - Generated plans have at most eight steps. They cannot substitute the output of one tool into another or run an iterative agent reasoning loop yet.
 - Sidebar provider settings persist only for the browser session. Data/missions/preferences persist on disk.
 - Live provider latency, Sinhala model quality, Windows batch execution and native Windows locking require testing on the target machine.
+
+
+## ADR 005: preserve the core; use a glass UI service layer and native webview shell
+
+The v8 specification makes the unfinished UI the current priority. `nova/ui/controller.py` supplies validated display preferences, real mission/agent view models and a limited successful-cloud-response history. `glass.py`/`glass.css` provide reusable local artwork and appearance tokens. Inline SVG is sanitized by Streamlit, so original SVG artwork is encoded as local image data, with no external assets. Animations honor reduced-motion and performance settings.
+
+The UI uses existing core methods for memory, missions, tools, stop/resume and plans. Voice preview uses session state only and is labelled simulated. Unimplemented integrations have disabled controls. Mission status is refreshed every three seconds; model replies are still non-streaming.
+
+On Windows, `scripts/desktop.py` opens the same local app in a standard framed pywebview window. It exposes no Python/JavaScript bridge. It starts and stops only its own loopback server and falls back visibly to the browser when native components are unavailable. Native Windows behavior remains unverified on real hardware.
+
+## ADR 006: installed capabilities, not example-phrase limits
+
+`nova/capabilities.py` derives executable capability records from actual registered tools and authorized specialist scopes. The model planner receives input schema, permissions, verification methods and recent measured reliability. It may compose arbitrary supported tool steps for the owner's outcome. Unsupported essential capabilities produce a structured gap report with no mission submission. This is a working registry and bounded planning extension; automatic skill creation, sandboxed installation and live-model generalization evaluations are later milestones. Existing explicit slash commands are convenience shortcuts, not a claim of general language understanding.

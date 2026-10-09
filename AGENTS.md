@@ -1,6 +1,6 @@
 # NOVA development instructions
 
-- Read `docs/PROJECT_STATUS.md`, `docs/architecture.md`, and relevant sections of `docs/spec/NOVA_MASTER_PROMPT.md` before extending the agent.
+- Read `docs/NOVA_MASTER_SPEC.md` (v8 is the primary specification), `docs/PROJECT_STATUS.md`, `docs/REQUIREMENTS_STATUS.md`, and `docs/architecture.md` before extending the agent. The older v6 and glass UI prompts remain reference material.
 - Use the existing isolated checkout. Do not create a Git worktree unless the user explicitly asks for one.
 - The new entry point is `nova_app.py`; `app.py` is a legacy application. Never print or reuse embedded credentials from legacy source. Do not modify legacy source as an incidental cleanup.
 - Implement working vertical slices and maintain truthful feature status. Do not portray mocked integrations, configured providers, or untested Windows behavior as verified.
@@ -11,3 +11,6 @@
 - Test new capabilities using `python -m unittest discover -s tests -v`. Include regression tests for policy or persistence changes. Use mocked external services for deterministic tests and label them as mocked.
 - The Windows launcher and Windows locking path need real Windows validation before claiming Windows readiness. The current runtime is a single-user local dashboard; do not expose it to a network.
 - Update `docs/PROJECT_STATUS.md` after each meaningful implementation milestone. Do not commit or push user work unless requested.
+- Keep glass UI state previews isolated from core actions. Every integration must show its actual connection state. Do not render raw diagnostic JSON outside the Advanced settings panel.
+- Inspect the UI in a real browser after visual changes. Streamlit sanitizes inline SVG in `st.html`; use the escaped image-based components in `nova/ui/glass.py`.
+- Run `python scripts/package_release.py` before distributing a release. It checks high-confidence secret formats and deliberately excludes legacy `app.py`, environment data, virtual environments and previous archives.

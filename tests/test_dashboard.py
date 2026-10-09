@@ -44,6 +44,14 @@ class DashboardTests(unittest.TestCase):
             def button(label):
                 return next(item for item in app.button if item.label == label)
 
+            for page in ("Projects", "Agents", "Automations", "Tools", "Integrations", "Devices", "Privacy"):
+                navigate(page)
+            navigate("Voice")
+            self.assertTrue(any("Microphone unavailable" == item.label and item.disabled for item in app.button))
+            app.toggle(key="nova_voice_preview").set_value(True).run()
+            app.selectbox(key="nova_voice_demo_state").set_value("listening").run()
+            self.assertTrue(any("Simulated animation only" in item.value for item in app.caption))
+            button("Stop preview").click().run()
             navigate("Chat")
             app.chat_input[0].set_value("/help").run()
             self.assertFalse(app.exception)
@@ -65,6 +73,7 @@ class DashboardTests(unittest.TestCase):
             self.assertFalse(app.error)
             self.assertFalse((Path(directory) / "workspace" / "hello.txt").exists())
             button("Run prepared plan").click().run()
+            button("Approve once").click().run()
             deadline = time.monotonic() + 5
             output = Path(directory) / "workspace" / "hello.txt"
             while not output.exists() and time.monotonic() < deadline:
@@ -87,7 +96,7 @@ class DashboardTests(unittest.TestCase):
             navigate("Settings")
             app.selectbox(key="widget_nova_provider").set_value("Ollama (local)").run()
             app.text_input(key="widget_nova_ollama_model").set_value("example-local-model").run()
-            navigate("Dashboard")
+            navigate("Home")
             app.run()
             navigate("Settings")
             self.assertEqual(app.selectbox(key="widget_nova_provider").value, "Ollama (local)")
@@ -95,7 +104,7 @@ class DashboardTests(unittest.TestCase):
 
             app.selectbox(key="widget_nova_provider").set_value("Groq (cloud)").run()
             app.text_input(key="widget_nova_api_key").set_value("test-session-value").run()
-            navigate("Dashboard")
+            navigate("Home")
             navigate("Settings")
             self.assertEqual(app.text_input(key="widget_nova_api_key").value, "test-session-value")
             button("Clear API key").click().run()
@@ -121,13 +130,13 @@ class DashboardTests(unittest.TestCase):
             self.assertTrue(any(item.label == "Resume agent" for item in app.button))
             app.chat_input[0].set_value("Nova resume").run()
             self.assertFalse(app.exception)
-            self.assertTrue(any(item.label == "⏹ Emergency stop" for item in app.button))
+            self.assertTrue(any(item.label == "Emergency stop" for item in app.button))
             app.selectbox(key="nova_classification").set_value("PERSONAL").run()
             app.chat_input[0].set_value("Please introduce yourself").run()
             self.assertTrue(any("NORMAL" in item.value for item in app.error))
             app.run()
 
-            button("⏹ Emergency stop").click().run()
+            button("Emergency stop").click().run()
             self.assertFalse(app.exception)
             self.assertTrue(any(item.label == "Resume agent" for item in app.button))
             button("Resume agent").click().run()

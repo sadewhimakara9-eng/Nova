@@ -1,58 +1,45 @@
 # NOVA project status
 
-Version: **0.1.0 foundation**, implementing the first working slice of the NOVA v6.0 master specification. The full v6.0 vision is not complete.
+Runtime version: **0.2.0 — NOVA Glass**. Primary product specification: **NOVA v8.0** in [NOVA_MASTER_SPEC.md](NOVA_MASTER_SPEC.md). This is a verified vertical slice, not the completed v8 operating system.
 
-## Working and verified
+## Latest completed work
 
-- New standalone Streamlit dashboard and Python core, without modifying the legacy application.
-- Sinhala text, Sinhala/Singlish reflex examples, and explicit local chat commands.
-- SQLite memory with provenance, confidence, scope, and explicit-over-inferred conflict resolution.
-- Mission persistence, three concurrent workers, dependencies, failure isolation, restart recovery, durable emergency stop, and request idempotency.
-- File and system specialist registry; exact tool schemas and scoped tool access.
-- Bounded workspace listing, UTF-8 read/create, OS information, post-write hashes, and safe rollback retaining files in trash.
-- Durable event journal and trusted observer notifications with observer-failure isolation.
-- Privacy/read-only/dry-run checks and credential rejection in storage, model boundaries, and chat display.
-- Prepared local command plans and validated, reviewed model-plan submission.
-- Provider adapters for fixed local Ollama and Groq endpoints. Routing and error handling verified with **mocked HTTP**, not live inference.
-- Python bootstrap installs dependencies and starts the real server on Linux; HTTP health/root responses checked. Streamlit AppTest executes real-core workflows.
+- Preserved the existing core, memory, tool restrictions, mission engine and all previous tests.
+- Built a reusable pearl-white glass theme, original blue/cyan orb, thin outline navigation, translucent composer/cards/dialogs, focus styles, reduced-motion handling and performance mode.
+- Added all 13 navigation destinations: Home, Chat, Voice, Missions, Projects, Agents, Memory, Automations, Tools, Integrations, Devices, Privacy and Settings.
+- Connected real chat, memory CRUD, plan review/approval, workspace text import, live mission filters, actual agent scopes/reliability, file undo, privacy mode and emergency stop/resume.
+- Added isolated voice-state previews with explicit simulated labels. Microphone and missing integrations remain disabled/disconnected.
+- Persisted appearance settings locally: glass, transparency, blur, animation, orb effects, scale and performance.
+- Added a native Windows pywebview launch path with standard OS window controls, managed loopback child lifecycle and explicit browser fallback.
+- Added a capability registry derived from installed tools/authorized agents. Model planning receives real schemas and verification metadata; essential gaps produce a safe report without submitting partial work.
+- Saved the v8 primary specification and [requirement/status matrix](REQUIREMENTS_STATUS.md). The earlier v6 and dedicated glass UI prompts remain references.
 
-## Partial or unverified
+## Validation
 
-- Model-based conversation/planning: adapters implemented, needs an installed local model or owner-supplied cloud key for live validation.
-- Sinhala support: Unicode and built-in phrases verified; broad language quality and speech are unverified.
-- Windows launcher and lock implementation: included, need real Windows execution testing.
-- Local data is ordinary SQLite/files, not an encrypted vault. No automatic backup/restore or secure erasure.
-- No auto-retry of uncertain writes. A crash during creation intentionally produces a BLOCKED mission for inspection.
+- **60 automated tests passed** on Python 3.12/Linux: core functionality, privacy, filesystem boundaries, recovery, failure isolation, concurrency, provider contracts, capability planning, UI service and dashboard workflow, and launcher lifecycle.
+- Model responses and Windows-native APIs are mocked in their unit tests. Live AI inference, natural Sinhala speech and actual Windows window behavior were not verified.
+- The real Streamlit application was launched and inspected in Chromium. The original orb was checked visually after fixing SVG sanitization and actual Streamlit 1.65 navigation selectors.
+- Browser resize checks cover **1366×768, 1920×1080, 2560×1440 and 760×700**, including visible composer and no horizontal page overflow. Navigation, chat, voice preview, privacy toggles and emergency controls are checked separately in the browser.
+- Actual server health and owned-process shutdown/relaunch have integration coverage on Linux. Existing unrelated services are not terminated.
+- A real Chromium session saved memory, closed the owned app, relaunched immediately on the same port, and recalled that memory successfully. The launcher now handles POSIX TIME_WAIT sockets while rejecting occupied listeners.
 
-## Tests and acceptance traceability
+## Important limits
 
-Run `python -m unittest discover -s tests -v`.
+- A local model or owner-supplied cloud key is still needed for general AI conversation and planning. Provider availability is not inferred from its configuration.
+- Voice capture, STT/TTS, wake word, Windows PC automation, browser/research tools, Office exports, named project management, messaging, purchases, creative tools and smart-home control are not implemented.
+- Local SQLite is not an encrypted vault; forgetting is logical deletion. Full backups, secure erase, per-app privacy zones and system-wide network monitoring remain future work.
+- The current capability-gap engine reports gaps; it does not install plugins or rewrite the core. Model generalization and composition have fixture-based tests, not live-model evaluation.
+- The optional desktop shell is implemented but must be tested on Windows with WebView2 before native Windows readiness is claimed.
+- Native app and browser share the same UI. In browser mode close Nova with Ctrl+C in its console; closing only a browser tab does not stop the local server.
 
-Latest validation: **36 tests passed, zero failures or skips**, on Python 3.12/Linux using the launcher's isolated environment. Dependency consistency and the real launched server's health/root endpoints also passed. No live AI-provider inference or Windows execution was included.
+## Next useful milestones
 
-| Master acceptance requirement | Evidence / status |
-| --- | --- |
-| A: concurrent independent jobs | Core test uses a finite worker barrier |
-| B: one failure does not stop others | Core independent/dependent failure tests |
-| C: recovery after restart | Persisted state tests; interrupted reads requeued, writes blocked |
-| D: secret boundary | Provider and database credential-rejection tests |
-| G: prompt injection | Unknown tool/traversal plan rejection tests; no web ingestion exists |
-| H: emergency stop | Core durable stop/resume plus dashboard tests |
-| K/L: accurate memory and precedence | SQLite memory persistence/conflict tests |
-| M: file deletion protection | No permanent deletion tool; undo preserves changed files |
-| O: offline local work | Core offline file workflow test |
-| E/F/N: email, purchases, duplicate sends | Not implemented; mission idempotency is not proof of send idempotency |
-| I/J/P: self-update, security targets, education | Not implemented |
+1. Test the native wrapper and one real owner-selected model on Windows, including Sinhala paraphrase evaluation and provider failure recovery.
+2. Add a first-launch wizard, OS-backed credential vault and verified backup/restore.
+3. Add project records/context, explicit capability permissions and bounded tool-result reasoning, without turning examples into exact-phrase limits.
+4. Add carefully scoped Windows app control with observable verification, followed by Sinhala voice on actual audio hardware.
+5. Continue the staged v8 roadmap for browser/Office/communication/media features with real acceptance tests.
 
-## Next milestones, in order
+## Release checkpoint
 
-1. Connect an owner-approved model; evaluate real Sinhala conversation and reviewed planning. Add selective local memory retrieval and bounded tool-result reasoning.
-2. Validate Windows launch/locking, package a desktop installer, and add an OS-backed credential vault and verified backup/restore.
-3. Add approved-folder permissions, more reversible file operations, and tightly scoped Windows app launching with process verification.
-4. Implement push-to-talk Sinhala speech, device selection, interruption and emergency-stop testing on actual audio hardware.
-5. Add browser/research, Office exports, project namespaces, and long-running scheduled missions, each with live verification and permission tests.
-6. Expand to email/calendar, study, creative tools, games and smart home through the staged roadmap in the master specification.
-
-## Checkpoint
-
-All implementation is in new repository files. The owner authorized publishing this release on the separate `nova-agent-v0.1` branch, with a standalone archive at `downloads/Nova-agent-v0.1.zip`. This is a source release, not a production deployment or a merge into `main`. Existing `app.py`, `requirements.txt`, and devcontainer configuration are unchanged. Use `Start Nova.bat`, `start-nova.sh`, or `nova_app.py` for the new agent.
+The update is prepared on the previously authorized `nova-agent-v0.1` GitHub branch. `scripts/package_release.py` builds the new standalone `downloads/Nova-agent-v0.2.zip`; the v0.1 artifact remains available separately. The standalone package excludes legacy `app.py`, credentials and runtime data. The legacy app and `main` are not changed by this release. This is a source release, not a production deployment or the complete NOVA v8 product.

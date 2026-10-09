@@ -11,3 +11,5 @@ __pycache__/
 *.sqlite3-wal
 *.sqlite3-shm
 .nova-data/
+
+ui-evidence/
