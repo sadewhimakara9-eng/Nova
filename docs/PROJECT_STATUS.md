@@ -1,45 +1,39 @@
 # NOVA project status
 
-Runtime version: **0.2.0 — NOVA Glass**. Primary product specification: **NOVA v8.0** in [NOVA_MASTER_SPEC.md](NOVA_MASTER_SPEC.md). This is a verified vertical slice, not the completed v8 operating system.
+Runtime: **0.3.0**. Canonical specification: **NOVA v10**, with earlier v8/glass/advanced expansion requirements preserved. This is an incremental source release, not a completed v10 personal operating system.
 
-## Latest completed work
+## Implemented in this milestone
 
-- Preserved the existing core, memory, tool restrictions, mission engine and all previous tests.
-- Built a reusable pearl-white glass theme, original blue/cyan orb, thin outline navigation, translucent composer/cards/dialogs, focus styles, reduced-motion handling and performance mode.
-- Added all 13 navigation destinations: Home, Chat, Voice, Missions, Projects, Agents, Memory, Automations, Tools, Integrations, Devices, Privacy and Settings.
-- Connected real chat, memory CRUD, plan review/approval, workspace text import, live mission filters, actual agent scopes/reliability, file undo, privacy mode and emergency stop/resume.
-- Added isolated voice-state previews with explicit simulated labels. Microphone and missing integrations remain disabled/disconnected.
-- Persisted appearance settings locally: glass, transparency, blur, animation, orb effects, scale and performance.
-- Added a native Windows pywebview launch path with standard OS window controls, managed loopback child lifecycle and explicit browser fallback.
-- Added a capability registry derived from installed tools/authorized agents. Model planning receives real schemas and verification metadata; essential gaps produce a safe report without submitting partial work.
-- Saved the v8 primary specification and [requirement/status matrix](REQUIREMENTS_STATUS.md). The earlier v6 and dedicated glass UI prompts remain references.
+- Preserved the existing core, file tools, mission persistence/recovery, memory, provider gates and glass UI.
+- Added all **132 expansion sections** and **136 v10 sections** to searchable catalogs and generated [requirement matrices](REQUIREMENT_MATRIX.md). Expansion coverage counts exclude governance records. Metadata cannot grant execution permissions or install plugins.
+- Added **Projects → Decision memory**: owner-entered project label, decision, reason, alternatives, UTC timestamps, Unicode search, revision-checked edits and confirmed logical deletion. `/decisions <keywords>` retrieves actual recorded reasons locally. Existing databases gain a table without changing previous records.
+- Added **Settings → Advanced → Open Tools → Feature coverage**, status/type search and `/capabilities <keywords>`. Actual tool availability reflects mode and emergency stop. Providers stay unverified unless a separate real request succeeds.
+- Added a local English/Sinhala/Singlish launch grammar before AI provider selection. Names are resolved from discovery rather than a small fixed command list. Unsupported local operations return an honest gap instead of a fabricated model action.
+- Added experimental Windows app discovery through App Paths, argument-free Start Menu shortcuts, packaged app IDs and visible executable windows. Native launch requires matching visible-window identity. Ambiguity is refused; arbitrary command arguments, shell targets and remote UNC executables are excluded.
+- Added Gemini/YouTube installed-app or official-browser handoff in NORMAL mode. A browser handoff remains **BLOCKED / unverified**, with no automatic retry. This is not browser automation or verified page loading.
+- Simplified primary navigation to **Chat, Voice, Projects, Memory, Settings**. Existing internal pages remain under Settings → Advanced. Added six validated accent choices and host-local-time greeting.
+- Added `Start Nova.pyw` GUI bootstrap with hidden Windows child flags and local startup logs. Kept the diagnostic batch launcher. Native webview and browser fallback still own and clean up only their own server.
+- Preserved auto-reply **OFF**. No messaging transport or automatic send was added.
 
-## Validation
+## Validation and limits
 
-- **60 automated tests passed** on Python 3.12/Linux: core functionality, privacy, filesystem boundaries, recovery, failure isolation, concurrency, provider contracts, capability planning, UI service and dashboard workflow, and launcher lifecycle.
-- Model responses and Windows-native APIs are mocked in their unit tests. Live AI inference, natural Sinhala speech and actual Windows window behavior were not verified.
-- The real Streamlit application was launched and inspected in Chromium. The original orb was checked visually after fixing SVG sanitization and actual Streamlit 1.65 navigation selectors.
-- Browser resize checks cover **1366×768, 1920×1080, 2560×1440 and 760×700**, including visible composer and no horizontal page overflow. Navigation, chat, voice preview, privacy toggles and emergency controls are checked separately in the browser.
-- Actual server health and owned-process shutdown/relaunch have integration coverage on Linux. Existing unrelated services are not terminated.
-- A real Chromium session saved memory, closed the owned app, relaunched immediately on the same port, and recalled that memory successfully. The launcher now handles POSIX TIME_WAIT sockets while rejecting occupied listeners.
+- **77 automated tests passed** on Python 3.12/Linux. Existing regressions remain covered, plus catalog traceability, decision persistence/migration/stale-write rejection, UI workflows, local intent parsing, resolver ambiguity, Windows API fixtures, policy gates and unverified browser receipts.
+- Windows discovery/launch/window APIs are mocked. Native Windows startup, no-console behavior, packaged app identity, real Notepad/Gemini/YouTube opening and Windows file associations are **not verified**. New desktop tools are EXPERIMENTAL, not production-ready PC control.
+- Real Chromium checks exercise the local UI at 1366×768, 1920×1080, 2560×1440 and 760×700, along with navigation to all retained pages, local chat, privacy, voice preview and stop/resume. Browser evidence is generated by `scripts/check_ui_browser.py`; it uses isolated test data and no live model calls.
+- Browser feature search and decision save/edit/confirmed deletion also passed with real local state. See [browser results](validation/v0.3-browser-results.json).
+- Catalog status and evidence paths describe scoped implementation. They are not live test runs, a hardware inventory or proof of external connectivity.
+- No cloud credentials were present for the supported Groq adapter. A real owner-selected model connection is still required for open-ended reasoning/chat; deterministic local commands do not need one.
+- Voice/STT/TTS/wake word, screenshot understanding/OCR, general Windows mouse/keyboard control, full browser automation, Office, encrypted vault, auto-reply, device mesh, pairing, remote control and media/game engines are **not implemented**. Vision and device mesh are retained core product requirements.
+- App launches may use the application's own network/account settings; NOVA cannot enforce privacy inside another app. Local SQLite is unencrypted; deletion is logical. See [security](SECURITY_MODEL.md) and [privacy](PRIVACY_MODEL.md) for exact boundaries.
 
-## Important limits
+## Next work in v10 priority order
 
-- A local model or owner-supplied cloud key is still needed for general AI conversation and planning. Provider availability is not inferred from its configuration.
-- Voice capture, STT/TTS, wake word, Windows PC automation, browser/research tools, Office exports, named project management, messaging, purchases, creative tools and smart-home control are not implemented.
-- Local SQLite is not an encrypted vault; forgetting is logical deletion. Full backups, secure erase, per-app privacy zones and system-wide network monitoring remain future work.
-- The current capability-gap engine reports gaps; it does not install plugins or rewrite the core. Model generalization and composition have fixture-based tests, not live-model evaluation.
-- The optional desktop shell is implemented but must be tested on Windows with WebView2 before native Windows readiness is claimed.
-- Native app and browser share the same UI. In browser mode close Nova with Ctrl+C in its console; closing only a browser tab does not stop the local server.
-
-## Next useful milestones
-
-1. Test the native wrapper and one real owner-selected model on Windows, including Sinhala paraphrase evaluation and provider failure recovery.
-2. Add a first-launch wizard, OS-backed credential vault and verified backup/restore.
-3. Add project records/context, explicit capability permissions and bounded tool-result reasoning, without turning examples into exact-phrase limits.
-4. Add carefully scoped Windows app control with observable verification, followed by Sinhala voice on actual audio hardware.
-5. Continue the staged v8 roadmap for browser/Office/communication/media features with real acceptance tests.
+1. Validate the local router/resolver and GUI launcher on an actual Windows PC; resolve target-machine failures without weakening verification.
+2. Add OS-backed provider credential storage and validate one owner-selected local/cloud model. Do not request keys in chat.
+3. Implement a real permission-scoped vision slice with local capture/redaction, then actual image acceptance tests. No unrestricted desktop streaming.
+4. Implement real Sinhala voice capture/STT/TTS and an explicit auto-listen/mute/exit lifecycle on audio hardware.
+5. Continue typed mission results, project records, browser/Office, then authenticated node pairing and a second controlled device, before later creative/communication expansion.
 
 ## Release checkpoint
 
-The update is prepared on the previously authorized `nova-agent-v0.1` GitHub branch. `scripts/package_release.py` builds the new standalone `downloads/Nova-agent-v0.2.zip`; the v0.1 artifact remains available separately. The standalone package excludes legacy `app.py`, credentials and runtime data. The legacy app and `main` are not changed by this release. This is a source release, not a production deployment or the complete NOVA v8 product.
+Prepared on the previously authorized `nova-agent-v0.1` branch. `scripts/package_release.py` creates **downloads/Nova-agent-v0.3.zip** and checks its file integrity and high-confidence credential patterns. Legacy `app.py`, credentials, runtime databases, virtual environments and old ZIPs are excluded. Prior downloads remain available; main is not changed by this source release.

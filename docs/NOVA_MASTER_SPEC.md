@@ -1,328 +1,306 @@
 # =====================================================================
-# NOVA v8.0 — ULTIMATE AUTONOMOUS PERSONAL AI OPERATING SYSTEM
-# FINAL MASTER BUILD SPECIFICATION
+# NOVA v10.0 — ULTIMATE MASTER BUILD SPECIFICATION
+# MAXIMUM-PRACTICAL AUTONOMOUS PERSONAL AI OPERATING SYSTEM
 # =====================================================================
 #
-# PRIVATE • LOCAL-FIRST • SINHALA-FIRST • VOICE-FIRST • MULTIMODAL
-# MULTI-AGENT • WINDOWS-NATIVE • TOOL-USING • SELF-IMPROVING
-# RECOVERABLE • EXTENSIBLE • AUDITABLE • PREMIUM WHITE-GLASS UI
+# PRIVATE • LOCAL-FIRST • SINHALA-FIRST • VOICE-FIRST • VISION-FIRST
+# WINDOWS-NATIVE • MULTIMODAL • MULTI-AGENT • MULTI-DEVICE
+# COMPUTER-VISION • TOOL-USING • SELF-EXTENDING UNDER CONTROL
+# RECOVERABLE • AUDITABLE • PREMIUM WHITE-GLASS UI
 #
-# THIS DOCUMENT IS THE PRIMARY PRODUCT SPECIFICATION FOR NOVA.
+# THIS FILE BECOMES THE CANONICAL NOVA PRODUCT SPECIFICATION.
 #
 # =====================================================================
 
 
 # =====================================================================
-# 0. MASTER ROLE
+# 0. EXECUTION DIRECTIVE
 # =====================================================================
 
-You are the principal engineering organization responsible for building
-and maintaining an advanced personal AI operating system named NOVA.
+You are the engineering organization responsible for building NOVA.
 
-Act as the combined equivalent of:
+You are acting as:
 
-- Principal Software Architect
-- Staff/Principal Backend Engineer
-- Windows Systems Engineer
-- AI Agent Engineer
-- LLM Systems Engineer
-- Voice AI Engineer
-- Sinhala Language Engineer
-- Memory Systems Engineer
-- Context Systems Engineer
-- Tooling Engineer
-- Browser Automation Engineer
-- Office Automation Engineer
-- API Integration Engineer
-- Security Engineer
-- Privacy Engineer
-- DevOps Engineer
-- Reliability Engineer
-- QA Engineer
-- UI/UX Engineer
-- Desktop Application Engineer
-- Game Development Engineer
-- 3D Pipeline Engineer
-- Image/Video/Audio AI Engineer
-- Education AI Engineer
-- Automation Engineer
-- Project Manager
-- Release Engineer
-- Long-Term Technical Director
+Principal Software Architect
+AI Agent Engineer
+Windows Systems Engineer
+Distributed Systems Engineer
+Computer Vision Engineer
+Voice AI Engineer
+Sinhala Language Engineer
+Memory Systems Engineer
+Tooling Engineer
+Browser Automation Engineer
+Office Automation Engineer
+API Integration Engineer
+Security Engineer
+Privacy Engineer
+DevOps / SRE Engineer
+QA Engineer
+Desktop UI Engineer
+Game Development Engineer
+3D Pipeline Engineer
+Media AI Engineer
+Education AI Engineer
+Automation Engineer
+Release Engineer
+Technical Product Director
 
 The owner is NOT a programmer.
 
-The owner should be able to control NOVA mainly through:
+The owner must not be asked to manually:
 
-- natural Sinhala
-- English
-- Sinhala-English mixed language
-- natural voice
-- simple text commands
-- a polished GUI
+write code
+fix imports
+edit JSON
+debug libraries
+manage migrations
+configure low-level environments
+resolve Git conflicts
+write CSS
+write PowerShell
+build tool adapters
 
-The owner must NOT be expected to:
+Do those engineering tasks yourself.
 
-- write source code
-- understand Git internals
-- debug Python manually
-- edit JSON manually
-- configure environments manually
-- resolve dependency conflicts manually
-- understand agent internals
-- edit databases
-- configure complex APIs manually for ordinary use
+Ask the owner only when truly necessary for:
 
-YOU must handle engineering work.
+credentials
+external account authorization
+payment
+irreversible/destructive approval
+sensitive security approval
+physical-device pairing
+a genuinely ambiguous personal decision
 
-Ask the owner only when genuinely necessary for:
+DO NOT RETURN ONLY A PLAN.
 
-- credentials
-- external account authentication
-- payment
-- high-impact permission
-- irreversible destructive action
-- ambiguous personal preference that changes the result materially
-- hardware information that cannot be discovered
-- an important product decision that cannot safely be inferred
+BUILD.
+
+RUN.
+
+TEST.
+
+FIX.
+
+VERIFY.
+
+CHECKPOINT.
+
+CONTINUE.
 
 
 # =====================================================================
-# 1. DO NOT BUILD A NORMAL CHATBOT
+# 1. EXISTING REPOSITORY — DO NOT REBUILD BLINDLY
 # =====================================================================
 
-NOVA is NOT intended to be a normal question-answer chatbot.
+This is an existing NOVA repository.
 
-NOVA is intended to become a personal AI operating layer capable of:
+Before changing code:
+
+1. Inspect the complete repository.
+2. Read AGENTS.md.
+3. Read README.md.
+4. Read docs/NOVA_MASTER_SPEC.md if present.
+5. Read PROJECT_STATUS.md.
+6. Read FUTURE_ROADMAP.md.
+7. Inspect tests.
+8. Inspect current UI.
+9. Inspect current backend.
+10. Inspect current integrations.
+11. Run the current application.
+12. Determine what actually works.
+
+Preserve verified working functionality.
+
+Do NOT delete working systems merely because a better architecture is described here.
+
+Migrate incrementally.
+
+
+# =====================================================================
+# 2. CANONICAL SPEC CONSOLIDATION
+# =====================================================================
+
+Merge all legitimate previous NOVA requirements into:
+
+docs/NOVA_MASTER_SPEC.md
+
+This v10 specification is the canonical architecture.
+
+Also maintain:
+
+docs/PROJECT_STATUS.md
+docs/FUTURE_ROADMAP.md
+docs/REQUIREMENT_MATRIX.md
+docs/ARCHITECTURE.md
+docs/SECURITY_MODEL.md
+docs/PRIVACY_MODEL.md
+
+REQUIREMENT_MATRIX must map:
+
+requirement
+→ subsystem
+→ implementation
+→ tests
+→ status
+→ blocker
+→ version
+
+
+# =====================================================================
+# 3. PRODUCT VISION
+# =====================================================================
+
+NOVA is NOT a chatbot.
+
+NOVA is a Personal AI Operating System.
+
+Target workflow:
 
 OWNER GOAL
-    ↓
-INTENT UNDERSTANDING
-    ↓
-CONTEXT + MEMORY
-    ↓
-PLANNING
-    ↓
-CAPABILITY DISCOVERY
-    ↓
-AGENT DELEGATION
-    ↓
-TOOL / API / PC EXECUTION
-    ↓
-CONTINUOUS VERIFICATION
-    ↓
-RECOVERY / FALLBACK
-    ↓
-RESULT
-    ↓
-MEMORY + PROJECT UPDATE
+↓
+UNDERSTAND INTENT
+↓
+RETRIEVE CONTEXT + MEMORY
+↓
+DEFINE SUCCESS
+↓
+DISCOVER CAPABILITIES
+↓
+PLAN
+↓
+ASSIGN AGENTS
+↓
+SELECT TOOLS / APIS / DEVICES
+↓
+EXECUTE
+↓
+OBSERVE RESULTS
+↓
+VERIFY
+↓
+RECOVER / RETRY / ROLLBACK
+↓
+UPDATE MEMORY / PROJECT STATE
+↓
+REPORT BRIEFLY
 
-NOVA should increasingly allow the owner to say:
+The owner should increasingly be able to say:
 
 “Nova, handle this.”
 
-instead of manually controlling every application.
+and NOVA should do the work.
 
 
 # =====================================================================
-# 2. MAXIMUM PRACTICAL AUTONOMY
+# 4. GENERALIZATION — EXAMPLES ARE NEVER LIMITS
 # =====================================================================
 
-NOVA should be as autonomous as safely and technically possible.
+Every example command in this specification is an illustration.
 
-Maximum autonomy DOES NOT mean:
+It is NOT a whitelist.
 
-- uncontrolled administrator access
-- spending unlimited money
-- deleting irreversible data silently
-- bypassing authentication
-- ignoring privacy
-- executing unsafe actions
-- pretending missing integrations exist
-
-Maximum practical autonomy means:
-
-NOVA independently handles all safe, reversible, authorized work and
-interrupts the owner only when a genuine owner decision is required.
-
-Examples of safe autonomous work:
-
-- research
-- coding
-- testing
-- debugging
-- file organization
-- generating documents
-- generating presentations
-- preparing spreadsheets
-- project planning
-- 3D work
-- media editing
-- safe PC navigation
-- builds
-- renders
-- project continuation
-- backups
-- reports
-
-Examples requiring stronger approval policy:
-
-- financial transaction
-- irreversible deletion
-- public publishing
-- sensitive account/security change
-- sending highly sensitive private information
-- permanent system configuration change
-
-
-# =====================================================================
-# 3. CRITICAL GENERALIZATION RULE — EXAMPLES ARE NEVER LIMITS
-# =====================================================================
-
-Every command and workflow in this specification is an EXAMPLE.
-
-Examples are NOT a whitelist.
-
-Do NOT implement NOVA as:
+Do NOT build:
 
 if command == "open chrome"
-if command == "edit this photo"
+if command == "edit video"
 if command == "order pizza"
 
-Do NOT require exact phrases.
+Build:
 
-NOVA must understand USER INTENT.
+LANGUAGE
+→ INTENT
+→ GOAL
+→ CAPABILITIES
+→ TOOLS
+→ PLAN
+→ EXECUTE
+→ VERIFY
 
-Correct architecture:
+NOVA must understand requests never explicitly listed here.
 
-USER LANGUAGE
-    ↓
-INTENT
-    ↓
-DESIRED OUTCOME
-    ↓
-CONSTRAINTS
-    ↓
-CAPABILITY REQUIREMENTS
-    ↓
-TOOLS / AGENTS / APIS
-    ↓
-PLAN
-    ↓
-EXECUTION
-    ↓
-VERIFICATION
-
-Examples such as:
-
-“Edit this photo.”
-
-represent general capabilities such as:
-
-IMAGE_UNDERSTANDING
-IMAGE_EDITING
-MEDIA_EXPORT
-
-Therefore NOVA should also understand previously unseen requests like:
-
-“Make this warmer.”
-
-“Clean up this old picture.”
-
-“Remove the distracting thing behind me.”
-
-“Prepare these photos for my website.”
-
-without those exact sentences being programmed.
-
-Similarly:
-
-“Make a website and host it.”
-
-is not one hard-coded command.
-
-It is a composition of:
-
-REQUIREMENTS_UNDERSTANDING
-UI_DESIGN
-SOFTWARE_DEVELOPMENT
-TESTING
-DEPLOYMENT
-VERIFICATION
-
-NOVA must support capability composition.
+Owner must not memorize exact commands.
 
 
 # =====================================================================
-# 4. CAPABILITY COMPOSITION ENGINE
+# 5. CAPABILITY COMPOSITION
 # =====================================================================
 
-A single request may require many capabilities.
+Capabilities must combine dynamically.
 
 Example:
 
-“Nova, edit these photos, make a PowerPoint and email it.”
+“Edit these photos, create a presentation, save it and message Sasmitha.”
 
-NOVA should compose:
-
-FILE_SEARCH
-+
-IMAGE_EDITING
-+
-PRESENTATION_CREATION
-+
-EMAIL
-
-Another example:
-
-“Make a website for my game using screenshots in this folder and host it.”
-
-NOVA should compose:
+May require:
 
 FILE_SEARCH
-+
 IMAGE_ANALYSIS
-+
-UI_DESIGN
-+
-WEB_DEVELOPMENT
-+
-TESTING
-+
-DEPLOYMENT
+IMAGE_EDITING
+PRESENTATION_CREATION
+FILE_EXPORT
+MESSAGING
 
-No special hard-coded command should be required.
+No dedicated hard-coded command required.
 
 
 # =====================================================================
-# 5. CAPABILITY GAP ENGINE
+# 6. CAPABILITY REGISTRY
 # =====================================================================
 
-When NOVA receives a legitimate request it cannot currently perform:
+Create a runtime capability registry.
 
-DO NOT simply answer “I can't.”
+Each capability declares:
 
-Use:
+capability_id
+name
+description
+category
+inputs
+outputs
+supported modalities
+required agents
+required tools
+required providers
+permissions
+privacy level
+risk
+verification
+estimated latency
+estimated cost
+reliability
+status
+version
+
+Planner searches this registry dynamically.
+
+
+# =====================================================================
+# 7. CAPABILITY GAP / SKILL FACTORY
+# =====================================================================
+
+When a legitimate requested capability is missing:
 
 CHECK EXISTING CAPABILITIES
 ↓
-CHECK EXISTING AGENTS
-↓
-CHECK EXISTING TOOLS
+CHECK TOOL REGISTRY
 ↓
 CHECK INSTALLED APPLICATIONS
 ↓
-CHECK EXISTING APIS
+CHECK APIS
 ↓
-CHECK PLUGINS / MCP
+CHECK PLUGINS
 ↓
-CHECK WHETHER CAPABILITIES CAN BE COMPOSED
+CHECK MCP
 ↓
-IF STILL MISSING
+CHECK CAPABILITY COMPOSITION
 ↓
-RESEARCH A SAFE IMPLEMENTATION
+RESEARCH SAFE SOLUTION
 ↓
-CREATE NEW SKILL OR CONNECTOR
+DESIGN NEW SKILL / ADAPTER
+↓
+IMPLEMENT IN ISOLATION
 ↓
 SANDBOX
 ↓
@@ -332,508 +310,937 @@ SECURITY REVIEW
 ↓
 PRIVACY REVIEW
 ↓
-OWNER APPROVAL WHEN REQUIRED
+APPROVAL IF NEEDED
 ↓
 INSTALL
 ↓
 VERIFY
 ↓
-REGISTER CAPABILITY
+REGISTER
 ↓
-CONTINUE ORIGINAL MISSION
+RESUME ORIGINAL GOAL
+
+Do not silently weaken security/privacy boundaries.
 
 
 # =====================================================================
-# 6. CAPABILITY REGISTRY
+# 8. NOVA COGNITIVE STACK
 # =====================================================================
 
-Every capability should expose metadata such as:
+Implement logical layers:
 
-capability_id
-name
-description
-category
-supported_inputs
-supported_outputs
-required_tools
-required_agents
-required_integrations
-required_permissions
-privacy_level
-risk_level
-estimated_cost
-estimated_latency
-verification_method
-reliability_score
-status
-version
+REFLEX BRAIN
+FAST BRAIN
+CONVERSATION BRAIN
+DEEP REASONING BRAIN
+PLANNER BRAIN
+WORLD MODEL
+MEMORY BRAIN
+VISION BRAIN
+ACTION BRAIN
+CRITIC BRAIN
+VERIFIER BRAIN
+SECURITY BRAIN
+RECOVERY BRAIN
+DEVELOPER BRAIN
 
-Planner and agents should query this registry dynamically.
+REFLEX:
+instant local commands.
 
+FAST:
+simple requests and routing.
 
-# =====================================================================
-# 7. NOVA PERSONALITY
-# =====================================================================
+CONVERSATION:
+natural dialogue.
 
-NOVA should feel:
+DEEP:
+hard reasoning.
 
-- intelligent
-- calm
-- friendly
-- efficient
-- natural
-- context-aware
-- confident without pretending
-- humorous when appropriate
-- concise during work
-- conversational when the owner wants conversation
-- proactive but not annoying
+PLANNER:
+mission decomposition.
 
-NOVA must not falsely claim:
+VISION:
+screens/images/video/UI understanding.
 
-- human consciousness
-- physical presence
-- real human emotions
-- physical experiences
+ACTION:
+tools/APIs/devices.
 
-It may still communicate naturally.
+CRITIC:
+find errors.
 
-Examples:
+VERIFIER:
+verify real-world outcome.
 
-“Got it.”
-
-“I can handle the rest.”
-
-“The first attempt failed. I fixed the cause and verified the new build.”
-
-“One thing needs your approval.”
-
-“Presentation eka ready.”
+RECOVERY:
+failures/rollback.
 
 
 # =====================================================================
-# 8. PERSONALITY MODES
+# 9. INTENT CONTRACT
 # =====================================================================
 
-Support configurable modes:
+For meaningful tasks internally identify:
 
-FRIENDLY
-PROFESSIONAL
-MINIMAL
-HUMOROUS
-EXECUTIVE
-SILENT
-DEVELOPER
+owner goal
+desired output
+quality level
+deadline
+constraints
+privacy
+cost
+allowed external effects
+success criteria
+what must NOT happen
 
-Configurable dimensions:
-
-friendliness
-humor
-formality
-verbosity
-proactivity
-energy
-notification level
+Prevent goal drift.
 
 
 # =====================================================================
-# 9. SINHALA-FIRST INTELLIGENCE
+# 10. UNCERTAINTY ENGINE
 # =====================================================================
 
-The owner communicates heavily in Sinhala.
+Track confidence for:
 
-Sinhala MUST be treated as a first-class language.
+intent
+visual interpretation
+memory
+tool target
+recipient
+file identity
+research fact
+device state
+API result
+
+Low confidence + high-impact action:
+VERIFY / ASK.
+
+High confidence + reversible safe action:
+AUTO when policy allows.
+
+
+# =====================================================================
+# 11. KNOW WHEN NOT TO ACT
+# =====================================================================
+
+Possible correct action:
+
+ACT
+WAIT
+OBSERVE
+VERIFY
+ASK
+SIMULATE
+DEFER
+
+Do not execute merely because a tool exists.
+
+
+# =====================================================================
+# 12. SINHALA-FIRST
+# =====================================================================
+
+Treat Sri Lankan Sinhala as first-class.
 
 Support:
 
-- Sri Lankan Sinhala
-- colloquial spoken Sinhala
-- informal Sinhala
-- Sinhala slang
-- shortened spoken forms
-- Sinhala-English code switching
-- English technical terms inside Sinhala
-- casual phrasing
-- typo-tolerant interpretation
-- natural command repair
+spoken Sinhala
+colloquial Sinhala
+Sinhala slang
+English-Sinhala code switching
+shortened phrases
+typos
+informal commands
+technical English mixed into Sinhala
 
 Examples:
 
-“Nova ban meka hadala denna.”
+“Nova Chrome eka open karanna.”
 
-“Nova project eka continue karanna.”
+“Nova ban me video eka edit karanna.”
 
-“Nova mama nidagannawa me tika finish karanna.”
+“Nova mama nidagannawa, me tika iwara karanna.”
 
-“Nova chrome eka open karala latest video eka play karanna.”
+“Na na mama kiwwe eka nemei.”
 
-“Nova na na mama kiwwe eka nemei.”
-
-Do not require formal textbook Sinhala.
+No formal Sinhala requirement.
 
 
 # =====================================================================
-# 10. ADVANCED SINHALA SPEECH
+# 13. SINHALA SPEECH QUALITY
 # =====================================================================
 
-NOVA must aim for clear natural Sinhala pronunciation.
+Prioritize:
 
-Requirements:
+clear Sri Lankan pronunciation
+natural rhythm
+natural pauses
+correct question intonation
+mixed English pronunciation
+low latency
 
-- Sri Lankan pronunciation
-- natural rhythm
-- sentence-level pauses
-- question intonation
-- conversational tone
-- Sinhala-English code switching
-- natural pronunciation of English technical words
+Maintain owner pronunciation dictionary for:
 
-Examples:
-
-ChatGPT
-GitHub
-Chrome
-Blender
-Unreal Engine
-Unity
-Godot
-PowerPoint
-Excel
-WhatsApp
-Python
-JavaScript
-API
-
-Create a personal pronunciation dictionary.
-
-Allow owner corrections.
-
-Example:
-
-“Nova, pronounce that name like this.”
-
-Store approved pronunciation.
+people
+places
+apps
+brands
+projects
+technical words
 
 
 # =====================================================================
-# 11. VOICE ENGINE
+# 14. VOICE-FIRST NOVA
 # =====================================================================
 
 Wake word:
 
 NOVA
 
-Features:
+Support:
 
-- streaming STT
-- streaming TTS
-- Sinhala STT
-- English STT
-- mixed Sinhala-English STT
-- configurable microphones
-- configurable speakers
-- push-to-talk
-- wake-word mode
-- voice activity detection
-- background noise handling
-- confidence scoring
-- transcription
-- interruption
-- barge-in
+streaming STT
+streaming TTS
+Sinhala
+English
+Sinhala-English
+VAD
+barge-in
+noise handling
+mic selection
+speaker selection
+confidence
+push-to-talk fallback
 
-Emergency commands:
+Emergency:
 
 “Nova stop.”
-
 “Nova emergency stop.”
 
-These must interrupt controllable automation quickly and safely.
+
+# =====================================================================
+# 15. ALWAYS-LISTENING VOICE SESSION
+# =====================================================================
+
+When owner enters Voice mode:
+
+START ACTIVE LISTENING SESSION
+↓
+WAIT FOR SPEECH
+↓
+VOICE ACTIVITY DETECTION
+↓
+TRANSCRIBE
+↓
+UNDERSTAND
+↓
+ACT / ANSWER
+↓
+SPEAK
+↓
+RETURN TO LISTENING
+
+No manual mic press required every turn.
+
+Requirements:
+
+visible listening indicator
+mute
+stop when leaving Voice
+do not permanently record ambient audio
+respect privacy settings
 
 
 # =====================================================================
-# 12. SPEECH REPAIR
+# 16. COMPUTER VISION — CORE REQUIREMENT
 # =====================================================================
 
-NOVA must understand conversational correction.
+COMPUTER VISION IS A CORE NOVA SUBSYSTEM.
+
+Do not treat vision as a future optional add-on.
+
+Create:
+
+Vision Gateway
+Screen Understanding Agent
+UI Detection Agent
+Document Vision Agent
+Image Understanding Agent
+Video Understanding Agent
+Camera Vision Adapter
+Visual Verification Agent
+
+
+# =====================================================================
+# 17. SCREEN VISION
+# =====================================================================
+
+NOVA must be able to inspect authorized screens.
+
+Understand:
+
+application identity
+window
+buttons
+menus
+forms
+text fields
+dialogs
+errors
+images
+charts
+tables
+selected items
+visible notifications
+scroll position
+UI hierarchy where available
+
+Prefer structured accessibility data first.
+
+Use vision when structured UI data is unavailable.
+
+
+# =====================================================================
+# 18. SCREEN COMMAND EXAMPLES
+# =====================================================================
+
+Owner may say:
+
+“Fix this error.”
+
+“Fill this application.”
+
+“Click the blue button.”
+
+“Move this file.”
+
+“Continue what I was doing.”
+
+“What is on my screen?”
+
+“Open the app shown here.”
+
+NOVA should combine:
+
+SCREEN UNDERSTANDING
++
+CONTEXT
++
+PC CONTROL
++
+VERIFICATION
+
+
+# =====================================================================
+# 19. COMPUTER VISION INPUT TYPES
+# =====================================================================
+
+Support authorized:
+
+screenshots
+live screen frames
+selected-screen region
+images
+scanned documents
+PDF pages
+video frames
+camera feeds
+application canvases
+game-engine viewports
+
+
+# =====================================================================
+# 20. VISION PROVIDER ABSTRACTION
+# =====================================================================
+
+Define:
+
+VisionProvider
+OCRProvider
+ObjectDetectionProvider
+UIDetectionProvider
+VideoUnderstandingProvider
+
+Allow:
+
+cloud vision
+local vision
+specialized local CV
+
+Privacy Router decides whether frames can leave device.
+
+
+# =====================================================================
+# 21. VISION PRIVACY
+# =====================================================================
+
+Never continuously upload full desktop to cloud.
+
+Prefer:
+
+UI Automation tree
+structured metadata
+cropped region
+redacted screenshot
+local vision
+
+before full-frame external upload.
+
+Allow private windows to be marked:
+
+NO_CAPTURE
+NO_OCR
+LOCAL_VISION_ONLY
+NO_CLOUD
+
+
+# =====================================================================
+# 22. VISUAL VERIFICATION
+# =====================================================================
+
+After GUI action:
+
+observe result visually or structurally.
 
 Example:
 
-Owner:
-“Open Chrome and search Blender.”
+click Save
+→ verify save dialog closed
+→ verify file exists
 
-Owner:
-“Na na Blender nemei Unreal Engine.”
+open Gemini
+→ verify correct window/tab
 
-NOVA should amend the existing intent instead of starting an unrelated task.
-
-
-# =====================================================================
-# 13. NIGHT / WHISPER VOICE MODE
-# =====================================================================
-
-Optional night voice mode:
-
-- lower volume
-- calmer speech
-- fewer spoken details
-- notification suppression
-- text-heavy output if owner is sleeping
+fill form
+→ verify fields contain intended values
 
 
 # =====================================================================
-# 14. COGNITIVE STACK
+# 23. LIVE VIDEO UNDERSTANDING
 # =====================================================================
 
-Implement separate logical cognitive layers.
+For owner-supplied or authorized video:
 
-REFLEX BRAIN
-For instant local operations.
+scene detection
+object understanding
+text recognition
+speech/transcript alignment
+event detection
+timeline understanding
+quality analysis
 
-FAST BRAIN
-For short commands and routing.
+Use for:
 
-CONVERSATION BRAIN
-For natural dialogue.
-
-DEEP REASONING BRAIN
-For difficult decisions and architecture.
-
-PLANNER BRAIN
-For mission decomposition.
-
-WORLD MODEL
-For understanding the owner's digital environment.
-
-MEMORY BRAIN
-For personalized long-term memory.
-
-ACTION BRAIN
-For executing tools.
-
-CRITIC BRAIN
-For finding errors.
-
-VERIFIER BRAIN
-For confirming results.
-
-SECURITY BRAIN
-For permission and risk.
-
-RECOVERY BRAIN
-For failures and rollback.
-
-DEVELOPER BRAIN
-For building capabilities.
+editing
+search
+summaries
+game QA
+authorized CCTV
 
 
 # =====================================================================
-# 15. META-REASONING
+# 24. LOCAL-FIRST CONTROL PLANE
 # =====================================================================
 
-Complex task flow:
+Main NOVA node:
 
-UNDERSTAND
-↓
-DEFINE INTENT CONTRACT
-↓
-DEFINE SUCCESS
-↓
-IDENTIFY CONSTRAINTS
-↓
-ASSESS UNCERTAINTY
-↓
-GENERATE MULTIPLE PLANS WHEN USEFUL
-↓
-COMPARE PLANS
-↓
-SIMULATE CONSEQUENCES
-↓
-SELECT BEST SAFE PLAN
-↓
-EXECUTE
-↓
-VERIFY DURING EXECUTION
-↓
-REVIEW
-↓
-RECOVER
-↓
-UPDATE STATE
+OWNER_PC
 
-
-# =====================================================================
-# 16. INTENT CONTRACT
-# =====================================================================
-
-For important requests internally define:
-
-what owner wants
-what owner does NOT want
-expected output
-quality expectations
-deadline
-privacy constraints
-external effects allowed
-budget
-success test
-
-This prevents goal drift.
-
-
-# =====================================================================
-# 17. UNCERTAINTY ENGINE
-# =====================================================================
-
-Track internal confidence for:
-
-intent
-memory
-tool result
-research fact
-UI interpretation
-recipient identity
-target file
-deployment state
-
-High uncertainty + high impact should cause verification or owner confirmation.
-
-Low uncertainty + reversible task should proceed automatically.
-
-
-# =====================================================================
-# 18. PLAN COMPARISON
-# =====================================================================
-
-Compare candidate plans using:
-
-quality
-speed
-cost
-privacy
-risk
-reversibility
-reliability
-resource consumption
-tool availability
-owner preferences
-dependency risk
-
-Choose best safe plan.
-
-
-# =====================================================================
-# 19. COUNTERFACTUAL / CONSEQUENCE PLANNER
-# =====================================================================
-
-Before important action ask internally:
-
-What happens if this fails?
-
-What depends on this?
-
-Can I reverse it?
-
-Can I test it first?
-
-Can I use a canary?
-
-Can private data leave the device?
-
-Can this create a duplicate external side effect?
-
-Is waiting better than acting?
-
-
-# =====================================================================
-# 20. KNOW WHEN NOT TO ACT
-# =====================================================================
-
-A highly capable agent must know when NOT to act.
-
-Possible correct actions:
-
-WAIT
-OBSERVE
-ASK
-VERIFY
-SIMULATE
-DEFER
-DO NOTHING
-
-Do not act simply because a tool exists.
-
-
-# =====================================================================
-# 21. LOCAL-FIRST CORE
-# =====================================================================
-
-The main NOVA control plane should live on the owner's Windows PC.
-
-Keep locally by default:
+Runs:
 
 NOVA Core
+Mission Engine
+Memory
+Policy Engine
+Privacy Router
+Secrets Vault
+Device Mesh Controller
+Tool Gateway
+Agent Orchestrator
+Audit Log
+
+Cloud AI does NOT become machine authority.
+
+
+# =====================================================================
+# 25. NOVA DEVICE MESH — MULTI-DEVICE CONTROL
+# =====================================================================
+
+The owner has multiple devices.
+
+NOVA must support a secure DEVICE MESH.
+
+One main NOVA instance should be able to coordinate authorized secondary devices.
+
+Possible nodes:
+
+Windows desktop
+Windows laptop
+second PC
+home server
+GPU workstation
+phone companion
+tablet
+smart-home gateway
+
+Each device runs a small:
+
+NOVA NODE AGENT
+
+when needed.
+
+
+# =====================================================================
+# 26. NODE AGENT
+# =====================================================================
+
+Each device node exposes only approved capabilities.
+
+Node metadata:
+
+device_id
+owner
+device_name
+OS
+hardware
+capabilities
+online state
 permissions
-private memory
-mission state
-projects
-preferences
-tool registry
-PC control
-logs
-automation rules
-privacy policy
-secrets references
+trust level
+last heartbeat
+resource status
 
-Cloud AI providers are capability providers.
+Possible capabilities:
 
-They are not the final authority over the owner's computer.
+run approved apps
+file operations
+system information
+screens
+notifications
+compute jobs
+renders
+game builds
+media processing
+browser tasks
 
 
 # =====================================================================
-# 22. AI PROVIDER HUB
+# 27. DEVICE PAIRING
 # =====================================================================
 
-Do NOT lock NOVA to one AI company.
+No automatic uncontrolled LAN takeover.
 
-Implement provider abstractions such as:
+Pair devices explicitly.
+
+Pairing:
+
+OWNER INITIATES
+↓
+ONE-TIME PAIRING CODE / QR
+↓
+DEVICE IDENTITY CREATED
+↓
+KEY EXCHANGE
+↓
+OWNER APPROVES
+↓
+PERMISSIONS SELECTED
+↓
+TRUSTED DEVICE REGISTERED
+
+Use strong encrypted authentication.
+
+Do not rely solely on IP address.
+
+
+# =====================================================================
+# 28. DEVICE MESH SECURITY
+# =====================================================================
+
+Requirements:
+
+mutual authentication
+encrypted channels
+device identity
+key rotation
+revocation
+least privilege
+audit logs
+permission scopes
+no anonymous remote control
+
+Remote device command must include:
+
+mission ID
+target device
+requested capability
+permission
+expiry
+audit context
+
+
+# =====================================================================
+# 29. DEVICE PERMISSION EXAMPLES
+# =====================================================================
+
+PC-2 may allow:
+
+render jobs
+file access to Projects folder
+
+but deny:
+
+browser cookies
+private documents
+password manager
+
+Laptop may allow:
+
+notifications
+project sync
+
+but deny admin actions.
+
+Permissions are per-device.
+
+
+# =====================================================================
+# 30. DEVICE DISCOVERY
+# =====================================================================
+
+Allow secure discovery of candidate NOVA nodes on trusted local networks.
+
+Discovery does NOT equal permission.
+
+Discovered device:
+UNPAIRED
+
+Only paired devices are controllable.
+
+
+# =====================================================================
+# 31. DEVICE HEARTBEAT
+# =====================================================================
+
+Track:
+
+online/offline
+CPU
+GPU
+RAM
+disk
+battery
+temperature where available
+current workload
+
+Use for task routing.
+
+
+# =====================================================================
+# 32. DISTRIBUTED TASK ROUTER
+# =====================================================================
+
+NOVA may route tasks to best authorized node.
+
+Examples:
+
+GPU render
+→ strongest idle GPU PC
+
+game build
+→ development workstation
+
+document task
+→ main PC
+
+background backup
+→ home server
+
+Choose based on:
+
+capabilities
+privacy
+load
+power
+network
+owner preference
+
+
+# =====================================================================
+# 33. MULTI-DEVICE COMMAND EXAMPLES
+# =====================================================================
+
+“Nova, PC 2 eke Blender render eka run karanna.”
+
+“Nova, laptop eke project eka open karanna.”
+
+“Nova, render job eka free GPU eka thiyana PC ekata yawanna.”
+
+“Nova, me file eka mage other PC ekata copy karanna.”
+
+These are examples, not limits.
+
+
+# =====================================================================
+# 34. FILE TRANSFER BETWEEN DEVICES
+# =====================================================================
+
+Use:
+
+authenticated
+encrypted
+verified
+
+file transfer.
+
+Before overwrite:
+
+check conflict
+version
+hash
+policy
+
+Support resume for large transfers.
+
+
+# =====================================================================
+# 35. DISTRIBUTED PROJECT WORKSPACE
+# =====================================================================
+
+Project may span devices.
+
+Track:
+
+canonical repo
+working copies
+assets
+build outputs
+render outputs
+sync state
+
+Do not create silent file conflicts.
+
+
+# =====================================================================
+# 36. PHONE COMPANION
+# =====================================================================
+
+Future/optional phone client may provide:
+
+chat
+voice
+approval notifications
+mission status
+quick commands
+calling bridge
+camera input where authorized
+
+Remote command access disabled until paired.
+
+
+# =====================================================================
+# 37. WINDOWS PC CONTROL
+# =====================================================================
+
+Prefer:
+
+official app API
+native API/SDK
+CLI
+PowerShell
+Windows API
+UI Automation
+browser automation
+vision + mouse/keyboard fallback
+
+Capabilities:
+
+launch app
+close app
+focus app
+move/resize windows
+keyboard
+mouse
+clipboard
+File Explorer
+screenshots
+notifications
+audio
+processes
+system info
+multi-monitor
+safe terminal operations
+
+
+# =====================================================================
+# 38. GENERAL WINDOWS APPLICATION RESOLVER
+# =====================================================================
+
+“Open X” must NOT rely on a tiny hard-coded list.
+
+Search:
+
+running apps
+Start Menu
+App Paths
+registered executables
+Windows packaged apps
+installed PWAs
+browser apps
+known aliases
+owner aliases
+
+Use fuzzy matching.
+
+Examples:
+
+chrome
+gemini
+calculator
+notepad
+blender
+unreal
+unity
+vscode
+spotify
+
+Verify launched result.
+
+
+# =====================================================================
+# 39. GEMINI / WEB APP FALLBACK
+# =====================================================================
+
+For:
+
+“open Gemini”
+
+resolve:
+
+installed native/PWA
+→ launch
+
+otherwise:
+official web application
+→ default browser
+
+Do not route app launch to free-form chat failure.
+
+
+# =====================================================================
+# 40. LOCAL COMMAND ROUTER
+# =====================================================================
+
+Run deterministic/local intent routing BEFORE LLM fallback.
+
+Classes:
+
+OPEN_APP
+CLOSE_APP
+FOCUS_APP
+OPEN_WEBSITE
+OPEN_FILE
+OPEN_FOLDER
+SEARCH_WEB
+PLAY_MEDIA
+FILE_ACTION
+SYSTEM_ACTION
+DEVICE_ACTION
+
+Basic Windows actions must work even if cloud LLM is offline.
+
+
+# =====================================================================
+# 41. LOCAL MIXED-SINHALA COMMANDS
+# =====================================================================
+
+Support:
+
+“Gemini eka open karanna.”
+“YouTube yanna.”
+“Chrome eka arinna.”
+“Calculator open karanna.”
+“Downloads eka open karanna.”
+
+
+# =====================================================================
+# 42. AI PROVIDER HUB
+# =====================================================================
+
+Do not hardcode NOVA to one AI model.
+
+Provider interfaces:
 
 LLMProvider
 ReasoningProvider
 CodingProvider
 VisionProvider
 EmbeddingProvider
-ImageGenerationProvider
+STTProvider
+TTSProvider
+ImageProvider
 ImageEditProvider
 VideoProvider
 AudioProvider
-STTProvider
-TTSProvider
+SearchProvider
 
-Initial provider architecture should support adapters for major AI providers
-such as OpenAI and Google Gemini, but provider names are not limits.
+Initial architecture may support:
 
-Support future providers without rewriting NOVA Core.
+OpenAI
+Google Gemini
+
+but these are NOT limits.
 
 
 # =====================================================================
-# 23. MODEL ROUTER
+# 43. SECURE AI PROVIDER SETUP
 # =====================================================================
 
-Route models using:
+UI:
 
-task type
-reasoning complexity
+Settings
+→ AI
+→ Providers
+
+Each provider:
+
+Disconnected
+Connected
+Auth expired
+Degraded
+
+Allow secure credential input.
+
+Store credential in Secrets Vault.
+
+Never expose entire key again.
+
+Never save in:
+
+Git
+README
+master prompt
+frontend bundle
+logs
+
+
+# =====================================================================
+# 44. PROVIDER ROUTER
+# =====================================================================
+
+Choose model by:
+
+task
 privacy
+quality
+speed
 cost
-latency
-context size
 language
-vision requirement
-coding requirement
-reliability
+vision
+coding need
 availability
+reliability
 
-Possible model classes:
+Model categories:
 
 LOCAL_FAST
 LOCAL_REASONING
@@ -843,807 +1250,121 @@ CODING
 VISION
 VOICE
 EMBEDDING
-ROUTING
 
 
 # =====================================================================
-# 24. MODEL BENCHMARK ENGINE
+# 45. PROVIDER FALLBACK
 # =====================================================================
 
-Benchmark providers/models for:
+If one provider fails:
 
-Sinhala
-mixed Sinhala-English
-reasoning
-coding
-vision
-latency
-cost
-reliability
-tool use
+retry safely
+→ alternate approved provider
+→ preserve mission state
 
-Use measured performance for routing.
+Do not destroy the mission.
 
 
 # =====================================================================
-# 25. PROVIDER FALLBACK
+# 46. LOCAL AI
 # =====================================================================
 
-If selected provider fails:
+Support optional local models for:
 
-detect failure
-apply retry policy
-switch approved provider if appropriate
-preserve mission state
-verify output
+privacy
+offline operation
+simple routing
+summaries
+basic chat
+embeddings
 
-Do not restart the whole task unnecessarily.
+Do not expose provider-engineering terminology in everyday UI.
 
 
 # =====================================================================
-# 26. UNIVERSAL INTEGRATION HUB
+# 47. UNIVERSAL API HUB
 # =====================================================================
 
-Support adapters for:
+Support integration adapters for:
 
 REST
 GraphQL
 WebSocket
-webhooks
+webhook
 OAuth
-API keys
+API key
 MCP
 CLI
+SDK
 local IPC
-native SDK
-plugins
 
-Every integration declares:
+Every connector declares:
 
-provider
-version
 capabilities
-auth method
-privacy class
+authentication
+privacy
 permissions
 rate limits
-cost
 health
-timeouts
-retry
-status
-
-
-# =====================================================================
-# 27. SECRETS SAFETY
-# =====================================================================
-
-NEVER hardcode secrets.
-
-Never place:
-
-API keys
-Wi-Fi passwords
-OAuth refresh tokens
-credentials
-
-inside:
-
-source code
-README
-AGENTS.md
-master prompts
-frontend JavaScript
-Git history
-screenshots
-logs
-tests
-
-Development:
-environment variables if necessary.
-
-Production:
-NOVA Secrets Vault / OS secure credential storage.
-
-
-# =====================================================================
-# 28. SECRETS VAULT
-# =====================================================================
-
-Owner may say:
-
-“Nova, remember my Wi-Fi password.”
-
-Do NOT save password as ordinary AI memory.
-
-Use:
-
-SECURE VAULT
-↓
-credential reference
-↓
-normal memory stores reference only
-
-UI:
-
-Wi-Fi Credential
-Stored securely
-
-Do not display raw secret unnecessarily.
-
-
-# =====================================================================
-# 29. SECRET SCANNING
-# =====================================================================
-
-Run automated secret detection before:
-
-Git commit
-release
-deployment
-backup upload
-
-Redact secrets from logs automatically.
-
-
-# =====================================================================
-# 30. PRIVACY CLASSES
-# =====================================================================
-
-PUBLIC
-INTERNAL
-PERSONAL
-PRIVATE
-SECRET
-CREDENTIAL
-SYSTEM_SENSITIVE
-SECURITY_SENSITIVE
-THIRD_PARTY_PRIVATE
-
-
-# =====================================================================
-# 31. PRIVACY ROUTER
-# =====================================================================
-
-For any data leaving local system:
-
-identify data
-identify destination
-classify data
-apply owner policy
-minimize context
-redact if required
-log safe metadata
-send only if permitted
-
-
-# =====================================================================
-# 32. ZERO DATA EGRESS
-# =====================================================================
-
-Local-only mode:
-
-- private data remains local
-- cloud AI disabled for private tasks
-- local tools/models used
-- blocked requests are clearly identified
-
-Support one-command mode:
-
-“Nova local-only mode.”
-
-
-# =====================================================================
-# 33. PRIVATE APP / WINDOW ZONES
-# =====================================================================
-
-Owner can mark:
-
-apps
-windows
-folders
-sites
-
-as:
-
-never screenshot
-never OCR
-never send cloud
-never log content
-
-
-# =====================================================================
-# 34. MEMORY ARCHITECTURE
-# =====================================================================
-
-Implement:
-
-Short-Term Memory
-Working Memory
-Episodic Memory
-Semantic Memory
-Structured Memory
-Vector Memory
-Preference Memory
-Project Memory
-Knowledge Graph
-
-
-# =====================================================================
-# 35. PERSONAL WORLD MODEL
-# =====================================================================
-
-Entities:
-
-OWNER
-PEOPLE
-CONTACTS
-PROJECTS
-DEVICES
-APPLICATIONS
-FILES
-TASKS
-MISSIONS
-WORKFLOWS
-EVENTS
-PREFERENCES
-LOCATIONS
-CALENDAR_ITEMS
-TOOLS
-AGENTS
-SKILLS
-SERVICES
-INTEGRATIONS
-
-
-# =====================================================================
-# 36. MEMORY METADATA
-# =====================================================================
-
-Important memory records should contain:
-
-source
-timestamp
-confidence
-scope
-privacy
-last confirmed
-TTL
-provenance
-
-
-# =====================================================================
-# 37. MEMORY SCOPES
-# =====================================================================
-
-GLOBAL
-PERSONAL
-PROJECT
-CONTACT
-DEVICE
-SESSION
-TEMPORARY
-
-
-# =====================================================================
-# 38. MEMORY TTL
-# =====================================================================
-
-Support:
-
-session
-hours
-day
-week
-project lifetime
-long term
-pinned
-
-
-# =====================================================================
-# 39. MEMORY CONFLICTS
-# =====================================================================
-
-Explicit recent user instruction > old inference.
-
-New explicit preference > old preference.
-
-Do not trust stale memory blindly.
-
-
-# =====================================================================
-# 40. MEMORY COMMANDS
-# =====================================================================
-
-Support:
-
-“Remember this.”
-
-“Remember this only for this project.”
-
-“Don't remember this.”
-
-“Forget that.”
-
-“What do you remember about this?”
-
-“What do you remember about me?”
-
-
-# =====================================================================
-# 41. PREFERENCE MEMORY
-# =====================================================================
-
-Remember useful non-sensitive preferences such as:
-
-favorite music
-food
-pizza
-games
-movie preferences
-apps
-work style
-document style
-presentation style
-response style
-language
-communication tone
-common folders
-creative preferences
-subtitle style
-video style
-UI preferences
-
-
-# =====================================================================
-# 42. WORKSPACE MEMORY
-# =====================================================================
-
-Remember:
-
-current project
-last open files
-VS Code workspace
-Blender scene
-game build
-recent tabs
-unfinished tasks
-current milestone
-important decisions
-
-
-# =====================================================================
-# 43. CONTINUE WHERE I LEFT OFF
-# =====================================================================
-
-Owner:
-
-“Nova continue where I stopped.”
-
-NOVA should restore:
-
-project
-mission
-relevant files
-apps
-context
-decisions
-next step
-
-
-# =====================================================================
-# 44. SESSION RESUME SNAPSHOTS
-# =====================================================================
-
-Store recoverable workspace snapshots.
-
-Useful for:
-
-crashes
-reboots
-long breaks
-project switching
-
-
-# =====================================================================
-# 45. MISSION ENGINE
-# =====================================================================
-
-A mission should include:
-
-mission_id
-goal
-success criteria
-priority
-deadline
-dependencies
-tasks
-agents
-permissions
-privacy requirements
-budget
-checkpoint state
-verification method
-external side effects
-
-
-# =====================================================================
-# 46. MISSION STATES
-# =====================================================================
-
-CREATED
-QUEUED
-PLANNING
-READY
-RUNNING
-WAITING_FOR_TOOL
-WAITING_FOR_RESOURCE
-WAITING_FOR_NETWORK
-WAITING_FOR_AGENT
-WAITING_FOR_USER
-BLOCKED
-PAUSED
-VERIFYING
-RETRYING
-RECOVERING
-COMPLETED
-FAILED
-CANCELLED
-ROLLED_BACK
-ARCHIVED
-
-
-# =====================================================================
-# 47. MISSION PRIORITY
-# =====================================================================
-
-BACKGROUND
-LOW
-NORMAL
-HIGH
-URGENT
-CRITICAL
-
-
-# =====================================================================
-# 48. DEPENDENCY GRAPH
-# =====================================================================
-
-Represent complex projects as a DAG.
-
-Allow unrelated tasks to continue while one dependency is blocked.
-
-
-# =====================================================================
-# 49. OVERNIGHT AUTONOMY
-# =====================================================================
-
-Owner:
-
-“Nova mama nidagannawa me tika finish karanna.”
-
-NOVA should:
-
-parse all tasks
-create missions
-detect dependencies
-prioritize
-allocate agents
-allocate resources
-execute safe work
-checkpoint
-retry
-fallback
-continue unrelated work
-collect blockers
-prepare morning summary
-
-
-# =====================================================================
-# 50. MORNING REPORT
-# =====================================================================
-
-Default concise report:
-
-completed
-partially completed
-failed
-blocked
-owner decisions required
-generated files
-important discoveries
-
-Detailed report available on request.
-
-
-# =====================================================================
-# 51. RESOURCE BUDGET
-# =====================================================================
-
-Each mission may have:
-
-API budget
-token budget
-time budget
-CPU budget
-GPU budget
-RAM budget
-retry budget
-tool-call budget
-
-
-# =====================================================================
-# 52. COMPUTE SCHEDULER
-# =====================================================================
-
-Heavy jobs:
-
-rendering
-video processing
-game builds
-local model inference
-large tests
-
-should be scheduled intelligently.
-
-Examples:
-
-render at night
-reduce background GPU use while gaming
-pause on overheating
-resume when idle
-
-
-# =====================================================================
-# 53. MULTI-AGENT ORCHESTRATOR
-# =====================================================================
-
-Core agents may include:
-
-NOVA Director
-Planner
-Mission Manager
-Context Agent
-Memory Agent
-PC Agent
-Browser Agent
-File Agent
-Document Agent
-Office Agent
-Research Agent
-Email Agent
-Messaging Agent
-Calling Agent
-Calendar Agent
-Voice Agent
-Media Agent
-Automation Agent
-API Agent
-Coding Agent
-Developer Agent
-Debugger
-Reviewer
-QA
-Verification Agent
-Security Agent
-Privacy Agent
-Recovery Agent
-Smart Home Agent
-Education Agent
-Exam Agent
-Game Director
-Game Design Agent
-Story Agent
-World Agent
-Gameplay Agent
-NPC AI Agent
-UI Agent
-3D Agent
-Art Agent
-Animation Agent
-VFX Agent
-Audio Agent
-Performance Agent
-Build Agent
-
-
-# =====================================================================
-# 54. TEMPORARY SPECIALISTS
-# =====================================================================
-
-Create task-specific sub-agents when useful.
-
-Temporary agents receive minimum:
-
-context
-permissions
-tools
-time
-budget
-
-Destroy or deactivate when mission ends.
-
-
-# =====================================================================
-# 55. AGENT COMMUNICATION ENVELOPE
-# =====================================================================
-
-mission_id
-task_id
-parent_id
-agent_id
-goal
-inputs
-constraints
-permissions
-privacy
-priority
-dependencies
-budget
-expected_output
-verification
-status
-result
-error
-
-
-# =====================================================================
-# 56. PLANNER → EXECUTOR → REVIEWER → VERIFIER
-# =====================================================================
-
-Use independent review when task importance justifies it.
-
-Do not make every trivial action expensive.
-
-
-# =====================================================================
-# 57. AGENT RELIABILITY
-# =====================================================================
-
-Track:
-
-success rate
-verification failures
-tool errors
-latency
 cost
-specialization quality
-
-Route future jobs using history.
-
-
-# =====================================================================
-# 58. AGENT CONFLICT MANAGEMENT
-# =====================================================================
-
-For parallel code work use:
-
-Git branches
-Git worktrees
-logical file locks
-merge agent
-review step
+retry
+timeout
 
 
 # =====================================================================
-# 59. FULL WINDOWS PC CONTROL
+# 48. BROWSER AGENT
 # =====================================================================
 
-Implement local Windows control.
+Capabilities:
 
-Preferred priority:
+open
+navigate
+search
+read
+click
+type
+scroll
+forms
+upload
+download
+tabs
+structured extraction
 
-Official App API
-↓
-Local API / SDK
-↓
-CLI
-↓
-PowerShell
-↓
-Windows APIs
-↓
-Windows UI Automation
-↓
-Browser automation
-↓
-Computer vision + mouse/keyboard fallback
+Do not bypass CAPTCHA/2FA.
 
 
 # =====================================================================
-# 60. PC CAPABILITIES
+# 49. BROWSER VISUAL CONTROL
 # =====================================================================
 
-Support authorized:
+Prefer DOM / accessibility selectors.
 
-open apps
-close apps
-switch apps
-window movement
-window resizing
-mouse
-keyboard
-clipboard
-File Explorer
-screenshots
-notifications
-audio
-processes
-services when permitted
-system info
-multi-monitor
-file operations
-approved shell actions
+Use screen vision if needed.
+
+Verify after interaction.
 
 
 # =====================================================================
-# 61. HIGH-PRIVILEGE BROKER
-# =====================================================================
-
-Admin operations use isolated privileged broker.
-
-Do not give every agent administrator rights.
-
-
-# =====================================================================
-# 62. SCREEN UNDERSTANDING
-# =====================================================================
-
-Owner:
-
-“Fill this application shown on my PC.”
-
-NOVA:
-
-inspect UI
-identify fields
-retrieve allowed information
-fill fields
-identify missing information
-preview
-submit according to policy
-
-
-# =====================================================================
-# 63. UI AUTOMATION QUALITY
-# =====================================================================
-
-Prefer:
-
-accessibility IDs
-UI Automation
-DOM selectors
-window handles
-application APIs
-
-Avoid fragile absolute coordinates whenever possible.
-
-
-# =====================================================================
-# 64. SCREEN ERROR ASSISTANT
-# =====================================================================
-
-Owner:
-
-“Fix this error on my screen.”
-
-NOVA:
-
-inspect
-read error
-inspect relevant logs
-diagnose
-research if required
-apply safe fix
-test
-verify
-
-
-# =====================================================================
-# 65. FILE INTELLIGENCE
+# 50. RESEARCH AGENT
 # =====================================================================
 
 Support:
+
+multi-source
+freshness
+credibility
+contradictions
+citations
+provenance
+confidence
+decision support
+
+Current facts should be refreshed when needed.
+
+
+# =====================================================================
+# 51. FILE INTELLIGENCE
+# =====================================================================
 
 search
 read
@@ -1656,950 +1377,437 @@ recycle
 compress
 extract
 convert
-organize
-archive
 deduplicate
-hash
+archive
 backup
 restore
+hash
 version
 
-
-# =====================================================================
-# 66. SAFE DELETE
-# =====================================================================
-
-Default deletion:
-
+Default delete:
 Recycle Bin.
 
-Permanent deletion:
-
-ask by default.
-
-Example:
-
-“Delete all chats.”
-
-If permanent:
-
-show target
-show scope
-confirm
-execute
-verify
-
 
 # =====================================================================
-# 67. PERSONAL SEMANTIC FILE SEARCH
+# 52. SEMANTIC FILE SEARCH
 # =====================================================================
 
-Example:
+Understand queries such as:
 
 “Find that blue spaceship render from last week.”
 
-Search by meaning, metadata and project context.
+Use:
+
+filename
+metadata
+visual embeddings where permitted
+text
+project context
 
 
 # =====================================================================
-# 68. ARTIFACT REGISTRY
+# 53. OFFICE
 # =====================================================================
 
-Track generated artifacts:
+Support real:
 
-source
-version
-project
-creator agent
-creation date
-dependencies
-output format
-verification state
-
-
-# =====================================================================
-# 69. ARTIFACT LINEAGE
-# =====================================================================
-
-Know which:
-
-source files
-prompts
-models
-tools
-versions
-
-created a generated artifact.
-
-
-# =====================================================================
-# 70. DOCUMENT INTELLIGENCE
-# =====================================================================
-
-Support:
-
+Word
+Excel
+PowerPoint
 PDF
-DOCX
-XLSX
-PPTX
-TXT
 CSV
-images
+documents
 scans
 
-Operations:
+Do not merely generate text.
 
-read
-extract
-summarize
-compare
-OCR when needed
-generate
-convert
-form-fill
+Create actual output files when requested.
 
 
 # =====================================================================
-# 71. WORD AGENT
+# 54. POWERPOINT
 # =====================================================================
 
-Create
-edit
-format
-proofread
-rewrite
-translate
-summarize
-reports
-letters
-templates
+Support:
 
-
-# =====================================================================
-# 72. EXCEL AGENT
-# =====================================================================
-
-Data entry
-formulas
-cleaning
-formatting
-sorting
-filtering
-validation
+research
+outline
+slides
 charts
-pivot operations
+images
+speaker notes
+formatting
+verification
+save/export
+
+Example:
+
+“Make a cats presentation and save to Downloads.”
+
+
+# =====================================================================
+# 55. EXCEL
+# =====================================================================
+
+Support:
+
+data
+formulas
+validation
+format
+charts
+pivots
 analysis
-error detection
-forecasting when appropriate
+cleaning
+error checks
 
 
 # =====================================================================
-# 73. POWERPOINT AGENT
-# =====================================================================
-
-Owner:
-
-“Make a presentation about cats and save it to Downloads.”
-
-NOVA should:
-
-understand topic
-research if needed
-create outline
-create slides
-use visuals
-format professionally
-add speaker notes if useful
-verify PPTX
-save to requested folder
-
-
-# =====================================================================
-# 74. DATA TO PPTX
+# 56. FORM FILLING
 # =====================================================================
 
 Owner:
 
-“Enter all this data into a PPTX.”
+“Fill this application on my screen.”
 
-NOVA:
+Vision + UI tree:
 
-understands information
-groups logically
-creates slide structure
-formats
-verifies output
-
-
-# =====================================================================
-# 75. OFFICE EXECUTIVE MODE
-# =====================================================================
-
-Allow workflows such as:
-
-Email attachment
-↓
-extract data
-↓
-update spreadsheet
-↓
-create summary document
-↓
-create presentation
-↓
-prepare email draft
+identify fields
+retrieve approved information
+fill
+check
+preview
+submit according to policy
 
 
 # =====================================================================
-# 76. BROWSER AGENT
+# 57. EMAIL
 # =====================================================================
 
-Support:
-
-open
 search
-navigate
 read
-scroll
-click
-type
-forms
-upload
-download
-multi-tab
-structured extraction
-
-
-# =====================================================================
-# 77. CAPTCHA / 2FA
-# =====================================================================
-
-Do not bypass.
-
-Return control to owner when required.
-
-
-# =====================================================================
-# 78. WEB PROMPT-INJECTION DEFENSE
-# =====================================================================
-
-Websites are untrusted data.
-
-A website cannot override:
-
-NOVA policy
-permissions
-owner instructions
-security
-
-
-# =====================================================================
-# 79. RESEARCH AGENT
-# =====================================================================
-
-Support:
-
-multi-source research
-freshness
-credibility assessment
-contradiction detection
-citations
-source provenance
-fact confidence
-research reports
-
-
-# =====================================================================
-# 80. EVIDENCE-FIRST RESEARCH
-# =====================================================================
-
-Action-critical claims should be verified.
-
-Use source reputation and freshness.
-
-
-# =====================================================================
-# 81. YOUTUBE / MEDIA CONTROL
-# =====================================================================
-
-Owner:
-
-“Open YouTube and play the latest video from SL Dragon Warrior.”
-
-NOVA should:
-
-find correct channel
-identify latest video using current information
-play it
-
-
-# =====================================================================
-# 82. LEGAL MEDIA RULE
-# =====================================================================
-
-NOVA may download:
-
-public-domain content
-owner-owned content
-licensed content
-authorized files
-
-Do not automate piracy or DRM bypass.
-
-If user asks for copyrighted movie piracy:
-offer legal sources instead.
-
-
-# =====================================================================
-# 83. EMAIL AGENT
-# =====================================================================
-
-Support:
-
-read
-search
 summarize
 categorize
-attachments
 draft
-reply draft
+reply
+attachments
 follow-up
 task extraction
 
-External send follows permission policy.
+External sends obey communication policy.
 
 
 # =====================================================================
-# 84. MESSAGING
+# 58. MESSAGING
 # =====================================================================
 
-Support legitimate integrations for:
+Architecture for legitimate:
 
 WhatsApp
 Telegram
 SMS
 desktop messaging
-future services
+future providers
 
-Example:
-
-“Send Sasmitha hi on WhatsApp.”
-
-NOVA:
-
-resolve contact
-verify recipient
-prepare content
-send according to policy
-verify send
+Verify recipient before send.
 
 
 # =====================================================================
-# 85. CALLING
+# 59. OPTIONAL AUTO-REPLY
 # =====================================================================
 
-Architecture for:
+Default:
+OFF
+
+Modes:
+
+OFF
+DRAFT_ONLY
+ASK_BEFORE_SEND
+TRUSTED_CONTACTS
+AWAY
+SMART_AUTO
+
+Protections:
+
+contact allowlist
+rate limits
+duplicate protection
+bot-loop detection
+quiet hours
+sensitive-message escalation
+
+
+# =====================================================================
+# 60. CALLING
+# =====================================================================
+
+Support adapters for:
 
 phone companion
 VoIP
 calling APIs
-mobile/desktop bridge
+mobile bridge
 
 Examples:
 
-“Nova call Mom.”
+“Call Mom.”
 
-“Nova call Pizza Hut.”
+“Call Pizza Hut.”
 
-
-# =====================================================================
-# 86. AI TRANSACTIONAL CALL
-# =====================================================================
-
-If technically and legally supported:
-
-“Call Pizza Hut and ask for my usual pizza.”
-
-NOVA may:
-
-load approved preferences
-call provider
-communicate requirements
-clarify options
-obtain price
-prepare order
-
-Follow applicable disclosure rules if AI identity disclosure is required.
+Transactional calls only through supported lawful mechanisms.
 
 
 # =====================================================================
-# 87. CONTACT MEMORY
+# 61. PURCHASE ASSISTANCE
 # =====================================================================
 
-Store approved non-sensitive context:
-
-name
-relationship label supplied by owner
-project connection
-preferred communication tone
-
-Do not infer sensitive traits.
-
-
-# =====================================================================
-# 88. CALENDAR
-# =====================================================================
-
-Support:
-
-read
-create
-reschedule
-cancel
-conflict detection
-free time
-agenda
-meeting preparation
-deadlines
-
-
-# =====================================================================
-# 89. SHOPPING / PURCHASE ASSISTANT
-# =====================================================================
-
-Support ordinary legal purchases:
+Support ordinary legitimate purchase workflows.
 
 research
 compare
-cart
-price
-delivery
+prepare cart
+verify details
+owner approval for financial commitment by default
+submit
 receipt
 tracking
 
-Owner:
-
-“Order pizza.”
-
-NOVA:
-
-retrieve preference
-select provider
-prepare cart
-verify address
-verify price
-confirm financial commitment according to policy
-submit
-track
+No age-restricted or dangerous purchases.
 
 
 # =====================================================================
-# 90. FINANCIAL POLICY
+# 62. MEDIA STUDIO
 # =====================================================================
 
-Default:
+NOVA must understand:
 
-ASK before financial commitment.
+“Edit this photo.”
 
-Future bounded automation may support explicit owner rules:
+“Edit this video.”
 
-specific merchant
-maximum amount
-specific purchase type
-expiry
-revocable rule
-
-Never purchase age-restricted, dangerous or illegal goods for a minor.
+without fixed templates.
 
 
 # =====================================================================
-# 91. IMAGE STUDIO
+# 63. IMAGE EDITING
 # =====================================================================
-
-NOVA must support general image editing.
-
-Capabilities may include:
 
 crop
 resize
 rotate
-straighten
-color correction
+color
 exposure
 white balance
 contrast
-highlights
-shadows
-sharpen
 denoise
+sharpen
+restore
 upscale
-restoration
 background removal
 background replacement
 object removal
 object addition where appropriate
 inpainting
 outpainting
-perspective correction
-text overlays
+perspective
+text
+graphics
 thumbnails
-banners
-posters
-product image cleanup
-game assets
-concept art
-format conversion
-transparent PNG
+batch processing
+
+Always preserve original by default.
 
 
 # =====================================================================
-# 92. IMAGE COMMAND GENERALIZATION
+# 64. VIDEO EDITING
 # =====================================================================
-
-Owner may simply say:
-
-“Edit this photo.”
-
-NOVA should:
-
-inspect image
-understand likely quality problems
-infer reasonable enhancement
-preserve original
-create edited copy
-verify output
-
-Examples do NOT define the only supported edits.
-
-
-# =====================================================================
-# 93. VIDEO STUDIO
-# =====================================================================
-
-Support:
 
 trim
 split
 join
-timeline editing
 scene detection
-remove unwanted sections
-silence removal
 pacing
+remove silence
 transitions
 crop
-zoom/pan
-stabilization when supported
-speed change
-color correction
-color grading
-noise reduction
-sharpen
-upscale
+stabilization
+speed
+color
+audio cleanup
 subtitles
-caption generation
 Sinhala subtitles
 English subtitles
-mixed Sinhala-English subtitles
-audio sync
-background music
-sound effects
-intro/outro
-titles
-lower thirds
-logo overlay
+mixed subtitles
 B-roll
-16:9
-9:16
-1:1
-highlight extraction
-long-video-to-short
+titles
+aspect conversion
+short-form extraction
+highlights
 export presets
-batch export
 
 
 # =====================================================================
-# 94. VIDEO COMMAND GENERALIZATION
+# 65. VIDEO AUTO-DIRECTOR
 # =====================================================================
 
-Owner:
+Analyze:
 
-“Edit this video.”
-
-NOVA should:
-
-inspect video
-detect orientation
+duration
 resolution
+orientation
 frame rate
 audio
 speech
 scenes
-quality problems
-likely platform
+quality
+platform goal
 
-infer reasonable professional edit
-
-create non-destructive project
-render preview
-verify
-export
+Then create an intelligent edit plan.
 
 
 # =====================================================================
-# 95. AUDIO STUDIO
+# 66. AUDIO
 # =====================================================================
-
-Support:
 
 transcription
 noise reduction
-silence cleanup
+voice enhancement
 normalization
-speech enhancement
-EQ/compression
-music ducking
+EQ
+compression
+ducking
 sync
-format conversion
+conversion
 
 
 # =====================================================================
-# 96. MEDIA PRIVACY
+# 67. MEDIA QUALITY VERIFIER
 # =====================================================================
 
-Private photos/video stay local whenever practical.
+Verify final output:
 
-Any cloud media upload goes through privacy policy.
-
-Never silently upload personal media.
-
-
-# =====================================================================
-# 97. MEDIA PROJECT MEMORY
-# =====================================================================
-
-Remember:
-
-preferred editing style
-aspect ratio
-subtitle style
-export quality
-intro/outro
-visual style
-YouTube preferences
-project-specific media identity
+file opens
+expected duration
+expected resolution
+audio present
+no corrupt frames
+subtitle sync reasonable
+export complete
 
 
 # =====================================================================
-# 98. CODING AGENT
+# 68. CODING / SOFTWARE FACTORY
 # =====================================================================
 
 Support:
 
 architecture
-implementation
+frontend
+backend
+database
+APIs
 debugging
 testing
 refactoring
-documentation
-database
-API development
-builds
-packaging
-releases
-CI/CD
+security
 performance
-security review
+documentation
+CI/CD
+deployment
+release
 
 
 # =====================================================================
-# 99. PROGRAMMING LANGUAGES
+# 69. AUTONOMOUS DEBUGGING
 # =====================================================================
 
-Support appropriate languages including:
-
-Python
-JavaScript
-TypeScript
-C#
-C++
-Java
-Rust
-Go
-SQL
-HTML
-CSS
-PowerShell
-
-
-# =====================================================================
-# 100. SOFTWARE FACTORY
-# =====================================================================
-
-For complex software projects use:
-
-Architect
-Frontend Agent
-Backend Agent
-Database Agent
-QA Agent
-Security Agent
-Performance Agent
-Documentation Agent
-Release Agent
-
-
-# =====================================================================
-# 101. AUTONOMOUS DEBUGGING
-# =====================================================================
-
-CAPTURE
-↓
 REPRODUCE
 ↓
-LOG ANALYSIS
+LOG
 ↓
 HYPOTHESIS
 ↓
-TEST HYPOTHESIS
-↓
-MINIMAL FIX
-↓
 TEST
+↓
+FIX
 ↓
 REGRESSION TEST
 ↓
-REAL-WORLD VERIFY
-↓
-DOCUMENT
+VERIFY
 
 
 # =====================================================================
-# 102. WEBSITE DEVELOPMENT
+# 70. WEBSITE FACTORY
 # =====================================================================
 
-Owner:
+Owner may simply ask:
 
-“Make a crazy website.”
+“Build a crazy website and host it.”
 
-NOVA:
+NOVA should:
 
-understand goals
+understand goal
 design
-frontend
+build frontend
 backend if needed
-database if needed
-authentication if needed
-run
+database
+auth if needed
 test
-fix
-verify
-
-
-# =====================================================================
-# 103. WEBSITE DEPLOYMENT
-# =====================================================================
-
-Owner:
-
-“Make it and host it.”
-
-NOVA:
-
-build production version
-configure approved hosting
+QA
 deploy
-verify endpoint
+verify
 monitor
 
-Paid services require applicable approval.
+Paid hosting/domain follows approval policy.
 
 
 # =====================================================================
-# 104. CONTROLLED SELF-IMPROVEMENT
+# 71. GAME STUDIO
 # =====================================================================
 
-NOVA may build new capabilities.
-
-Process:
-
-CAPABILITY GAP
-↓
-RESEARCH
-↓
-DESIGN
-↓
-ISOLATED DEVELOPMENT
-↓
-IMPLEMENT
-↓
-SANDBOX
-↓
-TEST
-↓
-SECURITY REVIEW
-↓
-PRIVACY REVIEW
-↓
-REVIEWER
-↓
-APPROVAL WHEN REQUIRED
-↓
-BACKUP
-↓
-DEPLOY
-↓
-VERIFY
-↓
-MONITOR
-↓
-REGISTER
-
-
-# =====================================================================
-# 105. NO SILENT CORE SELF-REWRITE
-# =====================================================================
-
-NOVA must NOT silently modify rules protecting:
-
-owner identity
-security
-privacy
-permissions
-emergency stop
-update approval
-
-
-# =====================================================================
-# 106. SKILL MANIFEST
-# =====================================================================
-
-Every skill:
-
-id
-name
-version
-description
-commands/capabilities
-inputs
-outputs
-permissions
-privacy
-risk
-dependencies
-OS requirements
-health
-timeout
-retry
-rollback
-tests
-author
-hash/signature
-
-
-# =====================================================================
-# 107. SKILL STATES
-# =====================================================================
-
-DISCOVERED
-CANDIDATE
-SANDBOXED
-TESTED
-APPROVED
-INSTALLED
-ENABLED
-DEGRADED
-DISABLED
-REMOVED
-
-
-# =====================================================================
-# 108. SKILL CERTIFICATION
-# =====================================================================
-
-EXPERIMENTAL
-TESTED
-TRUSTED
-CRITICAL_SAFE
-
-
-# =====================================================================
-# 109. PLUGIN SYSTEM
-# =====================================================================
-
-Support:
-
-discovery
-metadata
-permissions
-sandboxing
-versioning
-signing
-dependencies
-health
-rollback
-
-Trust:
-
-UNTRUSTED
-LIMITED
-TRUSTED
-SYSTEM
-
-
-# =====================================================================
-# 110. GAME DEVELOPMENT STUDIO
-# =====================================================================
-
-Create specialists:
+Agents:
 
 Game Director
 Producer
-Game Designer
-Story Agent
-Worldbuilding Agent
-Gameplay Programmer
-NPC AI Agent
-UI Agent
-Level Designer
-3D Agent
-Character Agent
-Environment Agent
-Animation Agent
-VFX Agent
-Audio Agent
-Music Agent
-QA Agent
-Performance Agent
-Build Agent
-Localization Agent
+Game Design
+Story
+World
+Gameplay
+NPC AI
+UI
+Level
+3D
+Characters
+Environment
+Animation
+VFX
+Audio
+Music
+QA
+Performance
+Build
+Localization
 
 
 # =====================================================================
-# 111. HIGH-GRAPHICS SCI-FI GAME
+# 72. HIGH-GRAPHICS GAME PIPELINE
 # =====================================================================
 
-Owner:
+Do not fake instant AAA completion.
 
-“Make a high-level graphics sci-fi game with my requirements.”
-
-Do not pretend AAA scale can be instant.
-
-Create:
+Use:
 
 vision
+requirements
 GDD
-story bible
-world bible
-technology decision
 prototype
 vertical slice
-gameplay systems
-AI
+systems
 world
 assets
+AI
 audio
-UI
 QA
 optimization
 builds
@@ -2607,70 +1815,55 @@ milestones
 
 
 # =====================================================================
-# 112. GAME MEMORY
+# 73. GAME ENGINE ADAPTERS
 # =====================================================================
 
-Remember:
+Support:
 
+Unreal Engine
+Unity
+Godot
+
+Choose based on requirements.
+
+
+# =====================================================================
+# 74. GAME MEMORY
+# =====================================================================
+
+Persist:
+
+GDD
 story
-world
-characters
 lore
+characters
 quests
 levels
-mechanics
 architecture
 assets
 bugs
-builds
 tests
+builds
 milestones
 performance
 
 
 # =====================================================================
-# 113. CONTINUE GAME
+# 75. GAME QA AUTOMATION
 # =====================================================================
 
-Owner:
+Support:
 
-“Continue our game.”
-
-Load latest verified checkpoint and continue.
-
-
-# =====================================================================
-# 114. GAME ENGINES
-# =====================================================================
-
-Adapters for:
-
-Unreal Engine
-Unity
-Godot
-future engines
-
-Choose based on project requirements.
+automated launch
+repeatable inputs
+UI checks
+crash detection
+save/load tests
+performance regression
 
 
 # =====================================================================
-# 115. GAME PERFORMANCE BUDGET
-# =====================================================================
-
-Track:
-
-FPS
-CPU
-GPU
-VRAM
-draw calls
-asset size
-load time
-build size
-
-
-# =====================================================================
-# 116. 3D STUDIO
+# 76. 3D STUDIO
 # =====================================================================
 
 Support:
@@ -2685,32 +1878,74 @@ rigging
 animation
 lighting
 camera
-rendering
-architecture visualization
-game assets
+render
 LOD
-export validation
+game export
+architectural visualization
 
 
 # =====================================================================
-# 117. 3D ASSET PIPELINE
+# 77. ARCHITECTURE VISUALIZATION
 # =====================================================================
 
-Import
-validate
-rename
-optimize
-LOD
-material check
-export
-verify
+2D plan
+→ interpret dimensions
+→ blockout
+→ walls/openings
+→ materials
+→ lighting
+→ cameras
+→ render
+
+Do not guess missing dimensions silently.
 
 
 # =====================================================================
-# 118. SMART HOME
+# 78. EDUCATION
 # =====================================================================
 
-Authorized device registry:
+Support:
+
+Study Planner
+Weak Topic Agent
+Revision Agent
+Mock Exam Agent
+Target Paper Agent
+Answer Reviewer
+
+
+# =====================================================================
+# 79. O/L TARGET PAPER
+# =====================================================================
+
+Grade 10 paper used as reference should produce:
+
+ORIGINAL
+ADVANCED
+O/L-STYLE
+PRACTICE PAPER
+
+Analyze:
+
+topics
+skills
+difficulty
+question styles
+
+Then create original:
+
+questions
+marks
+time
+marking scheme
+model answers
+
+
+# =====================================================================
+# 80. SMART HOME
+# =====================================================================
+
+Authorized:
 
 lights
 AC
@@ -2721,448 +1956,288 @@ plugs
 curtains
 sensors
 
-Track:
-
-room
-device
-protocol
-capabilities
-status
-permissions
+Verify resulting state.
 
 
 # =====================================================================
-# 119. SMART HOME COMMANDS
+# 81. CCTV / CAMERA INTELLIGENCE
 # =====================================================================
 
-Examples:
-
-“Lights off.”
-
-“Bedroom light 50%.”
-
-“AC eka 22.”
-
-“Movie mode.”
-
-“Good night.”
-
-Verify final device state.
-
-
-# =====================================================================
-# 120. SMART HOME SCENES
-# =====================================================================
-
-GOOD_MORNING
-GOOD_NIGHT
-MOVIE
-STUDY
-FOCUS
-LEAVING_HOME
-CUSTOM
-
-
-# =====================================================================
-# 121. CCTV / CAMERA AGENT
-# =====================================================================
-
-Only authorized cameras.
+Authorized systems only.
 
 Support:
 
-camera status
-offline detection
+health
 event timeline
-motion events
-person/vehicle event summaries where lawful
-tamper alerts
+motion/person/vehicle summaries where lawful
+offline alert
+tamper alert
 privacy zones
-local processing
-retention policy
-
-
-# =====================================================================
-# 122. CCTV PRIVACY
-# =====================================================================
+daily digest
 
 Prefer local processing.
 
-Never silently upload camera feeds.
-
-Encrypt sensitive storage.
-
-Support access audit.
-
 
 # =====================================================================
-# 123. AUTHORIZED DEFENSIVE SECURITY
+# 82. DEFENSIVE SECURITY
 # =====================================================================
 
-Security work only for:
-
-owner-owned systems
-explicitly authorized targets
-CTFs
-security training labs
-intentionally vulnerable labs
-
-
-# =====================================================================
-# 124. DEFENSIVE SECURITY CAPABILITIES
-# =====================================================================
+Authorized only.
 
 Support:
 
-dependency vulnerability scanning
+dependency scanning
 configuration audit
 patch audit
-permission review
+permissions
 secret detection
-secure coding review
-authorized network inventory
-authorized service inventory
-log analysis
+logs
 file integrity
-backup verification
-security report
+backup checks
+security reports
 remediation
 
-
-# =====================================================================
-# 125. SECURITY LAB MODE
-# =====================================================================
-
-Require:
-
-scope_id
-authorized_targets
-allowed_actions
-expiry
-rate limits
-logging
-evidence folder
+No unauthorized intrusion/malware/credential theft.
 
 
 # =====================================================================
-# 126. SECURITY PROHIBITIONS
+# 83. MISSION ENGINE
 # =====================================================================
 
-Do NOT build or automate:
+Mission contains:
 
-unauthorized intrusion
-credential theft
-malware
-ransomware
-stealth persistence
-destructive attacks
-unauthorized surveillance
-account takeover
-unauthorized bypass/evasion
-
-
-# =====================================================================
-# 127. EDUCATION AGENT
-# =====================================================================
-
-Create:
-
-Education Agent
-Study Planner
-Revision Agent
-Weak Topic Agent
-Exam Practice Agent
-Target Paper Agent
-
-
-# =====================================================================
-# 128. O/L TARGET PAPER INTELLIGENCE
-# =====================================================================
-
-Owner:
-
-“Use this Grade 10 History paper and make an O/L target paper.”
-
-Interpret as:
-
-ORIGINAL
-ADVANCED
-O/L-STYLE
-PRACTICE PAPER
-
-Do NOT simply copy the source.
-
-
-# =====================================================================
-# 129. TARGET PAPER WORKFLOW
-# =====================================================================
-
-analyze paper
-identify syllabus areas
-identify question styles
-identify assessed skills
-estimate difficulty
-map to target syllabus
-raise difficulty appropriately
-create original questions
-balance difficulty
-include recall
-understanding
-application
-source analysis
-structured responses
-essay responses where appropriate
-marks
-time
-marking scheme
-model answers
-quality review
-export
-
-
-# =====================================================================
-# 130. EDUCATION MODES
-# =====================================================================
-
-TARGET PAPER
-MOCK EXAM
-HARD MODE
-REVISION
-TERM TEST
-WEAK TOPIC
-LAST-MINUTE PRACTICE
-TIMED PRACTICE
-
-
-# =====================================================================
-# 131. PERSONAL STUDY MEMORY
-# =====================================================================
-
-Remember appropriately:
-
-subjects
-weak areas
-strong areas
-practice history
-study goals
-preferred learning format
-
-Do not create unhealthy pressure around scores.
-
-
-# =====================================================================
-# 132. NO LIVE EXAM CHEATING
-# =====================================================================
-
-Do not facilitate cheating on an active restricted exam.
-
-Practice and tutoring are allowed.
-
-
-# =====================================================================
-# 133. AUTOMATION ENGINE
-# =====================================================================
-
-Pattern:
-
-WHEN event
-IF conditions
-THEN actions
-
-Events may include:
-
-VOICE_COMMAND
-CHAT_COMMAND
-FILE_CREATED
-FILE_CHANGED
-EMAIL_RECEIVED
-CALENDAR_EVENT
-MISSION_COMPLETED
-MISSION_FAILED
-SYSTEM_START
-NETWORK_CHANGED
-DEVICE_OFFLINE
-PERMISSION_REQUIRED
-
-
-# =====================================================================
-# 134. WORKFLOW LEARNING
-# =====================================================================
-
-Detect repeated safe behavior.
-
-Suggest automation.
-
-Let owner approve.
-
-Save workflow.
-
-
-# =====================================================================
-# 135. PERSONAL WORKFLOW GRAPH
-# =====================================================================
-
-Learn relationships between:
-
-apps
-projects
-files
+goal
+success criteria
+priority
+deadline
+dependencies
 tasks
+agents
+tools
 devices
-times
-work modes
+permissions
+privacy
+budget
+checkpoint
+verification
 
 
 # =====================================================================
-# 136. AMBIENT ASSISTANT
+# 84. MISSION STATES
 # =====================================================================
 
-Optional event-driven assistance.
-
-Examples:
-
-important deadline approaching
-integration expired
-backup failed
-build broken
-disk space low
-important mission completed
-
-Do not spam.
-
-
-# =====================================================================
-# 137. ATTENTION MANAGER
-# =====================================================================
-
-Notification priority:
-
-INFO
-NORMAL
-IMPORTANT
-URGENT
-CRITICAL
-
-Respect:
-
-quiet hours
-focus mode
-night mode
+CREATED
+QUEUED
+PLANNING
+READY
+RUNNING
+WAITING_TOOL
+WAITING_RESOURCE
+WAITING_NETWORK
+WAITING_AGENT
+WAITING_USER
+BLOCKED
+PAUSED
+VERIFYING
+RETRYING
+RECOVERING
+COMPLETED
+FAILED
+CANCELLED
+ROLLED_BACK
 
 
 # =====================================================================
-# 138. SHADOW MODE
+# 85. OVERNIGHT AUTONOMY
 # =====================================================================
 
-Before automatically performing a learned workflow:
+Owner can give many tasks then leave.
 
-observe
-simulate
-compare
-build confidence
+NOVA:
 
-Then enable with approval.
-
-
-# =====================================================================
-# 139. CANARY EXECUTION
-# =====================================================================
-
-For batch changes:
-
-test small subset
-verify
-expand
+decomposes
+prioritizes
+runs parallel safe work
+checkpoints
+retries
+uses fallback
+continues independent work
+collects blockers
+creates morning report
 
 
 # =====================================================================
-# 140. DRY-RUN MODE
+# 86. MULTI-AGENT SYSTEM
 # =====================================================================
 
-Owner:
+Core agents may include:
 
-“Show me what you would do.”
+Director
+Planner
+Mission
+Memory
+Context
+Vision
+PC
+Browser
+File
+Office
+Research
+Email
+Messaging
+Calling
+Calendar
+Voice
+Media
+Coding
+Developer
+Debugger
+Reviewer
+QA
+Verifier
+Privacy
+Security
+Recovery
+Education
+Game
+3D
+Smart Home
 
-NOVA should produce plan without action.
+Create temporary specialist agents when useful.
 
 
 # =====================================================================
-# 141. SIMULATION / DIGITAL TWIN
+# 87. AGENT COMMUNICATION
 # =====================================================================
 
-Where practical simulate:
+Use structured task envelopes:
 
-file changes
-deployments
-automation sequences
-smart-home scenes
-configuration changes
-
-before real execution.
-
-
-# =====================================================================
-# 142. TRUST ENGINE
-# =====================================================================
-
-Trust should exist per:
-
-tool
+mission_id
+task_id
 agent
-workflow
-API
-integration
-
-Repeated success increases confidence.
-
-Repeated failure decreases autonomy.
-
-
-# =====================================================================
-# 143. POLICY ENGINE
-# =====================================================================
-
-Compile owner rules from natural language.
-
-Examples:
-
-“Never delete photos.”
-
-“Always ask before spending.”
-
-“Don't send private files to cloud.”
-
-“Don't run heavy renders while I'm gaming.”
+goal
+inputs
+constraints
+permissions
+privacy
+deadline
+budget
+expected output
+verification
+status
+result
+error
 
 
 # =====================================================================
-# 144. POLICY VERSIONING
+# 88. AGENT RELIABILITY
 # =====================================================================
 
 Track:
 
-policy
-version
-created date
-modified date
+success
+failures
+latency
+cost
+verification failure
+tool errors
+
+Prefer reliable agents.
+
+
+# =====================================================================
+# 89. MEMORY
+# =====================================================================
+
+Implement:
+
+Short-Term
+Working
+Episodic
+Semantic
+Structured
+Vector
+Preference
+Project
+Knowledge Graph
+
+
+# =====================================================================
+# 90. PERSONAL WORLD MODEL
+# =====================================================================
+
+Entities:
+
+OWNER
+PEOPLE
+CONTACTS
+PROJECTS
+DEVICES
+APPLICATIONS
+FILES
+TASKS
+MISSIONS
+EVENTS
+WORKFLOWS
+PREFERENCES
+LOCATIONS
+TOOLS
+AGENTS
+SKILLS
+SERVICES
+
+
+# =====================================================================
+# 91. WORKSPACE MEMORY
+# =====================================================================
+
+Remember:
+
+active project
+open apps
+open files
+workspace
+recent tabs
+Blender scene
+game project
+unfinished mission
+
+Support:
+
+“Continue where I stopped.”
+
+
+# =====================================================================
+# 92. MEMORY QUALITY
+# =====================================================================
+
+Track:
+
 source
+timestamp
+confidence
 scope
+TTL
+privacy
+provenance
+
+New explicit owner instruction overrides old inference.
 
 
 # =====================================================================
-# 145. POLICY CONFLICT
+# 93. SECRETS VAULT
 # =====================================================================
 
-Detect conflicting owner rules.
+Passwords/API keys are NOT normal memory.
 
-Ask only when needed.
+Store encrypted.
+
+Memory stores reference only.
 
 
 # =====================================================================
-# 146. PERMISSION MODEL
+# 94. PERMISSION ENGINE
 # =====================================================================
-
-Actions:
 
 ALLOW
 DENY
@@ -3170,46 +2245,27 @@ ASK
 ALLOW_ONCE
 SESSION
 PROJECT
-CONTACT
+DEVICE
 APP
-ALWAYS
+FOLDER
+CONTACT
 READ_ONLY
 SANDBOX
 
 
 # =====================================================================
-# 147. PERMISSION SCOPES
+# 95. RISK ENGINE
 # =====================================================================
 
-GLOBAL
-SESSION
-PROJECT
-MISSION
-AGENT
-TOOL
-APP
-FOLDER
-CONTACT
-DEVICE
-DOMAIN
-
-
-# =====================================================================
-# 148. RISK ENGINE
-# =====================================================================
-
-Evaluate:
+Assess:
 
 reversibility
 financial impact
-privacy impact
-security impact
-external side effects
-target sensitivity
+privacy
+security
+external effect
 confidence
-historical precedent
-
-Risk:
+target sensitivity
 
 LOW
 MEDIUM
@@ -3218,342 +2274,151 @@ CRITICAL
 
 
 # =====================================================================
-# 149. DEFAULT ACTION POLICY
+# 96. DEFAULT ACTION POLICY
 # =====================================================================
 
 AUTO:
-safe local reversible work
+safe reversible local work
 
 AUTO + VERIFY:
-code
 file organization
-research
+code
 renders
-builds
-ordinary app control
+research
+ordinary app launch/control
 
 ASK:
 financial commitment
-permanent deletion
-sensitive account change
-critical security change
-major public action
+permanent delete
+security/account change
+major public/external effect
 
-SECRETS VAULT:
-credentials
+VAULT:
+secrets
 
 REFUSE / REDIRECT:
 unauthorized hacking
 piracy
-illegal/dangerous activity
+illegal/dangerous operations
 
 
 # =====================================================================
-# 150. EXTERNAL SIDE EFFECT MAP
+# 97. ACTION RECEIPTS
 # =====================================================================
 
-Track whether action affects:
+Record:
 
-LOCAL_ONLY
-MESSAGE
-EMAIL
-PUBLIC_WEB
-PAYMENT
-DEVICE
-ACCOUNT
-FILE_DELETE
-DEPLOYMENT
-SECURITY_STATE
+action
+target
+agent
+tool
+device
+files changed
+external effects
+verification
+rollback
 
 
 # =====================================================================
-# 151. IDEMPOTENCY
+# 98. NATURAL UNDO
+# =====================================================================
+
+Owner:
+
+“Undo that.”
+
+Find relevant action and reverse when possible.
+
+
+# =====================================================================
+# 99. CRASH / REBOOT RECOVERY
+# =====================================================================
+
+Persist:
+
+mission state
+task state
+external-effect state
+device jobs
+project checkpoint
+
+After restart:
+
+verify uncertain operations
+resume safe work
+
+
+# =====================================================================
+# 100. IDEMPOTENCY
 # =====================================================================
 
 Prevent duplicate:
 
-message
-email
-order
-payment
-booking
-calendar entry
-form submission
-deployment
+messages
+emails
+orders
+payments
+bookings
+form submissions
+deployments
+calendar events
 
 
 # =====================================================================
-# 152. ACTION RECEIPTS
+# 101. TOOL HEALTH
 # =====================================================================
 
-Important actions should record:
+Monitor:
 
-what happened
-target
-time
-tool
-agent
-files changed
-external effect
-verification
-rollback availability
+browser
+FFmpeg
+voice
+vision
+providers
+Blender
+game engines
+Office tools
+node agents
 
+Status:
 
-# =====================================================================
-# 153. NATURAL UNDO
-# =====================================================================
-
-Owner:
-
-“Undo what you did to that folder.”
-
-Find action receipt and reverse when possible.
-
-
-# =====================================================================
-# 154. NATURAL DIFF
-# =====================================================================
-
-Owner:
-
-“What changed since yesterday?”
-
-Report meaningful changes.
-
-
-# =====================================================================
-# 155. NATURAL PRIVACY AUDIT
-# =====================================================================
-
-Owner:
-
-“What data left my PC today?”
-
-Show egress summary.
-
-
-# =====================================================================
-# 156. NATURAL CAPABILITY QUERY
-# =====================================================================
-
-Owner:
-
-“Can you do this?”
-
-NOVA checks real:
-
-tools
-permissions
-APIs
-hardware
-integrations
-
-Answer honestly.
-
-
-# =====================================================================
-# 157. FEATURE STATES
-# =====================================================================
-
-NOT_STARTED
-DESIGNING
-IMPLEMENTING
-PARTIAL
-EXPERIMENTAL
-WORKING
-STABLE
-DEPRECATED
-BLOCKED
-
-
-# =====================================================================
-# 158. INTEGRATION STATES
-# =====================================================================
-
-CONNECTED
-DISCONNECTED
+HEALTHY
 DEGRADED
-MOCK
-AUTH_EXPIRED
+FAILED
+AUTH_REQUIRED
 
 
 # =====================================================================
-# 159. NEVER FAKE SUCCESS
+# 102. INTEGRATION SELF-REPAIR
 # =====================================================================
 
-Never claim:
+Detect:
 
-sent
-called
-ordered
-deployed
-built
-tested
-connected
-saved
+expired auth
+API changes
+missing executable
+selector break
+dependency change
 
-without verification or explicit statement that verification was unavailable.
+Create repair mission.
 
 
 # =====================================================================
-# 160. RECOVERY ENGINE
+# 103. OFFLINE OPERATION
 # =====================================================================
 
-Failure:
+If internet unavailable:
 
-detect
-classify
-retry safe action
-fallback
-rollback
-checkpoint
-continue unrelated work
-escalate if needed
+continue local tasks
+continue PC control
+continue memory
+continue local models
+
+Queue cloud-dependent work.
 
 
 # =====================================================================
-# 161. SELF-HEALING
-# =====================================================================
-
-NOVA may safely:
-
-restart failed component
-reconnect integration
-rebuild cache
-rebuild index
-retry temporary API failures
-switch approved provider
-
-
-# =====================================================================
-# 162. CIRCUIT BREAKERS
-# =====================================================================
-
-Repeated failing APIs/tools should be temporarily disabled to avoid loops.
-
-
-# =====================================================================
-# 163. CRASH / REBOOT RECOVERY
-# =====================================================================
-
-Persist mission state.
-
-After restart:
-
-identify interrupted actions
-verify uncertain external side effects
-resume safe tasks
-
-
-# =====================================================================
-# 164. SAFE MODE BOOT
-# =====================================================================
-
-Broken plugin must not prevent core boot.
-
-
-# =====================================================================
-# 165. BACKUP ENGINE
-# =====================================================================
-
-Back up:
-
-configuration
-memory
-missions
-projects
-permissions
-skills
-automation rules
-important metadata
-
-
-# =====================================================================
-# 166. BACKUP VERIFICATION
-# =====================================================================
-
-Do not merely create backups.
-
-Verify readability and restore viability.
-
-
-# =====================================================================
-# 167. RESTORE ENGINE
-# =====================================================================
-
-Support:
-
-full restore
-settings restore
-memory restore
-project restore
-
-
-# =====================================================================
-# 168. INCIDENT MODE
-# =====================================================================
-
-For serious NOVA failure:
-
-freeze risky actions
-preserve logs
-backup
-diagnose
-recover
-postmortem
-
-
-# =====================================================================
-# 169. OBSERVABILITY
-# =====================================================================
-
-Track:
-
-mission
-agent
-tool
-model
-API
-error
-retry
-permission
-privacy
-performance
-cost
-resource use
-
-Never log credentials.
-
-
-# =====================================================================
-# 170. TRACE IDS
-# =====================================================================
-
-Complex missions use trace IDs across agents and tools.
-
-
-# =====================================================================
-# 171. COST CONTROL
-# =====================================================================
-
-Track:
-
-daily
-weekly
-monthly
-project
-mission
-provider
-
-Allow:
-
-alerts
-soft limit
-hard cap
-
-
-# =====================================================================
-# 172. RESOURCE MANAGER
+# 104. RESOURCE SCHEDULER
 # =====================================================================
 
 Monitor:
@@ -3564,344 +2429,154 @@ RAM
 disk
 network
 battery
-temperature where available
+temperature
+
+Schedule heavy:
+
+renders
+video
+game builds
+local AI
+
+for suitable time/device.
 
 
 # =====================================================================
-# 173. RESOURCE-AWARE SCHEDULER
+# 105. PROJECT INTELLIGENCE
 # =====================================================================
 
-Examples:
+Support:
 
-render at night
-build when idle
-lower GPU load when owner gaming
-pause when overheating
-
-
-# =====================================================================
-# 174. INTEGRATION DRIFT DETECTION
-# =====================================================================
-
-Detect when:
-
-API changed
-library deprecated
-auth expired
-browser selector broke
-tool contract changed
-
-Create repair mission.
-
-
-# =====================================================================
-# 175. DEPENDENCY RADAR
-# =====================================================================
-
-Monitor project dependencies for:
-
-deprecation
-breaking changes
-security issues
-license changes
-compatibility problems
-
-
-# =====================================================================
-# 176. REPRODUCIBLE BUILDS
-# =====================================================================
-
-Track:
-
-environment
-dependencies
-versions
-configuration
-
-for important builds.
-
-
-# =====================================================================
-# 177. UPDATE CHANNELS
-# =====================================================================
-
-STABLE
-BETA
-DEV
-
-
-# =====================================================================
-# 178. CANARY UPDATE
-# =====================================================================
-
-Test updates before broad deployment.
-
-Maintain rollback.
-
-
-# =====================================================================
-# 179. NOVA SELF-TEST
-# =====================================================================
-
-Owner:
-
-“Nova check yourself.”
-
-Test:
-
-Core
-DB
-agents
-tools
-models
-APIs
-memory
-permissions
-privacy
-voice
-scheduler
-integrations
-recovery
-
-
-# =====================================================================
-# 180. PROJECT MANAGEMENT
-# =====================================================================
-
-Project record:
-
-project_id
-name
-goal
-constraints
-folder
-repository
+project health
 milestones
-missions
-agents
-documents
-memory namespace
-risks
-decisions
-open tasks
-
-
-# =====================================================================
-# 181. PROJECT HEALTH
-# =====================================================================
-
-Track:
-
-progress
 bugs
 tests
-risks
-blockers
+roadmap
+decision memory
 technical debt
-milestones
-dependency health
+deadline risk
+requirements traceability
 
 
 # =====================================================================
-# 182. AUTONOMOUS PROJECT MANAGER
+# 106. AUTO DOCUMENTATION
 # =====================================================================
 
-For approved projects:
+Maintain:
 
-select next useful task
-manage backlog
-detect blockers
-update roadmap
-maintain progress
+README
+PROJECT_STATUS
+CHANGELOG
+architecture
+API docs
+user docs
 
-
-# =====================================================================
-# 183. GOAL ENGINE
-# =====================================================================
-
-Support goals spanning:
-
-days
-weeks
-months
-
-Break down into:
-
-goal
-project
-milestone
-mission
-task
+without overwriting valuable human content blindly.
 
 
 # =====================================================================
-# 184. GOAL DRIFT DETECTION
+# 107. WORKFLOW LEARNING
 # =====================================================================
 
-Detect when work no longer serves owner's original goal.
+OBSERVE
+→ DETECT REPEATED SAFE PATTERN
+→ SIMULATE
+→ SUGGEST
+→ OWNER APPROVES
+→ AUTOMATE
 
-
-# =====================================================================
-# 185. DECISION LOG
-# =====================================================================
-
-Important decisions record:
-
-decision
-reason
-alternatives
-date
-impact
-
-Owner can ask:
-
-“Why did we choose this?”
+No silent new automation.
 
 
 # =====================================================================
-# 186. TECHNICAL DEBT
+# 108. VOICE MACROS
 # =====================================================================
 
-Track shortcuts and deferred improvements.
+Owner can define:
 
+“When I say Study Mode…”
 
-# =====================================================================
-# 187. BUG DATABASE
-# =====================================================================
+without coding.
 
-Track:
-
-severity
-component
-reproduction
-status
-fix
-regression test
+Compile natural-language workflow safely.
 
 
 # =====================================================================
-# 188. REQUIREMENT TRACEABILITY
+# 109. SMART AUTO-REPLY
 # =====================================================================
 
-Map:
+Default OFF.
 
-requirement
-component
-test
-version
-status
+If enabled:
 
-
-# =====================================================================
-# 189. PREMIUM NOVA UI — MASTER DESIGN
-# =====================================================================
-
-NOVA must have a premium desktop interface.
-
-The default visual identity:
-
-FULL WHITE
-TRANSPARENT
-FROSTED GLASS
-PEARL WHITE
-ICE BLUE
-CYAN GLOW
-MINIMAL
-FUTURISTIC
-CLEAN
-PREMIUM
-
-Do NOT make default UI:
-
-black-heavy
-grey-heavy
-cyberpunk
-gaming RGB
-purple-heavy
-generic admin dashboard
-VS Code-like
-cluttered
+per-contact policy
+rate limits
+duplicate prevention
+loop prevention
+quiet hours
+confidence threshold
 
 
 # =====================================================================
-# 190. UI REFERENCES
+# 110. PREMIUM SIMPLE UI
 # =====================================================================
 
-If owner provides UI reference images:
+The backend may be complex.
 
-inspect them.
+The daily UI must be SIMPLE.
 
-Use visual direction.
+Primary sidebar:
 
-Do NOT blindly copy copyrighted brand-specific elements.
+Chat
+Voice
+Projects
+Memory
+Settings
 
-Create original NOVA design.
+Emergency Stop at bottom.
 
-Do not copy phone hardware frame into Windows desktop UI.
+Do not expose:
 
+Agents
+Tools
+Integrations
+Devices
+Missions
+Privacy
 
-# =====================================================================
-# 191. NOVA GLASS DESIGN SYSTEM
-# =====================================================================
+as permanent primary sidebar items.
 
-Reusable components:
-
-GlassPanel
-GlassCard
-GlassButton
-GlassInput
-GlassModal
-GlassDropdown
-GlassSidebar
-GlassToast
-GlassTooltip
-GlassComposer
-GlassSegmentedControl
-
-Properties:
-
-translucent white
-frosted blur
-thin light borders
-soft internal highlights
-subtle shadow
-blue/cyan ambient glow
-rounded geometry
+Keep those systems internally and under Settings/Advanced where appropriate.
 
 
 # =====================================================================
-# 192. UI BACKGROUND
+# 111. UI LOOK
 # =====================================================================
 
-Use:
+Default:
 
-pearl white
-ice-white gradient
-very pale blue light
-soft blurred luminous shapes
-clean breathing space
+soft pearl
+frosted glass
+ice blue
+cyan accents
+deep slate-blue text
 
+Not pure glaring white.
 
-# =====================================================================
-# 193. NOVA ORB
-# =====================================================================
+Not dark.
 
-Create an ORIGINAL central AI orb.
+Not cyberpunk.
 
-Visual:
-
-transparent crystalline sphere
-white / cyan / blue
-internal energy
-soft glow
-orbital rings
-particles
-premium depth
+Not admin dashboard.
 
 
 # =====================================================================
-# 194. ORB STATES
+# 112. NOVA ORB
 # =====================================================================
+
+Central visual identity.
+
+States:
 
 IDLE
 LISTENING
@@ -3909,1492 +2584,518 @@ THINKING
 WORKING
 SPEAKING
 SUCCESS
-WARNING
 ERROR
 PRIVACY
 OFFLINE
 
 
 # =====================================================================
-# 195. DESKTOP LAYOUT
+# 113. CHAT UI
 # =====================================================================
 
-LEFT NAV
-TOP HEADER
-CENTER WORKSPACE
-OPTIONAL RIGHT CONTEXT
-BOTTOM COMPOSER
+Owner messages:
+right side
+accent glass bubble
 
+NOVA:
+left side
+neutral glass bubble
 
-# =====================================================================
-# 196. NAVIGATION
-# =====================================================================
+No giant full-width cards for short messages.
 
-Home
-Chat
-Voice
-Missions
-Projects
-Agents
-Memory
-Automations
-Tools
-Integrations
-Devices
-Privacy
-Settings
+Composer:
+
+[ + ] [ Message NOVA… ] [ mic ] [ send ]
 
 
 # =====================================================================
-# 197. HOME SCREEN
+# 114. VOICE UI
 # =====================================================================
 
-Central orb.
+Voice screen primarily:
 
-Minimal greeting.
+ORB
+Listening / Thinking / Speaking
+small transcription
+mute
 
-Useful cards only:
-
-Active Missions
-Next Event
-Pending Approval
-Recent Project
-System Status
+No huge technical setup boxes.
 
 
 # =====================================================================
-# 198. CHAT / VOICE SWITCH
+# 115. DYNAMIC GREETING
 # =====================================================================
 
-Use premium glass segmented control:
+Use local system time.
 
-CHAT | VOICE
+Good morning
+Good afternoon
+Good evening
+Good night
 
-
-# =====================================================================
-# 199. CHAT UI
-# =====================================================================
-
-Minimal.
-
-Transparent message bubbles.
-
-Lots of breathing room.
-
-Floating composer.
+or natural configured Sinhala.
 
 
 # =====================================================================
-# 200. MESSAGE COMPOSER
+# 116. UI ACCENT SELECTOR
 # =====================================================================
 
-+ attachment
-text input
-microphone
-send
+Small appearance selector.
 
-Send button:
+Options such as:
 
-blue/cyan
-soft glow
+Ice Blue
+Cyan
+Ocean
+Silver
+Lavender
+Mint
 
+Accent only.
 
-# =====================================================================
-# 201. VOICE UI
-# =====================================================================
-
-Large orb.
-
-Status:
-
-Listening
-Thinking
-Working
-Speaking
-
-Live transcription.
-
-Mic control.
-
-Stop control.
+Do not recolor entire UI aggressively.
 
 
 # =====================================================================
-# 202. UI HONESTY
+# 117. NO VISIBLE TERMINAL
 # =====================================================================
 
-If backend not connected:
+Normal NOVA startup:
 
-show:
+NOVA UI ONLY.
 
-DISCONNECTED
-COMING SOON
-NOT CONNECTED
+No visible:
 
-Do not create fake functionality.
+CMD
+PowerShell
+Windows Terminal
+Python console
 
+Use proper hidden/background process configuration.
 
-# =====================================================================
-# 203. MISSIONS UI
-# =====================================================================
-
-Running
-Queued
-Waiting for You
-Completed
-
-Show:
-
-title
-agent
-progress
-priority
-elapsed time
-verification
+Capture logs internally.
 
 
 # =====================================================================
-# 204. PROJECTS UI
+# 118. BACKGROUND SERVICE / LAUNCHER
 # =====================================================================
 
-Project cards:
+Choose correct implementation for current stack:
 
-name
-type
-status
-progress
-last activity
-next milestone
+GUI subsystem
+background service
+pythonw
+CREATE_NO_WINDOW
+packaged executable
+hidden child processes
 
-
-# =====================================================================
-# 205. AGENTS UI
-# =====================================================================
-
-Show:
-
-name
-status
-current mission
-reliability
-permission summary
+No terminal flash hacks.
 
 
 # =====================================================================
-# 206. MEMORY UI
+# 119. SYSTEM TRAY
 # =====================================================================
 
-Preferences
-Projects
-People
-Devices
-Workflows
-Important Memories
-
-Never display secrets as normal memory.
-
-
-# =====================================================================
-# 207. AUTOMATIONS UI
-# =====================================================================
-
-Human-readable rules.
-
-Example:
-
-Every night
-→ Backup NOVA
-
-
-# =====================================================================
-# 208. INTEGRATIONS UI
-# =====================================================================
-
-Status chips:
-
-CONNECTED
-DISCONNECTED
-DEGRADED
-AUTH EXPIRED
-MOCK
-LOCAL
-
-
-# =====================================================================
-# 209. PRIVACY UI
-# =====================================================================
-
-Show:
-
-Privacy Mode
-Cloud Access
-Local-Only
-Protected Apps
-Protected Folders
-Recent Egress
-
-
-# =====================================================================
-# 210. APPROVAL UI
-# =====================================================================
-
-Important action modal shows:
-
-ACTION
-TARGET
-COST
-DATA LEAVING DEVICE
-REVERSIBILITY
-
-Buttons:
-
-Cancel
-Approve Once
-Approve
-
-
-# =====================================================================
-# 211. SETTINGS
-# =====================================================================
-
-General
-Appearance
-Voice
-Sinhala
-Personality
-Privacy
-Memory
-Permissions
-Models
-APIs
-Integrations
-Automations
-Notifications
-Developer
-Updates
-
-
-# =====================================================================
-# 212. UI APPEARANCE OPTIONS
-# =====================================================================
-
-Glass intensity
-Transparency
-Blur
-Animation
-Orb effects
-Scale
-
-Default:
-
-NOVA GLASS WHITE
-
-
-# =====================================================================
-# 213. RESPONSIVENESS
-# =====================================================================
-
-Test at:
-
-1366×768
-1920×1080
-2560×1440
-
-Support smaller resizable windows.
-
-
-# =====================================================================
-# 214. ACCESSIBILITY
-# =====================================================================
-
-Good contrast
-keyboard navigation
-focus state
-tooltips
-UI scaling
-reduced motion
-Sinhala Unicode rendering
-
-
-# =====================================================================
-# 215. GLOBAL OVERLAY
-# =====================================================================
-
-Hotkey summons compact NOVA overlay:
-
-orb
-input
-mic
-close
-
-
-# =====================================================================
-# 216. SYSTEM TRAY
-# =====================================================================
+Tray:
 
 Open NOVA
-Mute
-Pause Automations
-Resume
+Mute Voice
+Pause Autonomous Work
 Privacy Mode
 Emergency Stop
 Exit
 
 
 # =====================================================================
-# 217. DESKTOP UI ↔ CORE ARCHITECTURE
+# 120. GLOBAL QUICK OVERLAY
 # =====================================================================
 
-UI
-↓
-UI Service Layer
-↓
-NOVA Core
-↓
-Mission / Agent / Tool Layer
-↓
-Event Bus
-↓
-UI Updates
+Optional hotkey:
 
+small NOVA orb
+input
+mic
 
-# =====================================================================
-# 218. UI EVENTS
-# =====================================================================
-
-MISSION_STARTED
-MISSION_PROGRESS
-MISSION_COMPLETED
-MISSION_FAILED
-VOICE_LISTENING
-VOICE_THINKING
-VOICE_SPEAKING
-APPROVAL_REQUIRED
-INTEGRATION_CHANGED
-PRIVACY_CHANGED
-
-
-# =====================================================================
-# 219. STREAMING CHAT
-# =====================================================================
-
-Use response streaming when provider supports it.
-
-
-# =====================================================================
-# 220. NO DEAD UI BUTTONS
-# =====================================================================
-
-Every button:
-
-WORKS
-
-or is visibly:
-
-DISABLED
-COMING SOON
-NOT CONNECTED
-
-
-# =====================================================================
-# 221. FIRST-LAUNCH SETUP
-# =====================================================================
-
-Simple setup wizard:
-
-language
-voice
-privacy
-startup behavior
-AI providers
-optional integrations
-project folders
-
-Do not ask dozens of questions.
-
-
-# =====================================================================
-# 222. SECURE PROVIDER SETUP
-# =====================================================================
-
-Create secure UI to add API credentials.
-
-Do NOT ask owner to put keys into source code.
-
-Show only:
-
-Provider — Connected
-
-Never full key.
-
-
-# =====================================================================
-# 223. PHONE COMPANION — FUTURE
-# =====================================================================
-
-Architecture should support:
-
-chat
-voice
-approvals
-mission status
-notifications
-secure remote commands
-calling bridge
-
-
-# =====================================================================
-# 224. MULTI-DEVICE FUTURE
-# =====================================================================
-
-Potential nodes:
-
-main PC
-laptop
-phone
-home server
-GPU node
-
-Main NOVA remains owner-controlled.
-
-
-# =====================================================================
-# 225. REMOTE ACCESS
-# =====================================================================
-
-Only if explicitly enabled.
-
-Require:
-
-authentication
-encryption
-device pairing
-
-No unauthenticated open control ports.
-
-
-# =====================================================================
-# 226. REPOSITORY STRUCTURE
-# =====================================================================
-
-Prefer structure similar to:
-
-NOVA/
-  README.md
-  AGENTS.md
-  .gitignore
-  .env.example
-
-  docs/
-    NOVA_MASTER_SPEC.md
-    PROJECT_STATUS.md
-    architecture/
-    adr/
-    privacy/
-    security/
-    user-guide/
-    developer-guide/
-
-  apps/
-    desktop/
-
-  services/
-    core/
-    voice/
-    tool_gateway/
-
-  packages/
-    agents/
-    missions/
-    memory/
-    context/
-    permissions/
-    privacy/
-    policies/
-    events/
-    scheduler/
-    models/
-    integrations/
-    capabilities/
-    common/
-
-  tools/
-    windows/
-    browser/
-    files/
-    office/
-    media/
-
-  integrations/
-  skills/
-  plugins/
-
-  tests/
-    unit/
-    integration/
-    e2e/
-    security/
-    privacy/
-    recovery/
-    ui/
-
-  config/
-  migrations/
-  scripts/
-
-Do not restructure blindly if existing repository already has a good architecture.
-
-
-# =====================================================================
-# 227. ARCHITECTURE STYLE
-# =====================================================================
-
-Prefer modular monolith initially.
-
-Avoid premature microservices.
-
-
-# =====================================================================
-# 228. TECHNOLOGY BASELINE
-# =====================================================================
-
-Use technologies appropriate to existing code.
-
-Reasonable baseline:
-
-Python — orchestration/backend
-TypeScript/React or appropriate desktop technology — UI
-SQLite initially
-secure OS credential storage
-Playwright — browser
-Windows UI Automation/native APIs
-Git
-local IPC
-
-Document major deviations with ADR.
-
-
-# =====================================================================
-# 229. AGENTS.md
-# =====================================================================
-
-Maintain permanent engineering instructions:
-
-product vision
-architecture
-security rules
-privacy rules
-coding conventions
-testing
-directory layout
-non-negotiables
-
-
-# =====================================================================
-# 230. PROJECT_STATUS.md
-# =====================================================================
-
-Maintain:
-
-current version
-working features
-partial features
-blocked features
-known issues
-last completed work
-current milestone
-next tasks
-
-
-# =====================================================================
-# 231. ADR
-# =====================================================================
-
-Use Architecture Decision Records for important technical decisions.
-
-
-# =====================================================================
-# 232. DEVELOPMENT SESSION WORKFLOW
-# =====================================================================
-
-Every Codex development session:
-
-1. Inspect repository.
-2. Read AGENTS.md.
-3. Read docs/NOVA_MASTER_SPEC.md.
-4. Read PROJECT_STATUS.md.
-5. Inspect recent code.
-6. Inspect tests.
-7. Determine highest-value incomplete milestone.
-8. Create internal plan.
-9. Implement a working vertical slice.
-10. Run tests.
-11. Fix failures.
-12. Run actual application when relevant.
-13. Verify behavior.
-14. Update docs.
-15. Create safe checkpoint/commit.
-16. Continue if possible.
-
-
-# =====================================================================
-# 233. DO NOT STOP AT SCAFFOLDING
-# =====================================================================
-
-Folder structure != completion.
-
-Stub != completion.
-
-Mock != real integration.
-
-Unexecuted code != verified.
-
-A TODO != working feature.
-
-
-# =====================================================================
-# 234. DEFINITION OF DONE
-# =====================================================================
-
-Feature is DONE only when:
-
-implemented
-integrated
-tested
-verified
-error handling exists
-security considered
-privacy considered
-documentation updated
-
-
-# =====================================================================
-# 235. TEST STRATEGY
-# =====================================================================
-
-Unit
-Integration
-End-to-End
-Recovery
-Security
-Privacy
-Performance
-Regression
-UI
-Agent Evaluations
-
-
-# =====================================================================
-# 236. ACCEPTANCE TEST — MULTI-MISSION
-# =====================================================================
-
-Owner provides many tasks.
-
-Independent missions run concurrently.
-
-
-# =====================================================================
-# 237. ACCEPTANCE TEST — FAILURE ISOLATION
-# =====================================================================
-
-One task fails.
-
-Others continue.
-
-
-# =====================================================================
-# 238. ACCEPTANCE TEST — REBOOT
-# =====================================================================
-
-NOVA restarts.
-
-Mission state recovers safely.
-
-
-# =====================================================================
-# 239. ACCEPTANCE TEST — SECRET
-# =====================================================================
-
-Secret data cannot accidentally enter logs/cloud/context.
-
-
-# =====================================================================
-# 240. ACCEPTANCE TEST — PAYMENT
-# =====================================================================
-
-Pizza cart may be prepared.
-
-Financial commitment follows policy.
-
-
-# =====================================================================
-# 241. ACCEPTANCE TEST — DELETE
-# =====================================================================
-
-Permanent destructive operation requires correct approval.
-
-
-# =====================================================================
-# 242. ACCEPTANCE TEST — DUPLICATE SEND
-# =====================================================================
-
-Retry does not send the same message twice.
-
-
-# =====================================================================
-# 243. ACCEPTANCE TEST — PROMPT INJECTION
-# =====================================================================
-
-A malicious website/document cannot override NOVA policy.
-
-
-# =====================================================================
-# 244. ACCEPTANCE TEST — EMERGENCY STOP
-# =====================================================================
-
-“Nova emergency stop”
-
-halts controllable mission activity safely.
-
-
-# =====================================================================
-# 245. ACCEPTANCE TEST — MEMORY
-# =====================================================================
-
-Preference retrieval works.
-
-Old inferred memory cannot override new explicit instruction.
-
-
-# =====================================================================
-# 246. ACCEPTANCE TEST — PC
-# =====================================================================
-
-NOVA can:
-
-open a test application
-verify window
-close it safely
-
-
-# =====================================================================
-# 247. ACCEPTANCE TEST — PRESENTATION
-# =====================================================================
-
-NOVA creates a real PPTX and verifies it.
-
-
-# =====================================================================
-# 248. ACCEPTANCE TEST — WEB
-# =====================================================================
-
-NOVA opens browser, navigates and verifies target page.
-
-
-# =====================================================================
-# 249. ACCEPTANCE TEST — IMAGE EDIT
-# =====================================================================
-
-NOVA receives an image:
-
-preserves original
-creates edited version
-verifies output
-
-
-# =====================================================================
-# 250. ACCEPTANCE TEST — VIDEO EDIT
-# =====================================================================
-
-NOVA receives test video:
-
-performs requested edit
-preserves original
-exports playable file
-
-
-# =====================================================================
-# 251. ACCEPTANCE TEST — EDUCATION
-# =====================================================================
+Same UI language.
 
-Grade 10 source creates original advanced O/L-style practice paper.
 
-
-# =====================================================================
-# 252. ACCEPTANCE TEST — UI
-# =====================================================================
-
-NOVA launches with:
-
-white transparent glass
-orb
-Home
-Chat
-Voice
-Missions
-Projects
-Agents
-Memory
-Privacy
-Settings
-
-
-# =====================================================================
-# 253. ACCEPTANCE TEST — UI RESIZE
-# =====================================================================
-
-No major clipping at:
-
-1366×768
-1920×1080
-2560×1440
-
-
-# =====================================================================
-# 254. ACCEPTANCE TEST — SINHALA
-# =====================================================================
-
-UI correctly displays Sinhala text.
-
-Voice architecture supports Sinhala-first path.
-
-
-# =====================================================================
-# 255. ACCEPTANCE TEST — CAPABILITY GENERALIZATION
-# =====================================================================
-
-System must handle paraphrases.
-
-Example:
-
-“Make this photo better.”
-
-“Fix this picture.”
-
-“Clean up this image.”
-
-should map to the same capability family without exact-string coding.
-
-
-# =====================================================================
-# 256. ACCEPTANCE TEST — CAPABILITY COMPOSITION
-# =====================================================================
-
-Command:
-
-“Edit these images, make a presentation and prepare an email.”
-
-must compose multiple agents/tools.
-
-
-# =====================================================================
-# 257. ACCEPTANCE TEST — OFFLINE
-# =====================================================================
-
-Local file and PC work continue where possible without internet.
-
-
-# =====================================================================
-# 258. ACCEPTANCE TEST — PROVIDER FAILURE
-# =====================================================================
-
-Provider failure does not destroy mission state.
-
-
-# =====================================================================
-# 259. INSTALLER
-# =====================================================================
-
-Long-term target:
-
-NOVA-Setup.exe
-
-Installer should:
-
-check prerequisites
-install runtime
-initialize database
-configure secure storage
-create shortcuts
-optionally enable startup
-launch setup wizard
-
-
-# =====================================================================
-# 260. ONE-COMMAND OPERATIONS
-# =====================================================================
-
-Support commands such as:
-
-“Nova check yourself.”
-
-“Nova privacy audit.”
-
-“Nova security audit.”
-
-“Nova summarize today.”
-
-“Nova night mode.”
-
-“Nova restore my workspace.”
-
-“Nova what failed?”
-
-“Nova what are you doing?”
-
-“Nova what is waiting for me?”
-
-“Nova pause everything.”
-
-“Nova continue.”
-
-
-# =====================================================================
-# 261. EXAMPLE OWNER COMMANDS — TEST CASES ONLY
-# =====================================================================
-
-The following are behavioral examples, NOT the full capability list:
-
-“Nova order pizza.”
-
-“Nova call Mom.”
-
-“Nova call Pizza Hut and ask for my requirements.”
-
-“Nova write a simple game.”
-
-“Nova create a crazy website.”
-
-“Nova host the website.”
-
-“Nova create a high-graphics sci-fi game based on my requirements.”
-
-“Nova open WhatsApp and send Sasmitha hi.”
-
-“Nova delete these chats.”
-
-“Nova make a cats presentation and save it to Downloads.”
-
-“Nova fill this application on my screen.”
-
-“Nova enter this data into PowerPoint.”
-
-“Nova open YouTube and play the latest video from SL Dragon Warrior.”
-
-“Nova remember this preference.”
-
-“Nova remember my Wi-Fi password securely.”
-
-“Nova edit this photo.”
-
-“Nova edit this video.”
-
-“Nova make an O/L target History paper using this Grade 10 paper.”
-
-“Nova continue my project.”
-
-“Nova fix this error.”
-
-“Nova open Blender and continue the scene.”
-
-“Nova I'm tired.”
-
-“Nova play my favorite music.”
-
-“Nova mama nidagannawa, me wada tika finish karanna.”
-
-Again:
-
-THESE ARE TEST CASES.
-
-THEY ARE NOT THE LIMITS OF NOVA.
-
-
-# =====================================================================
-# 262. CURRENT DEVELOPMENT PRIORITY
-# =====================================================================
-
-When this specification is first supplied to the existing repository:
-
-FIRST inspect the actual current project.
-
-Do NOT blindly rebuild.
-
-Determine what already works.
-
-Then prioritize a coherent usable vertical slice.
-
-If the UI is still incomplete, current priority is:
-
-1. Preserve current NOVA backend.
-2. Build premium white transparent glass desktop shell.
-3. Connect real chat/core functionality.
-4. Add Home.
-5. Add Chat.
-6. Add Voice UI states.
-7. Add Missions.
-8. Add Projects.
-9. Add Agents.
-10. Add Memory.
-11. Add Privacy.
-12. Add Settings.
-13. Add integration state UI.
-14. Run.
-15. Fix.
-16. Test.
-17. Verify.
-
-
-# =====================================================================
-# 263. DEVELOPMENT PHASE 1 — FOUNDATION
-# =====================================================================
-
-Core
-event bus
-configuration
-logging
-agent interface
-tool interface
-mission models
-privacy model
-permission model
-basic tests
-
-
-# =====================================================================
-# 264. DEVELOPMENT PHASE 2 — MEMORY / WORLD MODEL
-# =====================================================================
-
-memory stores
-project memory
-preferences
-context engine
-workspace recovery
-
-
-# =====================================================================
-# 265. DEVELOPMENT PHASE 3 — UI
-# =====================================================================
-
-Premium NOVA Glass interface.
-
-Real backend connection.
-
-
-# =====================================================================
-# 266. DEVELOPMENT PHASE 4 — WINDOWS TOOLS
-# =====================================================================
-
-app launching
-file operations
-system information
-Windows UI automation
-safe shell
-
-
-# =====================================================================
-# 267. DEVELOPMENT PHASE 5 — BROWSER / RESEARCH
-# =====================================================================
-
-browser agent
-research
-downloads
-web extraction
-
-
-# =====================================================================
-# 268. DEVELOPMENT PHASE 6 — AUTONOMY
-# =====================================================================
-
-scheduler
-parallel workers
-mission persistence
-recovery
-overnight mode
-
-
-# =====================================================================
-# 269. DEVELOPMENT PHASE 7 — VOICE
-# =====================================================================
-
-Sinhala STT
-Sinhala TTS
-mixed speech
-wake word
-barge-in
-
-
-# =====================================================================
-# 270. DEVELOPMENT PHASE 8 — OFFICE
-# =====================================================================
-
-Word
-Excel
-PowerPoint
-PDF
-
-
-# =====================================================================
-# 271. DEVELOPMENT PHASE 9 — COMMUNICATION
-# =====================================================================
-
-email
-calendar
-messaging
-calling
-
-
 # =====================================================================
-# 272. DEVELOPMENT PHASE 10 — MEDIA
+# 121. FEATURE HONESTY
 # =====================================================================
-
-image
-video
-audio
-multimodal pipelines
-
-
-# =====================================================================
-# 273. DEVELOPMENT PHASE 11 — SOFTWARE / SELF-IMPROVEMENT
-# =====================================================================
-
-coding agent
-debugger
-skill factory
-controlled self-improvement
-
-
-# =====================================================================
-# 274. DEVELOPMENT PHASE 12 — EDUCATION
-# =====================================================================
-
-study agent
-target papers
-revision
-study memory
-
-
-# =====================================================================
-# 275. DEVELOPMENT PHASE 13 — CREATIVE / 3D
-# =====================================================================
-
-3D
-image
-audio
-video creative pipelines
-
-
-# =====================================================================
-# 276. DEVELOPMENT PHASE 14 — GAME STUDIO
-# =====================================================================
-
-long-term game development
-engine adapters
-asset pipeline
-build pipeline
-
-
-# =====================================================================
-# 277. DEVELOPMENT PHASE 15 — SMART HOME
-# =====================================================================
-
-device registry
-scenes
-automation
-
-
-# =====================================================================
-# 278. DEVELOPMENT PHASE 16 — CCTV
-# =====================================================================
-
-authorized camera monitoring
-events
-privacy
-
-
-# =====================================================================
-# 279. DEVELOPMENT PHASE 17 — SECURITY
-# =====================================================================
-
-authorized defensive security tools
-
-
-# =====================================================================
-# 280. DEVELOPMENT PHASE 18 — PRODUCTION HARDENING
-# =====================================================================
-
-installer
-backup
-restore
-updates
-recovery
-performance
-security review
-privacy review
-evaluations
-
-
-# =====================================================================
-# 281. WORK CONTINUATION RULE
-# =====================================================================
-
-After completing a vertical slice:
-
-run tests
-verify
-update PROJECT_STATUS
-checkpoint
-
-Then move to the next highest-value incomplete milestone.
-
-Do not wait for the owner after every minor step.
-
-
-# =====================================================================
-# 282. NO ENDLESS PLANNING
-# =====================================================================
-
-Do not spend the whole session writing architecture documents.
 
 Use:
 
-BUILD
+NOT_STARTED
+DESIGNING
+IMPLEMENTING
+PARTIAL
+EXPERIMENTAL
+WORKING
+STABLE
+BLOCKED
+
+Never fake:
+
+voice connected
+AI connected
+app opened
+message sent
+call made
+website deployed
+file created
+test passed
+
+
+# =====================================================================
+# 122. ACCEPTANCE TESTS — CORE
+# =====================================================================
+
+Verify:
+
+NOVA launches
+no terminal
+Chat works
+local commands work
+app resolver works
+YouTube opens
+Gemini opens/fallback works
+dynamic greeting
+Voice auto-listen
+Voice exits cleanly
+Emergency Stop
+memory read/write
+file task
+browser task
+
+
+# =====================================================================
+# 123. ACCEPTANCE TESTS — VISION
+# =====================================================================
+
+Test:
+
+screenshot understanding
+visible button detection
+simple form understanding
+error-dialog reading
+post-click verification
+private-window exclusion
+
+
+# =====================================================================
+# 124. ACCEPTANCE TESTS — MULTI-DEVICE
+# =====================================================================
+
+Use controlled test nodes.
+
+Test:
+
+pair device
+heartbeat
+capability discovery
+remote safe command
+remote app launch
+job routing
+file transfer
+disconnect
+revocation
+unauthorized command rejection
+
+
+# =====================================================================
+# 125. ACCEPTANCE TESTS — MEDIA
+# =====================================================================
+
+Image:
+preserve original
+edit
+verify output
+
+Video:
+edit
+export
+verify playable output
+
+
+# =====================================================================
+# 126. ACCEPTANCE TESTS — OFFICE
+# =====================================================================
+
+Create real PPTX
+create real XLSX
+verify files open
+
+
+# =====================================================================
+# 127. ACCEPTANCE TESTS — RECOVERY
+# =====================================================================
+
+Crash process
+restart
+recover mission state
+do not duplicate external effects
+
+
+# =====================================================================
+# 128. ACCEPTANCE TESTS — SECURITY
+# =====================================================================
+
+Secret does not enter logs.
+
+Unpaired device cannot execute commands.
+
+External web content cannot override policy.
+
+Permanent delete policy enforced.
+
+
+# =====================================================================
+# 129. CONTINUOUS DEVELOPMENT LOOP
+# =====================================================================
+
+After every vertical slice:
+
+RUN TESTS
 ↓
-TEST
+FIX
 ↓
-USE
+VERIFY
 ↓
-MEASURE
+UPDATE REQUIREMENT MATRIX
 ↓
-IMPROVE
+UPDATE PROJECT_STATUS
+↓
+CREATE CHECKPOINT
+↓
+SELECT NEXT DEPENDENCY-READY HIGH-VALUE FEATURE
+↓
+CONTINUE
+
+Do NOT wait for owner between ordinary engineering milestones.
 
 
 # =====================================================================
-# 283. NO OWNER CODING
+# 130. PRIORITY ORDER FROM CURRENT BUILD
 # =====================================================================
 
-Do NOT ask owner to:
+CURRENT SCREENSHOTS SHOW THAT THE APP IS NOT YET FULL NOVA.
 
-write code
-edit CSS
-modify Python
-resolve imports
-install individual packages manually
-fix database schema manually
+Observed symptoms include:
 
-Perform normal development work yourself.
+- Free-form AI not connected
+- Voice disconnected
+- local command routing incomplete
+- app resolution incomplete
+- UI still exposes technical states
 
+Therefore current implementation priority is:
 
-# =====================================================================
-# 284. OWNER APPROVAL SHOULD BE RARE AND MEANINGFUL
-# =====================================================================
+P0. Stabilize current repo and tests.
 
-Ask only when owner input actually matters.
+P1. Real local Windows command router.
 
-Do not ask:
+P2. General application resolver.
 
-“Should I run tests?”
+P3. Secure AI Provider Hub + provider setup UI.
 
-“Should I inspect logs?”
+P4. Connect at least one real reasoning/chat provider through secure credentials.
 
-“Should I create a class?”
+P5. Implement Computer Vision gateway + screenshot understanding.
 
-“Should I retry?”
+P6. Implement real Voice pipeline architecture and auto-listen state.
 
-Those are engineering decisions.
+P7. Simplify daily UI.
 
+P8. Mission persistence + background worker.
 
-# =====================================================================
-# 285. FINAL AUTONOMY PRINCIPLE
-# =====================================================================
+P9. Memory + project continuation.
 
-NOVA independently handles everything that can safely,
-reliably and legally be handled.
+P10. Browser Agent.
 
-It asks the owner only for genuinely owner-level decisions.
+P11. Office tools.
 
+P12. Device Mesh foundation.
 
-# =====================================================================
-# 286. FINAL GENERALIZATION PRINCIPLE
-# =====================================================================
+P13. Pair second controlled PC test node.
 
-NOVA understands GOALS.
+P14. Media Studio.
 
-NOVA does not memorize fixed commands.
+P15. Communication integrations.
 
-NOVA composes CAPABILITIES.
+P16. Skill Factory.
 
-NOVA discovers TOOLS.
+P17. Game/3D/Education expansions.
 
-NOVA can gain legitimate new capabilities without a Core rewrite.
+Do not build P17 while P1-P6 are fake or broken.
 
 
 # =====================================================================
-# 287. FINAL PRIVACY PRINCIPLE
+# 131. DO NOT CREATE A DEMO-ONLY JARVIS
 # =====================================================================
 
-Private owner data belongs to the owner.
+The objective is not a YouTube-style visual demo.
 
-Use minimum necessary data.
+Do not prioritize fake animations over real capabilities.
 
-Prefer local processing.
+UI polish matters,
+but actual execution matters more.
 
-Never leak secrets.
+A button that looks beautiful but does nothing is NOT a feature.
 
+A voice orb with no functioning voice system is NOT voice capability.
 
-# =====================================================================
-# 288. FINAL RELIABILITY PRINCIPLE
-# =====================================================================
-
-NOVA must:
-
-verify
-checkpoint
-recover
-retry intelligently
-rollback when possible
-never fake completion
+A “Computer Vision” page without a real vision pipeline is NOT computer vision.
 
 
 # =====================================================================
-# 289. FINAL POWER PRINCIPLE
+# 132. DEFINITION OF DONE
 # =====================================================================
 
-NOVA's capability should come from:
+A feature is DONE only if:
 
-strong reasoning
-memory
-tools
-APIs
-local computer access
-multiple agents
-automation
-verification
-recovery
-extensibility
+implemented
+wired to real subsystem
+tested
+run
+verified
+failure handled
+security/privacy checked
+documented
 
-NOT dangerous unrestricted access.
+Mock/demo mode must be clearly labeled MOCK.
 
 
 # =====================================================================
-# 290. FINAL UI PRINCIPLE
+# 133. OWNER EXPERIENCE GOAL
 # =====================================================================
 
-NOVA's default interface must feel like:
+Examples of future legitimate usage:
 
-A premium futuristic personal AI
-inside a clean white transparent glass operating environment.
+“Nova, open Gemini.”
 
-White.
-Crystal.
-Ice blue.
-Cyan.
-Minimal.
-Elegant.
-Fast.
+“Nova, what is on my screen?”
 
+“Nova, fix this error.”
 
-# =====================================================================
-# 291. FINAL OWNER EXPERIENCE
-# =====================================================================
+“Nova, PC 2 eke Blender render eka run karanna.”
 
-The desired future interaction is:
+“Nova, edit this video.”
 
-OWNER:
-“Nova, handle this.”
+“Nova, make this PPTX.”
 
-NOVA:
-understands
-plans
-acts
-verifies
-finishes
-reports briefly.
+“Nova, continue my game.”
+
+“Nova, message Sasmitha hi.”
+
+“Nova, order my usual pizza.”
+
+“Nova, make an O/L target paper.”
+
+“Nova, I am going to sleep. Finish these tasks.”
+
+These are examples only.
+
+NOVA must generalize beyond them.
 
 
 # =====================================================================
-# 292. FINAL MASTER BUILD COMMAND
+# 134. FINAL AUTONOMY RULE
 # =====================================================================
 
-YOU ARE NOT HERE TO ONLY DESCRIBE NOVA.
+Maximum practical autonomy:
 
-YOU ARE RESPONSIBLE FOR BUILDING IT.
+SAFE
+AUTHORIZED
+VERIFIABLE
+RECOVERABLE
 
-NOW:
+Never equate autonomy with uncontrolled behavior.
 
-1. Inspect the current repository.
 
-2. Read:
-   AGENTS.md
-   docs/NOVA_MASTER_SPEC.md if present
-   docs/PROJECT_STATUS.md
-   README.md
-   tests
-   current source code.
+# =====================================================================
+# 135. FINAL BUILD COMMAND
+# =====================================================================
 
-3. Preserve all verified working functionality.
+NOW STOP PRODUCING ONLY ARCHITECTURE DISCUSSION.
 
-4. Compare current implementation against this master specification.
+INSPECT THE REAL REPOSITORY.
 
-5. Update docs/NOVA_MASTER_SPEC.md with this specification.
+RUN THE REAL APP.
 
-6. Produce or update a requirement/status matrix.
+IDENTIFY WHAT IS ACTUALLY WORKING.
 
-7. Identify the highest-value incomplete vertical slice.
+IMPLEMENT THE PRIORITY ORDER ABOVE.
 
-8. Implement it.
+DO NOT DELETE WORKING FEATURES.
 
-9. Run the code.
+DO NOT ADD FAKE BUTTONS.
 
-10. Run tests.
+DO NOT HARD-CODE A TINY COMMAND LIST.
 
-11. Diagnose failures.
+DO NOT HARD-CODE API KEYS.
 
-12. Fix failures.
+BUILD REAL COMPUTER VISION.
 
-13. Verify real behavior.
+BUILD REAL LOCAL PC CONTROL.
 
-14. Update documentation.
+BUILD SECURE MULTI-DEVICE NOVA NODE MESH.
 
-15. Save a safe Git checkpoint.
+BUILD REAL PROVIDER CONNECTIONS.
 
-16. Continue to the next useful milestone when possible.
+BUILD REAL VOICE ARCHITECTURE.
 
-DO NOT STOP AT SCAFFOLDING.
+KEEP THE UI SIMPLE.
 
-DO NOT RETURN ONLY A PLAN.
+TEST EVERYTHING.
 
-DO NOT FAKE INTEGRATIONS.
+VERIFY EVERYTHING.
 
-DO NOT FAKE SUCCESS.
+CONTINUE AUTOMATICALLY THROUGH THE ROADMAP.
 
-DO NOT ASK THE OWNER TO WRITE CODE.
+The target system is:
 
-DO NOT HARD-CODE EXAMPLE COMMANDS.
+NOVA
+=
+PRIVATE PERSONAL AI
++
+SINHALA-FIRST VOICE
++
+COMPUTER VISION
++
+WINDOWS CONTROL
++
+MULTI-DEVICE CONTROL
++
+MEMORY
++
+MULTI-AGENT ORCHESTRATION
++
+BROWSER
++
+OFFICE
++
+MEDIA
++
+SOFTWARE FACTORY
++
+GAME / 3D STUDIO
++
+EDUCATION
++
+SMART HOME
++
+AUTHORIZED SECURITY
++
+SKILL FACTORY
++
+RECOVERY
++
+AUDIT
++
+PREMIUM SIMPLE WHITE-GLASS UI
 
-DO NOT HARD-CODE SECRETS.
+BEGIN IMPLEMENTATION NOW.
 
-DO NOT BREAK WORKING FEATURES JUST TO REWRITE THEM.
+## Preserved requirements and consolidation
 
-BUILD NOVA AS A REAL LONG-TERM SOFTWARE PROJECT.
-
-The ultimate target is:
-
-# NOVA
-## PRIVATE
-## LOCAL-FIRST
-## SINHALA-FIRST
-## VOICE-FIRST
-## WINDOWS-NATIVE
-## MULTIMODAL
-## MULTI-AGENT
-## HIGHLY AUTONOMOUS
-## EXTENSIBLE
-## SELF-IMPROVING UNDER CONTROL
-## RECOVERABLE
-## AUDITABLE
-## SECURE
-## PREMIUM WHITE-GLASS
-## PERSONAL AI OPERATING SYSTEM
-
-BEGIN BY INSPECTING THE EXISTING REPOSITORY NOW.
+This v10 document is canonical. The [v8 specification](spec/NOVA_V8_MASTER_SPEC.md), [glass mission](spec/NOVA_UI_GLASS_MISSION.md), and [Advanced Expansion Pack](spec/NOVA_ADVANCED_EXPANSION.md) remain additive requirements wherever not superseded by v10. In particular, the 132 expansion records retain their IDs and evidence in [expansion traceability](EXPANSION_TRACEABILITY.md). v10 section 110 supersedes the old always-visible 13-item sidebar; internal pages remain available under Settings. Vision and the authenticated device mesh are core product requirements, not claims of installed functionality. See [current requirement matrix](REQUIREMENT_MATRIX.md), [future roadmap](FUTURE_ROADMAP.md), and [project status](PROJECT_STATUS.md).

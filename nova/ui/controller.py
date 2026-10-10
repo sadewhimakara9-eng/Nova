@@ -8,7 +8,10 @@ from datetime import datetime
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 APPEARANCE_DEFAULTS = {"glass": 65, "transparency": 60, "blur": 16, "animation": True,
-                       "orb_effects": True, "scale": 100, "performance": False}
+                       "orb_effects": True, "scale": 100, "performance": False, "accent": "Ice Blue"}
+ACCENTS = {"Ice Blue": "#1676ed", "Cyan": "#078aa0", "Ocean": "#256a9f",
+           "Silver": "#63798c", "Lavender": "#7862b3", "Mint": "#28876c"}
+PRIMARY_PAGES = ("Chat", "Voice", "Projects", "Memory", "Settings")
 PAGES = ("Home", "Chat", "Voice", "Missions", "Projects", "Agents", "Memory",
          "Automations", "Tools", "Integrations", "Devices", "Privacy", "Settings")
 ORB_STATES = ("idle", "listening", "thinking", "speaking", "working", "success",
@@ -21,6 +24,8 @@ def appearance_settings(values) -> dict:
     result = dict(APPEARANCE_DEFAULTS)
     if not isinstance(values, dict):
         return result
+    if isinstance(values.get('accent'), str) and values['accent'] in ACCENTS:
+        result['accent'] = values['accent']
     for key in ("animation", "orb_effects", "performance"):
         if isinstance(values.get(key), bool):
             result[key] = values[key]
@@ -59,10 +64,7 @@ def assistant_state(missions, stopped=False, mode="LOCAL_ONLY") -> AssistantStat
 
 def greeting(language="si", hour=None):
     if hour is None:
-        try:
-            hour = datetime.now(ZoneInfo("Asia/Colombo")).hour
-        except ZoneInfoNotFoundError:
-            hour = datetime.now().hour
+        hour = datetime.now().astimezone().hour
     if language == "si":
         return "සුභ උදෑසනක්." if 5 <= hour < 12 else "සුභ දවසක්." if 12 <= hour < 17 else "සුභ සන්ධ්‍යාවක්."
     return "Good morning." if 5 <= hour < 12 else "Good afternoon." if 12 <= hour < 17 else "Good evening."

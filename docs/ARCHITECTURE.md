@@ -68,3 +68,27 @@ On Windows, `scripts/desktop.py` opens the same local app in a standard framed p
 ## ADR 006: installed capabilities, not example-phrase limits
 
 `nova/capabilities.py` derives executable capability records from actual registered tools and authorized specialist scopes. The model planner receives input schema, permissions, verification methods and recent measured reliability. It may compose arbitrary supported tool steps for the owner's outcome. Unsupported essential capabilities produce a structured gap report with no mission submission. This is a working registry and bounded planning extension; automatic skill creation, sandboxed installation and live-model generalization evaluations are later milestones. Existing explicit slash commands are convenience shortcuts, not a claim of general language understanding.
+
+## ADR 007: discovery metadata cannot authorize execution
+
+`nova/catalog.py` combines the existing runtime registry with installed agent/provider descriptors and `feature_catalog.json`, which tracks all 132 additive requirements. Runtime tool availability reflects mode and stop state. Provider connections remain NOT_VERIFIED; no search triggers a network probe. Expansion records retain explicit implementation scope and REFERENCE_ONLY availability unless a corresponding local UI feature exists. The planner still receives only `core.capabilities()`, never roadmap features as executable tools. No plugin loader or arbitrary-code adapter installation is introduced.
+
+Coverage counts exclude governance sections 129–132. `scripts/sync_roadmap.py` generates the Markdown traceability matrix from the same records and supports a drift check. Status describes implementation scope, not a claim of current external availability. Future adapter registration must still meet tool schemas and authorized specialist scope.
+
+## ADR 008: explicit project decisions with optimistic revision checks
+
+The existing SQLite database gains an additive `decisions` table. Existing missions, settings and memories are preserved. `nova/decisions.py` stores owner-supplied project labels, decision, reason, alternatives, timestamps and revision. Core write methods apply mode and emergency-stop gates; updates/deletes match the expected revision so stale requests cannot overwrite later edits. Audit events contain fixed labels/counts only. Search is Unicode-aware and returns at most 100 records; results are local and never automatically included in a provider request.
+
+Project labels are not managed project IDs or inferred relationships. Edits preserve creation time but replace the current record; a full historical decision journal, semantic retrieval and named-project management remain future work. Logical deletion is not secure erasure of backups or SQLite pages.
+
+## ADR 009: deterministic local intent before provider setup
+
+The v10 canonical architecture prioritizes local Windows control. `local_commands.py` extracts arbitrary application names from English and Sinhala/Singlish launch grammar before any model selection or credential check. `windows_apps.py` discovers local App Paths, argument-free Start Menu shortcuts, packaged application identities and visible executables. It uses exact or clearly separated fuzzy matches and refuses ambiguity. The fixed PowerShell discovery script contains no interpolated owner input; launch uses argument arrays without a shell. A visible-window executable/AUMID match verifies native launch. Full PC control, focus/close, file/folder opening and unrestricted web navigation remain missing.
+
+Windows builds add a scoped desktop worker and two experimental tools. Website handoff only targets configured official Gemini/YouTube destinations in NORMAL mode. Installed exact application identities are preferred; OS browser dispatch alone leaves a BLOCKED mission with an unverified receipt. It is never reported as a loaded website or retried automatically. Interrupted launches are treated as uncertain writes. Tests mock Windows APIs; a real target-device run is still required.
+
+## ADR 010: five daily pages and optional GUI bootstrap
+
+Chat, Voice, Projects, Memory and Settings are the only primary sidebar pages. All existing Home/Missions/Agents/Tools/Integrations/Devices/Automations/Privacy workspaces remain reachable through Settings → Advanced and the internal quick finder. Six validated accent choices affect small selection/action accents rather than recoloring the workspace. Greeting uses host local time.
+
+`Start Nova.pyw` runs the existing bootstrap with hidden Windows child flags and local log redirection. Native window close still stops only its owned server. If GUI mode falls back to a browser, a visible session dialog owns shutdown; closing only the browser tab does not terminate the service. The diagnostic batch entry remains available. No tray service or global overlay is claimed. Full native/no-flash behavior is unverified on this Linux host.

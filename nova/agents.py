@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 from typing import Protocol
+import sys
 
 from .tools import ToolError, ToolRegistry
 
@@ -30,6 +31,8 @@ class AgentRegistry:
             ScopedAgent("file-agent", frozenset({"files.list", "files.read", "files.create"})),
             ScopedAgent("system-agent", frozenset({"system.info"})),
         )
+        if sys.platform == "win32":
+            self.agents += (ScopedAgent("desktop-agent", frozenset({"apps.open", "web.open"})),)
 
     def for_tool(self, tool: str) -> Agent:
         for agent in self.agents:

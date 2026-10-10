@@ -26,7 +26,9 @@ class PresentationTests(unittest.TestCase):
             try:
                 controller = UIController(core)
                 saved = controller.save_appearance({"glass": 80, "blur": 0, "performance": True,
-                                                    "api_key": "do-not-save", "scale": 100000})
+                                                    "api_key": "do-not-save", "scale": 100000, "accent": "Mint"})
+                self.assertEqual(saved['accent'], 'Mint')
+                self.assertEqual(appearance_settings({'accent': '<script>'})['accent'], 'Ice Blue')
                 self.assertEqual(saved["scale"], 100)
                 self.assertEqual(saved, controller.appearance())
                 self.assertNotIn("api_key", core.store.setting("ui.appearance"))
@@ -44,7 +46,7 @@ class PresentationTests(unittest.TestCase):
                 self.assertEqual(controller.external_activity(), [])
                 core.store.event("MODEL_RESPONSE", provider="groq")
                 self.assertEqual(len(controller.external_activity()), 1)
-                self.assertEqual(len(controller.agents()), 2)
+                self.assertEqual(len(controller.agents()), len(core.agents.agents))
                 self.assertEqual(controller.agents()[0]["reliability"], "Not measured yet")
             finally:
                 core.close()

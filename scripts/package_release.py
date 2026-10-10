@@ -6,7 +6,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 
 def release_files(root):
-    names = ("README.md", "AGENTS.md", ".gitignore", ".env.example", "Start Nova.bat",
+    names = ("README.md", "AGENTS.md", ".gitignore", ".env.example", "Start Nova.bat", "Start Nova.pyw",
              "start-nova.sh", "nova-requirements.txt", "nova-desktop-requirements.txt", "nova_app.py")
     files = [root / name for name in names]
     for folder in ("nova", "scripts", "tests", "docs"):
@@ -29,14 +29,14 @@ def check_release(root, files):
         relative = path.relative_to(root)
         if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
             raise ValueError(f"Release file escapes the checkout: {relative}")
-        if path.suffix in {".py", ".md", ".txt", ".example", ".bat", ".sh"}:
+        if path.suffix in {".py", ".pyw", ".json", ".md", ".txt", ".example", ".bat", ".sh"}:
             if token.search(path.read_text(encoding="utf-8")):
                 raise ValueError(f"Possible credential detected; release blocked: {relative}")
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", default="downloads/Nova-agent-v0.2.zip")
+    parser.add_argument("--output", default="downloads/Nova-agent-v0.3.zip")
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
     destination = root / args.output
@@ -51,6 +51,7 @@ def main():
         assert "Nova-agent/app.py" not in archive.namelist()
         assert "Nova-agent/nova/ui/glass.css" in archive.namelist()
         assert "Nova-agent/scripts/desktop.py" in archive.namelist()
+        assert "Nova-agent/nova/feature_catalog.json" in archive.namelist()
         print(f"Verified {destination.name}: {len(archive.namelist())} files; legacy source and runtime data excluded.")
 
 

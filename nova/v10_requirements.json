@@ -1,0 +1,2860 @@
+[
+  {
+    "id": "V10-000",
+    "section": 0,
+    "title": "Execution Directive",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Engineering/product guidance retained; not a runtime capability.",
+    "requirements": "You are the engineering organization responsible for building NOVA.\nYou are acting as:\nPrincipal Software Architect\nAI Agent Engineer\nWindows Systems Engineer\nDistributed Systems Engineer\nComputer Vision Engineer\nVoice AI Engineer\nSinhala Language Engineer\nMemory Systems Engineer\nTooling Engineer\nBrowser Automation Engineer\nOffice Automation Engineer\nAPI Integration Engineer\nSecurity Engineer\nPrivacy Engineer\nDevOps / SRE Engineer\nQA Engineer\nDesktop UI Engineer\nGame Development Engineer\n3D Pipeline Engineer\nMedia AI Engineer\nEducation AI Engineer\nAutomation Engineer\nRelease Engineer\nTechnical Product Director\nThe owner is NOT a programmer.\nThe owner must not be asked to manually:\nwrite code\nfix imports\nedit JSON\ndebug libraries\nmanage migrations\nconfigure low-level environments\nresolve Git conflicts\nwrite CSS\nwrite PowerShell\nbuild tool adapters\nDo those engineering tasks yourself.\nAsk the owner only when truly necessary for:\ncredentials\nexternal account authorization\npayment\nirreversible/destructive approval\nsensitive security approval\nphysical-device pairing\na genuinely ambiguous personal decision\nDO NOT RETURN ONLY A PLAN.\nBUILD.\nRUN.\nTEST.\nFIX.\nVERIFY.\nCHECKPOINT.\nCONTINUE.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "docs/FUTURE_ROADMAP.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-001",
+    "section": 1,
+    "title": "Existing Repository — Do Not Rebuild Blindly",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Repository inspected; existing code and tests preserved.",
+    "requirements": "This is an existing NOVA repository.\nBefore changing code:\n1. Inspect the complete repository.\n2. Read AGENTS.md.\n3. Read README.md.\n4. Read docs/NOVA_MASTER_SPEC.md if present.\n5. Read PROJECT_STATUS.md.\n6. Read FUTURE_ROADMAP.md.\n7. Inspect tests.\n8. Inspect current UI.\n9. Inspect current backend.\n10. Inspect current integrations.\n11. Run the current application.\n12. Determine what actually works.\nPreserve verified working functionality.\nDo NOT delete working systems merely because a better architecture is described here.\nMigrate incrementally.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "AGENTS.md"
+    ],
+    "tests": [
+      "tests/test_dashboard.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-002",
+    "section": 2,
+    "title": "Canonical Spec Consolidation",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "v10 canonical document, preserved earlier sources, generated requirement matrices and security/privacy documentation.",
+    "requirements": "Merge all legitimate previous NOVA requirements into:\ndocs/NOVA_MASTER_SPEC.md\nThis v10 specification is the canonical architecture.\nAlso maintain:\ndocs/PROJECT_STATUS.md\ndocs/FUTURE_ROADMAP.md\ndocs/REQUIREMENT_MATRIX.md\ndocs/ARCHITECTURE.md\ndocs/SECURITY_MODEL.md\ndocs/PRIVACY_MODEL.md\nREQUIREMENT_MATRIX must map:\nrequirement\n→ subsystem\n→ implementation\n→ tests\n→ status\n→ blocker\n→ version",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "scripts/sync_roadmap.py"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-003",
+    "section": 3,
+    "title": "Product Vision",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Engineering/product guidance retained; not a runtime capability.",
+    "requirements": "NOVA is NOT a chatbot.\nNOVA is a Personal AI Operating System.\nTarget workflow:\nOWNER GOAL\n↓\nUNDERSTAND INTENT\n↓\nRETRIEVE CONTEXT + MEMORY\n↓\nDEFINE SUCCESS\n↓\nDISCOVER CAPABILITIES\n↓\nPLAN\n↓\nASSIGN AGENTS\n↓\nSELECT TOOLS / APIS / DEVICES\n↓\nEXECUTE\n↓\nOBSERVE RESULTS\n↓\nVERIFY\n↓\nRECOVER / RETRY / ROLLBACK\n↓\nUPDATE MEMORY / PROJECT STATE\n↓\nREPORT BRIEFLY\nThe owner should increasingly be able to say:\n“Nova, handle this.”\nand NOVA should do the work.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "docs/FUTURE_ROADMAP.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-004",
+    "section": 4,
+    "title": "Generalization — Examples Are Never Limits",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Arbitrary app names use a local grammar/resolver; model plans compose registered tools. No general autonomous execution loop.",
+    "requirements": "Every example command in this specification is an illustration.\nIt is NOT a whitelist.\nDo NOT build:\nif command == \"open chrome\"\nif command == \"edit video\"\nif command == \"order pizza\"\nBuild:\nLANGUAGE\n→ INTENT\n→ GOAL\n→ CAPABILITIES\n→ TOOLS\n→ PLAN\n→ EXECUTE\n→ VERIFY\nNOVA must understand requests never explicitly listed here.\nOwner must not memorize exact commands.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/local_commands.py",
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_windows_apps.py",
+      "tests/test_capabilities.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-005",
+    "section": 5,
+    "title": "Capability Composition",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Bounded sequential tool plans; no typed result substitution or external workflow composition.",
+    "requirements": "Capabilities must combine dynamically.\nExample:\n“Edit these photos, create a presentation, save it and message Sasmitha.”\nMay require:\nFILE_SEARCH\nIMAGE_ANALYSIS\nIMAGE_EDITING\nPRESENTATION_CREATION\nFILE_EXPORT\nMESSAGING\nNo dedicated hard-coded command required.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_capabilities.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-006",
+    "section": 6,
+    "title": "Capability Registry",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Runtime tool/agent registry with schema, permissions and verification; provider/modality routing incomplete.",
+    "requirements": "Create a runtime capability registry.\nEach capability declares:\ncapability_id\nname\ndescription\ncategory\ninputs\noutputs\nsupported modalities\nrequired agents\nrequired tools\nrequired providers\npermissions\nprivacy level\nrisk\nverification\nestimated latency\nestimated cost\nreliability\nstatus\nversion\nPlanner searches this registry dynamically.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/capabilities.py"
+    ],
+    "tests": [
+      "tests/test_capabilities.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-007",
+    "section": 7,
+    "title": "Capability Gap / Skill Factory",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Safe capability-gap reporting and catalog; no automatic research/install/self-extension.",
+    "requirements": "When a legitimate requested capability is missing:\nCHECK EXISTING CAPABILITIES\n↓\nCHECK TOOL REGISTRY\n↓\nCHECK INSTALLED APPLICATIONS\n↓\nCHECK APIS\n↓\nCHECK PLUGINS\n↓\nCHECK MCP\n↓\nCHECK CAPABILITY COMPOSITION\n↓\nRESEARCH SAFE SOLUTION\n↓\nDESIGN NEW SKILL / ADAPTER\n↓\nIMPLEMENT IN ISOLATION\n↓\nSANDBOX\n↓\nTEST\n↓\nSECURITY REVIEW\n↓\nPRIVACY REVIEW\n↓\nAPPROVAL IF NEEDED\n↓\nINSTALL\n↓\nVERIFY\n↓\nREGISTER\n↓\nRESUME ORIGINAL GOAL\nDo not silently weaken security/privacy boundaries.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/catalog.py",
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-008",
+    "section": 8,
+    "title": "Nova Cognitive Stack",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Local commands, conversation adapter, bounded planning, worker/verifier and persistence. Vision/reasoning layers not implemented.",
+    "requirements": "Implement logical layers:\nREFLEX BRAIN\nFAST BRAIN\nCONVERSATION BRAIN\nDEEP REASONING BRAIN\nPLANNER BRAIN\nWORLD MODEL\nMEMORY BRAIN\nVISION BRAIN\nACTION BRAIN\nCRITIC BRAIN\nVERIFIER BRAIN\nSECURITY BRAIN\nRECOVERY BRAIN\nDEVELOPER BRAIN\nREFLEX:\ninstant local commands.\nFAST:\nsimple requests and routing.\nCONVERSATION:\nnatural dialogue.\nDEEP:\nhard reasoning.\nPLANNER:\nmission decomposition.\nVISION:\nscreens/images/video/UI understanding.\nACTION:\ntools/APIs/devices.\nCRITIC:\nfind errors.\nVERIFIER:\nverify real-world outcome.\nRECOVERY:\nfailures/rollback.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-009",
+    "section": 9,
+    "title": "Intent Contract",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "For meaningful tasks internally identify:\nowner goal\ndesired output\nquality level\ndeadline\nconstraints\nprivacy\ncost\nallowed external effects\nsuccess criteria\nwhat must NOT happen\nPrevent goal drift.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-010",
+    "section": 10,
+    "title": "Uncertainty Engine",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Track confidence for:\nintent\nvisual interpretation\nmemory\ntool target\nrecipient\nfile identity\nresearch fact\ndevice state\nAPI result\nLow confidence + high-impact action:\nVERIFY / ASK.\nHigh confidence + reversible safe action:\nAUTO when policy allows.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-011",
+    "section": 11,
+    "title": "Know When Not To Act",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Possible correct action:\nACT\nWAIT\nOBSERVE\nVERIFY\nASK\nSIMULATE\nDEFER\nDo not execute merely because a tool exists.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-012",
+    "section": 12,
+    "title": "Sinhala-First",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Sinhala Unicode and mixed-Sinhala local launch grammar; speech and model quality not evaluated.",
+    "requirements": "Treat Sri Lankan Sinhala as first-class.\nSupport:\nspoken Sinhala\ncolloquial Sinhala\nSinhala slang\nEnglish-Sinhala code switching\nshortened phrases\ntypos\ninformal commands\ntechnical English mixed into Sinhala\nExamples:\n“Nova Chrome eka open karanna.”\n“Nova ban me video eka edit karanna.”\n“Nova mama nidagannawa, me tika iwara karanna.”\n“Na na mama kiwwe eka nemei.”\nNo formal Sinhala requirement.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/local_commands.py",
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_windows_apps.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-013",
+    "section": 13,
+    "title": "Sinhala Speech Quality",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Prioritize:\nclear Sri Lankan pronunciation\nnatural rhythm\nnatural pauses\ncorrect question intonation\nmixed English pronunciation\nlow latency\nMaintain owner pronunciation dictionary for:\npeople\nplaces\napps\nbrands\nprojects\ntechnical words",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-014",
+    "section": 14,
+    "title": "Voice-First Nova",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Wake word:\nNOVA\nSupport:\nstreaming STT\nstreaming TTS\nSinhala\nEnglish\nSinhala-English\nVAD\nbarge-in\nnoise handling\nmic selection\nspeaker selection\nconfidence\npush-to-talk fallback\nEmergency:\n“Nova stop.”\n“Nova emergency stop.”",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-015",
+    "section": 15,
+    "title": "Always-Listening Voice Session",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "When owner enters Voice mode:\nSTART ACTIVE LISTENING SESSION\n↓\nWAIT FOR SPEECH\n↓\nVOICE ACTIVITY DETECTION\n↓\nTRANSCRIBE\n↓\nUNDERSTAND\n↓\nACT / ANSWER\n↓\nSPEAK\n↓\nRETURN TO LISTENING\nNo manual mic press required every turn.\nRequirements:\nvisible listening indicator\nmute\nstop when leaving Voice\ndo not permanently record ambient audio\nrespect privacy settings",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-016",
+    "section": 16,
+    "title": "Computer Vision — Core Requirement",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "COMPUTER VISION IS A CORE NOVA SUBSYSTEM.\nDo not treat vision as a future optional add-on.\nCreate:\nVision Gateway\nScreen Understanding Agent\nUI Detection Agent\nDocument Vision Agent\nImage Understanding Agent\nVideo Understanding Agent\nCamera Vision Adapter\nVisual Verification Agent",
+    "dependencies": [
+      "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+  },
+  {
+    "id": "V10-017",
+    "section": 17,
+    "title": "Screen Vision",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "NOVA must be able to inspect authorized screens.\nUnderstand:\napplication identity\nwindow\nbuttons\nmenus\nforms\ntext fields\ndialogs\nerrors\nimages\ncharts\ntables\nselected items\nvisible notifications\nscroll position\nUI hierarchy where available\nPrefer structured accessibility data first.\nUse vision when structured UI data is unavailable.",
+    "dependencies": [
+      "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+  },
+  {
+    "id": "V10-018",
+    "section": 18,
+    "title": "Screen Command Examples",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Owner may say:\n“Fix this error.”\n“Fill this application.”\n“Click the blue button.”\n“Move this file.”\n“Continue what I was doing.”\n“What is on my screen?”\n“Open the app shown here.”\nNOVA should combine:\nSCREEN UNDERSTANDING\n+\nCONTEXT\n+\nPC CONTROL\n+\nVERIFICATION",
+    "dependencies": [
+      "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+  },
+  {
+    "id": "V10-019",
+    "section": 19,
+    "title": "Computer Vision Input Types",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support authorized:\nscreenshots\nlive screen frames\nselected-screen region\nimages\nscanned documents\nPDF pages\nvideo frames\ncamera feeds\napplication canvases\ngame-engine viewports",
+    "dependencies": [
+      "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+  },
+  {
+    "id": "V10-020",
+    "section": 20,
+    "title": "Vision Provider Abstraction",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Define:\nVisionProvider\nOCRProvider\nObjectDetectionProvider\nUIDetectionProvider\nVideoUnderstandingProvider\nAllow:\ncloud vision\nlocal vision\nspecialized local CV\nPrivacy Router decides whether frames can leave device.",
+    "dependencies": [
+      "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+  },
+  {
+    "id": "V10-021",
+    "section": 21,
+    "title": "Vision Privacy",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Never continuously upload full desktop to cloud.\nPrefer:\nUI Automation tree\nstructured metadata\ncropped region\nredacted screenshot\nlocal vision\nbefore full-frame external upload.\nAllow private windows to be marked:\nNO_CAPTURE\nNO_OCR\nLOCAL_VISION_ONLY\nNO_CLOUD",
+    "dependencies": [
+      "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+  },
+  {
+    "id": "V10-022",
+    "section": 22,
+    "title": "Visual Verification",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "After GUI action:\nobserve result visually or structurally.\nExample:\nclick Save\n→ verify save dialog closed\n→ verify file exists\nopen Gemini\n→ verify correct window/tab\nfill form\n→ verify fields contain intended values",
+    "dependencies": [
+      "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+  },
+  {
+    "id": "V10-023",
+    "section": 23,
+    "title": "Live Video Understanding",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "For owner-supplied or authorized video:\nscene detection\nobject understanding\ntext recognition\nspeech/transcript alignment\nevent detection\ntimeline understanding\nquality analysis\nUse for:\nediting\nsearch\nsummaries\ngame QA\nauthorized CCTV",
+    "dependencies": [
+      "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Vision adapters, capture permissions, local redaction and real image evaluation are not implemented. Core requirement, not optional."
+  },
+  {
+    "id": "V10-024",
+    "section": 24,
+    "title": "Local-First Control Plane",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Local core, missions, memory and fixed privacy gates. No vault/device mesh controller.",
+    "requirements": "Main NOVA node:\nOWNER_PC\nRuns:\nNOVA Core\nMission Engine\nMemory\nPolicy Engine\nPrivacy Router\nSecrets Vault\nDevice Mesh Controller\nTool Gateway\nAgent Orchestrator\nAudit Log\nCloud AI does NOT become machine authority.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-025",
+    "section": 25,
+    "title": "Nova Device Mesh — Multi-Device Control",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "The owner has multiple devices.\nNOVA must support a secure DEVICE MESH.\nOne main NOVA instance should be able to coordinate authorized secondary devices.\nPossible nodes:\nWindows desktop\nWindows laptop\nsecond PC\nhome server\nGPU workstation\nphone companion\ntablet\nsmart-home gateway\nEach device runs a small:\nNOVA NODE AGENT\nwhen needed.",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-026",
+    "section": 26,
+    "title": "Node Agent",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Each device node exposes only approved capabilities.\nNode metadata:\ndevice_id\nowner\ndevice_name\nOS\nhardware\ncapabilities\nonline state\npermissions\ntrust level\nlast heartbeat\nresource status\nPossible capabilities:\nrun approved apps\nfile operations\nsystem information\nscreens\nnotifications\ncompute jobs\nrenders\ngame builds\nmedia processing\nbrowser tasks",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-027",
+    "section": 27,
+    "title": "Device Pairing",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "No automatic uncontrolled LAN takeover.\nPair devices explicitly.\nPairing:\nOWNER INITIATES\n↓\nONE-TIME PAIRING CODE / QR\n↓\nDEVICE IDENTITY CREATED\n↓\nKEY EXCHANGE\n↓\nOWNER APPROVES\n↓\nPERMISSIONS SELECTED\n↓\nTRUSTED DEVICE REGISTERED\nUse strong encrypted authentication.\nDo not rely solely on IP address.",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-028",
+    "section": 28,
+    "title": "Device Mesh Security",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Requirements:\nmutual authentication\nencrypted channels\ndevice identity\nkey rotation\nrevocation\nleast privilege\naudit logs\npermission scopes\nno anonymous remote control\nRemote device command must include:\nmission ID\ntarget device\nrequested capability\npermission\nexpiry\naudit context",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-029",
+    "section": 29,
+    "title": "Device Permission Examples",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "PC-2 may allow:\nrender jobs\nfile access to Projects folder\nbut deny:\nbrowser cookies\nprivate documents\npassword manager\nLaptop may allow:\nnotifications\nproject sync\nbut deny admin actions.\nPermissions are per-device.",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-030",
+    "section": 30,
+    "title": "Device Discovery",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Allow secure discovery of candidate NOVA nodes on trusted local networks.\nDiscovery does NOT equal permission.\nDiscovered device:\nUNPAIRED\nOnly paired devices are controllable.",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-031",
+    "section": 31,
+    "title": "Device Heartbeat",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Track:\nonline/offline\nCPU\nGPU\nRAM\ndisk\nbattery\ntemperature where available\ncurrent workload\nUse for task routing.",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-032",
+    "section": 32,
+    "title": "Distributed Task Router",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "NOVA may route tasks to best authorized node.\nExamples:\nGPU render\n→ strongest idle GPU PC\ngame build\n→ development workstation\ndocument task\n→ main PC\nbackground backup\n→ home server\nChoose based on:\ncapabilities\nprivacy\nload\npower\nnetwork\nowner preference",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-033",
+    "section": 33,
+    "title": "Multi-Device Command Examples",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "“Nova, PC 2 eke Blender render eka run karanna.”\n“Nova, laptop eke project eka open karanna.”\n“Nova, render job eka free GPU eka thiyana PC ekata yawanna.”\n“Nova, me file eka mage other PC ekata copy karanna.”\nThese are examples, not limits.",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-034",
+    "section": 34,
+    "title": "File Transfer Between Devices",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Use:\nauthenticated\nencrypted\nverified\nfile transfer.\nBefore overwrite:\ncheck conflict\nversion\nhash\npolicy\nSupport resume for large transfers.",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-035",
+    "section": 35,
+    "title": "Distributed Project Workspace",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Project may span devices.\nTrack:\ncanonical repo\nworking copies\nassets\nbuild outputs\nrender outputs\nsync state\nDo not create silent file conflicts.",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-036",
+    "section": 36,
+    "title": "Phone Companion",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Future/optional phone client may provide:\nchat\nvoice\napproval notifications\nmission status\nquick commands\ncalling bridge\ncamera input where authorized\nRemote command access disabled until paired.",
+    "dependencies": [
+      "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Node identity, paired authentication, encrypted transport and a second controlled device are not implemented."
+  },
+  {
+    "id": "V10-037",
+    "section": 37,
+    "title": "Windows Pc Control",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "EXPERIMENTAL",
+    "scope": "Bounded Windows app opening and window verification only; no general mouse/keyboard/clipboard control.",
+    "requirements": "Prefer:\nofficial app API\nnative API/SDK\nCLI\nPowerShell\nWindows API\nUI Automation\nbrowser automation\nvision + mouse/keyboard fallback\nCapabilities:\nlaunch app\nclose app\nfocus app\nmove/resize windows\nkeyboard\nmouse\nclipboard\nFile Explorer\nscreenshots\nnotifications\naudio\nprocesses\nsystem info\nmulti-monitor\nsafe terminal operations",
+    "dependencies": [
+      "Real Windows validation required."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/windows_apps.py"
+    ],
+    "tests": [
+      "tests/test_windows_apps.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Real Windows validation required."
+  },
+  {
+    "id": "V10-038",
+    "section": 38,
+    "title": "General Windows Application Resolver",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "EXPERIMENTAL",
+    "scope": "App Paths, argument-free Start Menu shortcuts, packaged apps and visible executables; fuzzy ambiguity refuses launch. Windows APIs tested with mocks only.",
+    "requirements": "“Open X” must NOT rely on a tiny hard-coded list.\nSearch:\nrunning apps\nStart Menu\nApp Paths\nregistered executables\nWindows packaged apps\ninstalled PWAs\nbrowser apps\nknown aliases\nowner aliases\nUse fuzzy matching.\nExamples:\nchrome\ngemini\ncalculator\nnotepad\nblender\nunreal\nunity\nvscode\nspotify\nVerify launched result.",
+    "dependencies": [
+      "Real Windows validation required."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/windows_apps.py"
+    ],
+    "tests": [
+      "tests/test_windows_apps.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Real Windows validation required."
+  },
+  {
+    "id": "V10-039",
+    "section": 39,
+    "title": "Gemini / Web App Fallback",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "EXPERIMENTAL",
+    "scope": "Gemini exact installed app first; official web handoff otherwise. Browser page load is unverified and mission remains BLOCKED.",
+    "requirements": "For:\n“open Gemini”\nresolve:\ninstalled native/PWA\n→ launch\notherwise:\nofficial web application\n→ default browser\nDo not route app launch to free-form chat failure.",
+    "dependencies": [
+      "Real Windows validation required."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/windows_apps.py",
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_windows_apps.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Real Windows validation required."
+  },
+  {
+    "id": "V10-040",
+    "section": 40,
+    "title": "Local Command Router",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Local OPEN_APP routing before provider setup; unsupported close/focus reported honestly. Other intent classes remain missing.",
+    "requirements": "Run deterministic/local intent routing BEFORE LLM fallback.\nClasses:\nOPEN_APP\nCLOSE_APP\nFOCUS_APP\nOPEN_WEBSITE\nOPEN_FILE\nOPEN_FOLDER\nSEARCH_WEB\nPLAY_MEDIA\nFILE_ACTION\nSYSTEM_ACTION\nDEVICE_ACTION\nBasic Windows actions must work even if cloud LLM is offline.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/local_commands.py",
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_windows_apps.py",
+      "tests/test_dashboard.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-041",
+    "section": 41,
+    "title": "Local Mixed-Sinhala Commands",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Open/launch/arinna/open karanna/yanna grammar with arbitrary names. Folder/file launch and free-form language remain missing.",
+    "requirements": "Support:\n“Gemini eka open karanna.”\n“YouTube yanna.”\n“Chrome eka arinna.”\n“Calculator open karanna.”\n“Downloads eka open karanna.”",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/local_commands.py"
+    ],
+    "tests": [
+      "tests/test_windows_apps.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-042",
+    "section": 42,
+    "title": "Ai Provider Hub",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Ollama/Groq text adapters only. No full multimodal Provider Hub.",
+    "requirements": "Do not hardcode NOVA to one AI model.\nProvider interfaces:\nLLMProvider\nReasoningProvider\nCodingProvider\nVisionProvider\nEmbeddingProvider\nSTTProvider\nTTSProvider\nImageProvider\nImageEditProvider\nVideoProvider\nAudioProvider\nSearchProvider\nInitial architecture may support:\nOpenAI\nGoogle Gemini\nbut these are NOT limits.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/providers.py"
+    ],
+    "tests": [
+      "tests/test_providers.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-043",
+    "section": 43,
+    "title": "Secure Ai Provider Setup",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Masked session-only key field and privacy gates; no encrypted OS vault or OAuth account center.",
+    "requirements": "UI:\nSettings\n→ AI\n→ Providers\nEach provider:\nDisconnected\nConnected\nAuth expired\nDegraded\nAllow secure credential input.\nStore credential in Secrets Vault.\nNever expose entire key again.\nNever save in:\nGit\nREADME\nmaster prompt\nfrontend bundle\nlogs",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/providers.py",
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_dashboard.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-044",
+    "section": 44,
+    "title": "Provider Router",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Explicit owner provider selection and privacy route checks; no cost/quality router.",
+    "requirements": "Choose model by:\ntask\nprivacy\nquality\nspeed\ncost\nlanguage\nvision\ncoding need\navailability\nreliability\nModel categories:\nLOCAL_FAST\nLOCAL_REASONING\nCLOUD_FAST\nCLOUD_REASONING\nCODING\nVISION\nVOICE\nEMBEDDING",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/providers.py"
+    ],
+    "tests": [
+      "tests/test_providers.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-045",
+    "section": 45,
+    "title": "Provider Fallback",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "If one provider fails:\nretry safely\n→ alternate approved provider\n→ preserve mission state\nDo not destroy the mission.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-046",
+    "section": 46,
+    "title": "Local Ai",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Optional Ollama text model adapter; requires actual installed model.",
+    "requirements": "Support optional local models for:\nprivacy\noffline operation\nsimple routing\nsummaries\nbasic chat\nembeddings\nDo not expose provider-engineering terminology in everyday UI.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/providers.py"
+    ],
+    "tests": [
+      "tests/test_providers.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-047",
+    "section": 47,
+    "title": "Universal Api Hub",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support integration adapters for:\nREST\nGraphQL\nWebSocket\nwebhook\nOAuth\nAPI key\nMCP\nCLI\nSDK\nlocal IPC\nEvery connector declares:\ncapabilities\nauthentication\nprivacy\npermissions\nrate limits\nhealth\ncost\nretry\ntimeout",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-048",
+    "section": 48,
+    "title": "Browser Agent",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Capabilities:\nopen\nnavigate\nsearch\nread\nclick\ntype\nscroll\nforms\nupload\ndownload\ntabs\nstructured extraction\nDo not bypass CAPTCHA/2FA.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-049",
+    "section": 49,
+    "title": "Browser Visual Control",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Prefer DOM / accessibility selectors.\nUse screen vision if needed.\nVerify after interaction.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-050",
+    "section": 50,
+    "title": "Research Agent",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support:\nmulti-source\nfreshness\ncredibility\ncontradictions\ncitations\nprovenance\nconfidence\ndecision support\nCurrent facts should be refreshed when needed.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-051",
+    "section": 51,
+    "title": "File Intelligence",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Workspace list/read/create/hash and unchanged generated-file undo only.",
+    "requirements": "search\nread\ncreate\nedit\nrename\nmove\ncopy\nrecycle\ncompress\nextract\nconvert\ndeduplicate\narchive\nbackup\nrestore\nhash\nversion\nDefault delete:\nRecycle Bin.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/tools.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-052",
+    "section": 52,
+    "title": "Semantic File Search",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Understand queries such as:\n“Find that blue spaceship render from last week.”\nUse:\nfilename\nmetadata\nvisual embeddings where permitted\ntext\nproject context",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-053",
+    "section": 53,
+    "title": "Office",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support real:\nWord\nExcel\nPowerPoint\nPDF\nCSV\ndocuments\nscans\nDo not merely generate text.\nCreate actual output files when requested.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-054",
+    "section": 54,
+    "title": "Powerpoint",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support:\nresearch\noutline\nslides\ncharts\nimages\nspeaker notes\nformatting\nverification\nsave/export\nExample:\n“Make a cats presentation and save to Downloads.”",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-055",
+    "section": 55,
+    "title": "Excel",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support:\ndata\nformulas\nvalidation\nformat\ncharts\npivots\nanalysis\ncleaning\nerror checks",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-056",
+    "section": 56,
+    "title": "Form Filling",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Owner:\n“Fill this application on my screen.”\nVision + UI tree:\nidentify fields\nretrieve approved information\nfill\ncheck\npreview\nsubmit according to policy",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-057",
+    "section": 57,
+    "title": "Email",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "search\nread\nsummarize\ncategorize\ndraft\nreply\nattachments\nfollow-up\ntask extraction\nExternal sends obey communication policy.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-058",
+    "section": 58,
+    "title": "Messaging",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Architecture for legitimate:\nWhatsApp\nTelegram\nSMS\ndesktop messaging\nfuture providers\nVerify recipient before send.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-059",
+    "section": 59,
+    "title": "Optional Auto-Reply",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Default:\nOFF\nModes:\nOFF\nDRAFT_ONLY\nASK_BEFORE_SEND\nTRUSTED_CONTACTS\nAWAY\nSMART_AUTO\nProtections:\ncontact allowlist\nrate limits\nduplicate protection\nbot-loop detection\nquiet hours\nsensitive-message escalation",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-060",
+    "section": 60,
+    "title": "Calling",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support adapters for:\nphone companion\nVoIP\ncalling APIs\nmobile bridge\nExamples:\n“Call Mom.”\n“Call Pizza Hut.”\nTransactional calls only through supported lawful mechanisms.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-061",
+    "section": 61,
+    "title": "Purchase Assistance",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support ordinary legitimate purchase workflows.\nresearch\ncompare\nprepare cart\nverify details\nowner approval for financial commitment by default\nsubmit\nreceipt\ntracking\nNo age-restricted or dangerous purchases.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-062",
+    "section": 62,
+    "title": "Media Studio",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "NOVA must understand:\n“Edit this photo.”\n“Edit this video.”\nwithout fixed templates.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-063",
+    "section": 63,
+    "title": "Image Editing",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "crop\nresize\nrotate\ncolor\nexposure\nwhite balance\ncontrast\ndenoise\nsharpen\nrestore\nupscale\nbackground removal\nbackground replacement\nobject removal\nobject addition where appropriate\ninpainting\noutpainting\nperspective\ntext\ngraphics\nthumbnails\nbatch processing\nAlways preserve original by default.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-064",
+    "section": 64,
+    "title": "Video Editing",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "trim\nsplit\njoin\nscene detection\npacing\nremove silence\ntransitions\ncrop\nstabilization\nspeed\ncolor\naudio cleanup\nsubtitles\nSinhala subtitles\nEnglish subtitles\nmixed subtitles\nB-roll\ntitles\naspect conversion\nshort-form extraction\nhighlights\nexport presets",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-065",
+    "section": 65,
+    "title": "Video Auto-Director",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Analyze:\nduration\nresolution\norientation\nframe rate\naudio\nspeech\nscenes\nquality\nplatform goal\nThen create an intelligent edit plan.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-066",
+    "section": 66,
+    "title": "Audio",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "transcription\nnoise reduction\nvoice enhancement\nnormalization\nEQ\ncompression\nducking\nsync\nconversion",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-067",
+    "section": 67,
+    "title": "Media Quality Verifier",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Verify final output:\nfile opens\nexpected duration\nexpected resolution\naudio present\nno corrupt frames\nsubtitle sync reasonable\nexport complete",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-068",
+    "section": 68,
+    "title": "Coding / Software Factory",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support:\narchitecture\nfrontend\nbackend\ndatabase\nAPIs\ndebugging\ntesting\nrefactoring\nsecurity\nperformance\ndocumentation\nCI/CD\ndeployment\nrelease",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-069",
+    "section": 69,
+    "title": "Autonomous Debugging",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "REPRODUCE\n↓\nLOG\n↓\nHYPOTHESIS\n↓\nTEST\n↓\nFIX\n↓\nREGRESSION TEST\n↓\nVERIFY",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-070",
+    "section": 70,
+    "title": "Website Factory",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Owner may simply ask:\n“Build a crazy website and host it.”\nNOVA should:\nunderstand goal\ndesign\nbuild frontend\nbackend if needed\ndatabase\nauth if needed\ntest\nQA\ndeploy\nverify\nmonitor\nPaid hosting/domain follows approval policy.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-071",
+    "section": 71,
+    "title": "Game Studio",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Agents:\nGame Director\nProducer\nGame Design\nStory\nWorld\nGameplay\nNPC AI\nUI\nLevel\n3D\nCharacters\nEnvironment\nAnimation\nVFX\nAudio\nMusic\nQA\nPerformance\nBuild\nLocalization",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-072",
+    "section": 72,
+    "title": "High-Graphics Game Pipeline",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Do not fake instant AAA completion.\nUse:\nvision\nrequirements\nGDD\nprototype\nvertical slice\nsystems\nworld\nassets\nAI\naudio\nQA\noptimization\nbuilds\nmilestones",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-073",
+    "section": 73,
+    "title": "Game Engine Adapters",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support:\nUnreal Engine\nUnity\nGodot\nChoose based on requirements.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-074",
+    "section": 74,
+    "title": "Game Memory",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Persist:\nGDD\nstory\nlore\ncharacters\nquests\nlevels\narchitecture\nassets\nbugs\ntests\nbuilds\nmilestones\nperformance",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-075",
+    "section": 75,
+    "title": "Game Qa Automation",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support:\nautomated launch\nrepeatable inputs\nUI checks\ncrash detection\nsave/load tests\nperformance regression",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-076",
+    "section": 76,
+    "title": "3D Studio",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support:\nBlender\nmodeling\ntopology\nUV\nmaterials\ntextures\nrigging\nanimation\nlighting\ncamera\nrender\nLOD\ngame export\narchitectural visualization",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-077",
+    "section": 77,
+    "title": "Architecture Visualization",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "2D plan\n→ interpret dimensions\n→ blockout\n→ walls/openings\n→ materials\n→ lighting\n→ cameras\n→ render\nDo not guess missing dimensions silently.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-078",
+    "section": 78,
+    "title": "Education",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Support:\nStudy Planner\nWeak Topic Agent\nRevision Agent\nMock Exam Agent\nTarget Paper Agent\nAnswer Reviewer",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-079",
+    "section": 79,
+    "title": "O/L Target Paper",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Grade 10 paper used as reference should produce:\nORIGINAL\nADVANCED\nO/L-STYLE\nPRACTICE PAPER\nAnalyze:\ntopics\nskills\ndifficulty\nquestion styles\nThen create original:\nquestions\nmarks\ntime\nmarking scheme\nmodel answers",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-080",
+    "section": 80,
+    "title": "Smart Home",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Authorized:\nlights\nAC\nfans\nTV\nspeakers\nplugs\ncurtains\nsensors\nVerify resulting state.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-081",
+    "section": 81,
+    "title": "Cctv / Camera Intelligence",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Authorized systems only.\nSupport:\nhealth\nevent timeline\nmotion/person/vehicle summaries where lawful\noffline alert\ntamper alert\nprivacy zones\ndaily digest\nPrefer local processing.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-082",
+    "section": 82,
+    "title": "Defensive Security",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Authorized only.\nSupport:\ndependency scanning\nconfiguration audit\npatch audit\npermissions\nsecret detection\nlogs\nfile integrity\nbackup checks\nsecurity reports\nremediation\nNo unauthorized intrusion/malware/credential theft.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-083",
+    "section": 83,
+    "title": "Mission Engine",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Durable goals, dependencies, tools and results; no deadlines/resource/device budgets.",
+    "requirements": "Mission contains:\ngoal\nsuccess criteria\npriority\ndeadline\ndependencies\ntasks\nagents\ntools\ndevices\npermissions\nprivacy\nbudget\ncheckpoint\nverification",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-084",
+    "section": 84,
+    "title": "Mission States",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Existing queue/run/verify/pause/block/complete/fail/rollback states; not all target states.",
+    "requirements": "CREATED\nQUEUED\nPLANNING\nREADY\nRUNNING\nWAITING_TOOL\nWAITING_RESOURCE\nWAITING_NETWORK\nWAITING_AGENT\nWAITING_USER\nBLOCKED\nPAUSED\nVERIFYING\nRETRYING\nRECOVERING\nCOMPLETED\nFAILED\nCANCELLED\nROLLED_BACK",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-085",
+    "section": 85,
+    "title": "Overnight Autonomy",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Concurrent independent local missions and restart recovery; no overnight supervisor/report.",
+    "requirements": "Owner can give many tasks then leave.\nNOVA:\ndecomposes\nprioritizes\nruns parallel safe work\ncheckpoints\nretries\nuses fallback\ncontinues independent work\ncollects blockers\ncreates morning report",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-086",
+    "section": 86,
+    "title": "Multi-Agent System",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Scoped file/system workers, plus experimental Windows desktop worker; not a fleet of independent LLM agents.",
+    "requirements": "Core agents may include:\nDirector\nPlanner\nMission\nMemory\nContext\nVision\nPC\nBrowser\nFile\nOffice\nResearch\nEmail\nMessaging\nCalling\nCalendar\nVoice\nMedia\nCoding\nDeveloper\nDebugger\nReviewer\nQA\nVerifier\nPrivacy\nSecurity\nRecovery\nEducation\nGame\n3D\nSmart Home\nCreate temporary specialist agents when useful.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/agents.py"
+    ],
+    "tests": [
+      "tests/test_foundation.py",
+      "tests/test_windows_apps.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-087",
+    "section": 87,
+    "title": "Agent Communication",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Mission IDs, tool args and verified receipts; no distributed agent protocol.",
+    "requirements": "Use structured task envelopes:\nmission_id\ntask_id\nagent\ngoal\ninputs\nconstraints\npermissions\nprivacy\ndeadline\nbudget\nexpected output\nverification\nstatus\nresult\nerror",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-088",
+    "section": 88,
+    "title": "Agent Reliability",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Recent tool success ratios only. No measured latency/cost routing.",
+    "requirements": "Track:\nsuccess\nfailures\nlatency\ncost\nverification failure\ntool errors\nPrefer reliable agents.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/capabilities.py"
+    ],
+    "tests": [
+      "tests/test_capabilities.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-089",
+    "section": 89,
+    "title": "Memory",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Explicit scoped memories and project decision records; no vector or knowledge graph.",
+    "requirements": "Implement:\nShort-Term\nWorking\nEpisodic\nSemantic\nStructured\nVector\nPreference\nProject\nKnowledge Graph",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/decisions.py",
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_decisions.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-090",
+    "section": 90,
+    "title": "Personal World Model",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Entities:\nOWNER\nPEOPLE\nCONTACTS\nPROJECTS\nDEVICES\nAPPLICATIONS\nFILES\nTASKS\nMISSIONS\nEVENTS\nWORKFLOWS\nPREFERENCES\nLOCATIONS\nTOOLS\nAGENTS\nSKILLS\nSERVICES",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-091",
+    "section": 91,
+    "title": "Workspace Memory",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Remember:\nactive project\nopen apps\nopen files\nworkspace\nrecent tabs\nBlender scene\ngame project\nunfinished mission\nSupport:\n“Continue where I stopped.”",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-092",
+    "section": 92,
+    "title": "Memory Quality",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Memory provenance/confidence/scope and timestamps; no TTL. Decisions explicitly owner-entered.",
+    "requirements": "Track:\nsource\ntimestamp\nconfidence\nscope\nTTL\nprivacy\nprovenance\nNew explicit owner instruction overrides old inference.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py",
+      "nova/decisions.py"
+    ],
+    "tests": [
+      "tests/test_core.py",
+      "tests/test_decisions.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-093",
+    "section": 93,
+    "title": "Secrets Vault",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Passwords/API keys are NOT normal memory.\nStore encrypted.\nMemory stores reference only.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-094",
+    "section": 94,
+    "title": "Permission Engine",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Fixed tool/agent/workspace scopes and mode gates; no temporary per-resource grant system.",
+    "requirements": "ALLOW\nDENY\nASK\nALLOW_ONCE\nSESSION\nPROJECT\nDEVICE\nAPP\nFOLDER\nCONTACT\nREAD_ONLY\nSANDBOX",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-095",
+    "section": 95,
+    "title": "Risk Engine",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Static risk metadata and mode checks; no general contextual risk scorer.",
+    "requirements": "Assess:\nreversibility\nfinancial impact\nprivacy\nsecurity\nexternal effect\nconfidence\ntarget sensitivity\nLOW\nMEDIUM\nHIGH\nCRITICAL",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/capabilities.py"
+    ],
+    "tests": [
+      "tests/test_capabilities.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-096",
+    "section": 96,
+    "title": "Default Action Policy",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Bounded permitted local work and explicit NORMAL mode for web handoff; external finance/account tools absent.",
+    "requirements": "AUTO:\nsafe reversible local work\nAUTO + VERIFY:\nfile organization\ncode\nrenders\nresearch\nordinary app launch/control\nASK:\nfinancial commitment\npermanent delete\nsecurity/account change\nmajor public/external effect\nVAULT:\nsecrets\nREFUSE / REDIRECT:\nunauthorized hacking\npiracy\nillegal/dangerous operations",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py",
+      "tests/test_windows_apps.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-097",
+    "section": 97,
+    "title": "Action Receipts",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Mission receipts with verified tool results; no distributed external-effect ledger.",
+    "requirements": "Record:\naction\ntarget\nagent\ntool\ndevice\nfiles changed\nexternal effects\nverification\nrollback",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-098",
+    "section": 98,
+    "title": "Natural Undo",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "UI undo for unchanged generated workspace files; no general natural undo.",
+    "requirements": "Owner:\n“Undo that.”\nFind relevant action and reverse when possible.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-099",
+    "section": 99,
+    "title": "Crash / Reboot Recovery",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Durable local missions; interrupted reads recover and uncertain writes/launches block. No device jobs.",
+    "requirements": "Persist:\nmission state\ntask state\nexternal-effect state\ndevice jobs\nproject checkpoint\nAfter restart:\nverify uncertain operations\nresume safe work",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-100",
+    "section": 100,
+    "title": "Idempotency",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Local request idempotency keys; external send/payment guarantees are not implemented.",
+    "requirements": "Prevent duplicate:\nmessages\nemails\norders\npayments\nbookings\nform submissions\ndeployments\ncalendar events",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-101",
+    "section": 101,
+    "title": "Tool Health",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Database/scheduler checks; no full dependency monitor.",
+    "requirements": "Monitor:\nbrowser\nFFmpeg\nvoice\nvision\nproviders\nBlender\ngame engines\nOffice tools\nnode agents\nStatus:\nHEALTHY\nDEGRADED\nFAILED\nAUTH_REQUIRED",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-102",
+    "section": 102,
+    "title": "Integration Self-Repair",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Detect:\nexpired auth\nAPI changes\nmissing executable\nselector break\ndependency change\nCreate repair mission.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-103",
+    "section": 103,
+    "title": "Offline Operation",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Local commands/memory/files work without cloud; optional local model. No network-restoration queue.",
+    "requirements": "If internet unavailable:\ncontinue local tasks\ncontinue PC control\ncontinue memory\ncontinue local models\nQueue cloud-dependent work.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-104",
+    "section": 104,
+    "title": "Resource Scheduler",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Monitor:\nCPU\nGPU\nRAM\ndisk\nnetwork\nbattery\ntemperature\nSchedule heavy:\nrenders\nvideo\ngame builds\nlocal AI\nfor suitable time/device.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-105",
+    "section": 105,
+    "title": "Project Intelligence",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Explicit project decisions, feature traceability and local workspace; no project health/deadline engine.",
+    "requirements": "Support:\nproject health\nmilestones\nbugs\ntests\nroadmap\ndecision memory\ntechnical debt\ndeadline risk\nrequirements traceability",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/decisions.py",
+      "nova/catalog.py"
+    ],
+    "tests": [
+      "tests/test_decisions.py",
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-106",
+    "section": 106,
+    "title": "Auto Documentation",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Generated requirement matrices with drift checks; no autonomous arbitrary documentation rewriting.",
+    "requirements": "Maintain:\nREADME\nPROJECT_STATUS\nCHANGELOG\narchitecture\nAPI docs\nuser docs\nwithout overwriting valuable human content blindly.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "scripts/sync_roadmap.py"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-107",
+    "section": 107,
+    "title": "Workflow Learning",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "OBSERVE\n→ DETECT REPEATED SAFE PATTERN\n→ SIMULATE\n→ SUGGEST\n→ OWNER APPROVES\n→ AUTOMATE\nNo silent new automation.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-108",
+    "section": 108,
+    "title": "Voice Macros",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Owner can define:\n“When I say Study Mode…”\nwithout coding.\nCompile natural-language workflow safely.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-109",
+    "section": 109,
+    "title": "Smart Auto-Reply",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Default OFF.\nIf enabled:\nper-contact policy\nrate limits\nduplicate prevention\nloop prevention\nquiet hours\nconfidence threshold",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-110",
+    "section": 110,
+    "title": "Premium Simple Ui",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "WORKING",
+    "scope": "Five primary pages: Chat, Voice, Projects, Memory, Settings. All previous internal pages retained under Settings/Advanced.",
+    "requirements": "The backend may be complex.\nThe daily UI must be SIMPLE.\nPrimary sidebar:\nChat\nVoice\nProjects\nMemory\nSettings\nEmergency Stop at bottom.\nDo not expose:\nAgents\nTools\nIntegrations\nDevices\nMissions\nPrivacy\nas permanent primary sidebar items.\nKeep those systems internally and under Settings/Advanced where appropriate.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_dashboard.py",
+      "tests/test_expansion_ui.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-111",
+    "section": 111,
+    "title": "Ui Look",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "WORKING",
+    "scope": "Existing pearl frosted-glass interface preserved.",
+    "requirements": "Default:\nsoft pearl\nfrosted glass\nice blue\ncyan accents\ndeep slate-blue text\nNot pure glaring white.\nNot dark.\nNot cyberpunk.\nNot admin dashboard.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/ui/glass.py",
+      "nova/ui/glass.css"
+    ],
+    "tests": [
+      "tests/test_ui_controller.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-112",
+    "section": 112,
+    "title": "Nova Orb",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Visual states and local runtime state; voice animation preview remains simulated.",
+    "requirements": "Central visual identity.\nStates:\nIDLE\nLISTENING\nTHINKING\nWORKING\nSPEAKING\nSUCCESS\nERROR\nPRIVACY\nOFFLINE",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/ui/glass.py"
+    ],
+    "tests": [
+      "tests/test_ui_controller.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-113",
+    "section": 113,
+    "title": "Chat Ui",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Chat history and floating text composer; audio/image attachments and streaming remain missing.",
+    "requirements": "Owner messages:\nright side\naccent glass bubble\nNOVA:\nleft side\nneutral glass bubble\nNo giant full-width cards for short messages.\nComposer:\n[ + ] [ Message NOVA… ] [ mic ] [ send ]",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_dashboard.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-114",
+    "section": 114,
+    "title": "Voice Ui",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Orb and explicitly disconnected microphone; no real listening/speaking.",
+    "requirements": "Voice screen primarily:\nORB\nListening / Thinking / Speaking\nsmall transcription\nmute\nNo huge technical setup boxes.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_dashboard.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-115",
+    "section": 115,
+    "title": "Dynamic Greeting",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Greeting uses host local system time and selected Sinhala/English text; night-specific phrase pending.",
+    "requirements": "Use local system time.\nGood morning\nGood afternoon\nGood evening\nGood night\nor natural configured Sinhala.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/ui/controller.py"
+    ],
+    "tests": [
+      "tests/test_ui_controller.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-116",
+    "section": 116,
+    "title": "Ui Accent Selector",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "WORKING",
+    "scope": "Six bounded accent choices saved locally; only selection/primary-action accent changes.",
+    "requirements": "Small appearance selector.\nOptions such as:\nIce Blue\nCyan\nOcean\nSilver\nLavender\nMint\nAccent only.\nDo not recolor entire UI aggressively.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/ui/controller.py",
+      "nova/ui/glass.py"
+    ],
+    "tests": [
+      "tests/test_ui_controller.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-117",
+    "section": 117,
+    "title": "No Visible Terminal",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "EXPERIMENTAL",
+    "scope": "Python .pyw GUI entry plus hidden child flags and local startup log. Real Windows no-flash validation pending.",
+    "requirements": "Normal NOVA startup:\nNOVA UI ONLY.\nNo visible:\nCMD\nPowerShell\nWindows Terminal\nPython console\nUse proper hidden/background process configuration.\nCapture logs internally.",
+    "dependencies": [
+      "Real Windows validation required."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "Start Nova.pyw",
+      "scripts/run_nova.py"
+    ],
+    "tests": [
+      "tests/test_launcher.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Real Windows validation required."
+  },
+  {
+    "id": "V10-118",
+    "section": 118,
+    "title": "Background Service / Launcher",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "EXPERIMENTAL",
+    "scope": "Managed hidden Windows child and native webview; browser fallback has a visible shutdown dialog in GUI mode. No system service/tray.",
+    "requirements": "Choose correct implementation for current stack:\nGUI subsystem\nbackground service\npythonw\nCREATE_NO_WINDOW\npackaged executable\nhidden child processes\nNo terminal flash hacks.",
+    "dependencies": [
+      "Real Windows validation required."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "scripts/desktop.py"
+    ],
+    "tests": [
+      "tests/test_launcher.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Real Windows validation required."
+  },
+  {
+    "id": "V10-119",
+    "section": 119,
+    "title": "System Tray",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Tray:\nOpen NOVA\nMute Voice\nPause Autonomous Work\nPrivacy Mode\nEmergency Stop\nExit",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-120",
+    "section": 120,
+    "title": "Global Quick Overlay",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Optional hotkey:\nsmall NOVA orb\ninput\nmic\nSame UI language.",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-121",
+    "section": 121,
+    "title": "Feature Honesty",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Truthful catalog, disconnected controls and bounded verification. Native Windows/live provider tests pending.",
+    "requirements": "Use:\nNOT_STARTED\nDESIGNING\nIMPLEMENTING\nPARTIAL\nEXPERIMENTAL\nWORKING\nSTABLE\nBLOCKED\nNever fake:\nvoice connected\nAI connected\napp opened\nmessage sent\ncall made\nwebsite deployed\nfile created\ntest passed",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/catalog.py",
+      "nova/windows_apps.py"
+    ],
+    "tests": [
+      "tests/test_catalog.py",
+      "tests/test_windows_apps.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-122",
+    "section": 122,
+    "title": "Acceptance Tests — Core",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Local core and UI tests; Windows app/website APIs mocked, real voice/browser tasks and native no-terminal acceptance not passed.",
+    "requirements": "Verify:\nNOVA launches\nno terminal\nChat works\nlocal commands work\napp resolver works\nYouTube opens\nGemini opens/fallback works\ndynamic greeting\nVoice auto-listen\nVoice exits cleanly\nEmergency Stop\nmemory read/write\nfile task\nbrowser task",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "tests/test_core.py",
+      "tests/test_windows_apps.py"
+    ],
+    "tests": [
+      "tests/test_dashboard.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-123",
+    "section": 123,
+    "title": "Acceptance Tests — Vision",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Test:\nscreenshot understanding\nvisible button detection\nsimple form understanding\nerror-dialog reading\npost-click verification\nprivate-window exclusion",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-124",
+    "section": 124,
+    "title": "Acceptance Tests — Multi-Device",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Use controlled test nodes.\nTest:\npair device\nheartbeat\ncapability discovery\nremote safe command\nremote app launch\njob routing\nfile transfer\ndisconnect\nrevocation\nunauthorized command rejection",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-125",
+    "section": 125,
+    "title": "Acceptance Tests — Media",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Image:\npreserve original\nedit\nverify output\nVideo:\nedit\nexport\nverify playable output",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-126",
+    "section": 126,
+    "title": "Acceptance Tests — Office",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Requirement retained; no executable implementation or acceptance claim.",
+    "requirements": "Create real PPTX\ncreate real XLSX\nverify files open",
+    "dependencies": [
+      "Requires implementation and dependency-ready acceptance tests."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Requires implementation and dependency-ready acceptance tests."
+  },
+  {
+    "id": "V10-127",
+    "section": 127,
+    "title": "Acceptance Tests — Recovery",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Existing local recovery coverage; no distributed/external action acceptance.",
+    "requirements": "Crash process\nrestart\nrecover mission state\ndo not duplicate external effects",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-128",
+    "section": 128,
+    "title": "Acceptance Tests — Security",
+    "category": "v10 canonical requirements",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Credential/path/policy rejection tests; no mesh implementation, hence no paired-node security acceptance.",
+    "requirements": "Secret does not enter logs.\nUnpaired device cannot execute commands.\nExternal web content cannot override policy.\nPermanent delete policy enforced.",
+    "dependencies": [
+      "Remaining scope stated above."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "nova/core.py",
+      "nova/providers.py"
+    ],
+    "tests": [
+      "tests/test_core.py",
+      "tests/test_providers.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "Remaining scope stated above."
+  },
+  {
+    "id": "V10-129",
+    "section": 129,
+    "title": "Continuous Development Loop",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Engineering/product guidance retained; not a runtime capability.",
+    "requirements": "After every vertical slice:\nRUN TESTS\n↓\nFIX\n↓\nVERIFY\n↓\nUPDATE REQUIREMENT MATRIX\n↓\nUPDATE PROJECT_STATUS\n↓\nCREATE CHECKPOINT\n↓\nSELECT NEXT DEPENDENCY-READY HIGH-VALUE FEATURE\n↓\nCONTINUE\nDo NOT wait for owner between ordinary engineering milestones.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "docs/FUTURE_ROADMAP.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-130",
+    "section": 130,
+    "title": "Priority Order From Current Build",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Engineering/product guidance retained; not a runtime capability.",
+    "requirements": "CURRENT SCREENSHOTS SHOW THAT THE APP IS NOT YET FULL NOVA.\nObserved symptoms include:\n- Free-form AI not connected\n- Voice disconnected\n- local command routing incomplete\n- app resolution incomplete\n- UI still exposes technical states\nTherefore current implementation priority is:\nP0. Stabilize current repo and tests.\nP1. Real local Windows command router.\nP2. General application resolver.\nP3. Secure AI Provider Hub + provider setup UI.\nP4. Connect at least one real reasoning/chat provider through secure credentials.\nP5. Implement Computer Vision gateway + screenshot understanding.\nP6. Implement real Voice pipeline architecture and auto-listen state.\nP7. Simplify daily UI.\nP8. Mission persistence + background worker.\nP9. Memory + project continuation.\nP10. Browser Agent.\nP11. Office tools.\nP12. Device Mesh foundation.\nP13. Pair second controlled PC test node.\nP14. Media Studio.\nP15. Communication integrations.\nP16. Skill Factory.\nP17. Game/3D/Education expansions.\nDo not build P17 while P1-P6 are fake or broken.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "docs/FUTURE_ROADMAP.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-131",
+    "section": 131,
+    "title": "Do Not Create A Demo-Only Jarvis",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Engineering/product guidance retained; not a runtime capability.",
+    "requirements": "The objective is not a YouTube-style visual demo.\nDo not prioritize fake animations over real capabilities.\nUI polish matters,\nbut actual execution matters more.\nA button that looks beautiful but does nothing is NOT a feature.\nA voice orb with no functioning voice system is NOT voice capability.\nA “Computer Vision” page without a real vision pipeline is NOT computer vision.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "docs/FUTURE_ROADMAP.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-132",
+    "section": 132,
+    "title": "Definition Of Done",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Engineering/product guidance retained; not a runtime capability.",
+    "requirements": "A feature is DONE only if:\nimplemented\nwired to real subsystem\ntested\nrun\nverified\nfailure handled\nsecurity/privacy checked\ndocumented\nMock/demo mode must be clearly labeled MOCK.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "docs/FUTURE_ROADMAP.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-133",
+    "section": 133,
+    "title": "Owner Experience Goal",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Engineering/product guidance retained; not a runtime capability.",
+    "requirements": "Examples of future legitimate usage:\n“Nova, open Gemini.”\n“Nova, what is on my screen?”\n“Nova, fix this error.”\n“Nova, PC 2 eke Blender render eka run karanna.”\n“Nova, edit this video.”\n“Nova, make this PPTX.”\n“Nova, continue my game.”\n“Nova, message Sasmitha hi.”\n“Nova, order my usual pizza.”\n“Nova, make an O/L target paper.”\n“Nova, I am going to sleep. Finish these tasks.”\nThese are examples only.\nNOVA must generalize beyond them.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "docs/FUTURE_ROADMAP.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-134",
+    "section": 134,
+    "title": "Final Autonomy Rule",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Engineering/product guidance retained; not a runtime capability.",
+    "requirements": "Maximum practical autonomy:\nSAFE\nAUTHORIZED\nVERIFIABLE\nRECOVERABLE\nNever equate autonomy with uncontrolled behavior.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "docs/FUTURE_ROADMAP.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  },
+  {
+    "id": "V10-135",
+    "section": 135,
+    "title": "Final Build Command",
+    "category": "v10 canonical requirements",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Engineering/product guidance retained; not a runtime capability.",
+    "requirements": "NOW STOP PRODUCING ONLY ARCHITECTURE DISCUSSION.\nINSPECT THE REAL REPOSITORY.\nRUN THE REAL APP.\nIDENTIFY WHAT IS ACTUALLY WORKING.\nIMPLEMENT THE PRIORITY ORDER ABOVE.\nDO NOT DELETE WORKING FEATURES.\nDO NOT ADD FAKE BUTTONS.\nDO NOT HARD-CODE A TINY COMMAND LIST.\nDO NOT HARD-CODE API KEYS.\nBUILD REAL COMPUTER VISION.\nBUILD REAL LOCAL PC CONTROL.\nBUILD SECURE MULTI-DEVICE NOVA NODE MESH.\nBUILD REAL PROVIDER CONNECTIONS.\nBUILD REAL VOICE ARCHITECTURE.\nKEEP THE UI SIMPLE.\nTEST EVERYTHING.\nVERIFY EVERYTHING.\nCONTINUE AUTOMATICALLY THROUGH THE ROADMAP.\nThe target system is:\nNOVA\n=\nPRIVATE PERSONAL AI\n+\nSINHALA-FIRST VOICE\n+\nCOMPUTER VISION\n+\nWINDOWS CONTROL\n+\nMULTI-DEVICE CONTROL\n+\nMEMORY\n+\nMULTI-AGENT ORCHESTRATION\n+\nBROWSER\n+\nOFFICE\n+\nMEDIA\n+\nSOFTWARE FACTORY\n+\nGAME / 3D STUDIO\n+\nEDUCATION\n+\nSMART HOME\n+\nAUTHORIZED SECURITY\n+\nSKILL FACTORY\n+\nRECOVERY\n+\nAUDIT\n+\nPREMIUM SIMPLE WHITE-GLASS UI\nBEGIN IMPLEMENTATION NOW.",
+    "dependencies": [
+      "None within documented scope."
+    ],
+    "phase": "v10 priority order",
+    "implementation": [
+      "docs/NOVA_MASTER_SPEC.md",
+      "docs/FUTURE_ROADMAP.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/NOVA_MASTER_SPEC.md",
+    "blocker": "None within documented scope."
+  }
+]

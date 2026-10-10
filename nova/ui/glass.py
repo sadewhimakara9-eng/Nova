@@ -67,6 +67,8 @@ def apply_theme(appearance: dict | None = None, compact: bool = False) -> None:
     Operating-system reduced-motion settings always take precedence.
     """
     options = appearance if isinstance(appearance, dict) else {}
+    from .controller import ACCENTS
+    accent = ACCENTS.get(options.get('accent'), ACCENTS['Ice Blue']) if isinstance(options.get('accent'), str) else ACCENTS['Ice Blue']
     glass = _bounded(options.get("glass", 65), 65, 0, 100)
     transparency = _bounded(options.get("transparency", 60), 60, 0, 100)
     blur = _bounded(options.get("blur", 16), 16, 0, 24)
@@ -75,7 +77,7 @@ def apply_theme(appearance: dict | None = None, compact: bool = False) -> None:
     alpha = 0.94 - transparency * 0.0047
     tokens = (
         f":root{{--nova-glass-alpha:{alpha:.3f};--nova-glass-highlight:{glass / 100:.3f};--nova-blur:{0 if performance else blur:.1f}px;"
-        f"--nova-scale:{scale / 100:.3f};--nova-sidebar:{212 if compact else 245}px;}}"
+        f"--nova-scale:{scale / 100:.3f};--nova-sidebar:{212 if compact else 245}px;--nova-accent:{accent};}}"
     )
     overrides = ""
     if not options.get("animation", True) or performance:
@@ -106,8 +108,7 @@ def _raw_icon(name: str, dimension: int = 20) -> str:
 @lru_cache(maxsize=1)
 def _navigation_icons() -> str:
     """Decorate the known native navigation labels without custom JS/widgets."""
-    names = ("home", "chat", "voice", "missions", "projects", "agents", "memory",
-             "automations", "tools", "integrations", "devices", "privacy", "settings")
+    names = ("chat", "voice", "projects", "memory", "settings")
     rules = []
     for index, name in enumerate(names, 1):
         image = quote(_raw_icon(name), safe="")

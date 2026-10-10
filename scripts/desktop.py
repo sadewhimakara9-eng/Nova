@@ -73,7 +73,8 @@ class StreamlitServer:
         environment = os.environ.copy()
         environment["PYTHONUTF8"] = "1"
         # Inherit logs for useful diagnostics; no shell and no credential arguments.
-        self.process = subprocess.Popen(self.command(), cwd=self.root, env=environment)
+        options = {"creationflags": getattr(subprocess, "CREATE_NO_WINDOW", 0)} if sys.platform == "win32" else {}
+        self.process = subprocess.Popen(self.command(), cwd=self.root, env=environment, **options)
         opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         deadline = time.monotonic() + timeout
         try:
@@ -117,6 +118,12 @@ def run_browser(root: Path) -> int:
         print(f"Nova is ready at {server.url}. Keep this console open; press Ctrl+C to stop Nova.", flush=True)
         if not webbrowser.open(server.url):
             print(f"Open {server.url} in your browser.", flush=True)
+        if sys.platform == 'win32' and os.environ.get('NOVA_GUI') == '1':
+            import ctypes
+            ctypes.windll.user32.MessageBoxW(None,
+                "NOVA is running in your browser because native mode is unavailable. Leave this message open while using NOVA. Click OK to shut down NOVA's local server.",
+                "NOVA browser session", 0x40)
+            return 0
         return server.process.wait()
     finally:
         server.close()

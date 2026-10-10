@@ -1,0 +1,2665 @@
+[
+  {
+    "id": "EXP-001",
+    "section": 1,
+    "title": "Optional Smart Auto-Reply Engine",
+    "category": "Communication",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Auto-reply is OFF. No messaging transport or automatic send is installed; all six proposed modes remain roadmap work.",
+    "requirements": "Add an optional communication auto-reply subsystem.\nDefault:\nAUTO_REPLY = OFF\nThe owner does not currently require aggressive auto-reply behavior.\nIt must remain optional.\nSupported modes:\nOFF\nDRAFT_ONLY\nASK_BEFORE_SEND\nTRUSTED_CONTACTS\nAWAY_MODE\nSMART_AUTO\nBehavior:\nOFF\n- never send automatically\nDRAFT_ONLY\n- prepare suggested reply\n- show owner\n- never send\nASK_BEFORE_SEND\n- generate response\n- ask owner\n- send after approval\nTRUSTED_CONTACTS\n- only explicitly approved contacts may receive bounded automatic replies\nAWAY_MODE\n- send owner-configured short away responses where supported\nSMART_AUTO\n- only simple low-risk responses may be sent automatically under explicit owner policy\nNever make Auto Reply a spam bot.\nMandatory protections:\n- contact allowlist\n- conversation cooldown\n- duplicate prevention\n- maximum automatic replies per conversation\n- maximum replies per hour/day\n- bot-loop detection\n- escalation for uncertain messages\n- sensitive-content detection\n- quiet hours\n- owner override\n- emergency disable switch\nSensitive, financial, legal, account-security, private-data, or highly personal messages should never be automatically answered without appropriate approval.",
+    "dependencies": [
+      "communication adapters",
+      "recipient verification",
+      "owner contact policy"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-002",
+    "section": 2,
+    "title": "Ai Inbox Command Center",
+    "category": "Communication",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Create a unified communication intelligence layer.\nWhere integrations allow, NOVA may organize:\n- email\n- WhatsApp\n- Telegram\n- SMS\n- future messaging services\nPossible categories:\nURGENT\nREPLY_NEEDED\nTASK\nFOLLOW_UP\nFYI\nLOW_PRIORITY\nSPAM_OR_NOISE\nDo not delete content automatically unless explicitly permitted.\nAllow summaries such as:\n“3 important messages need your attention.”\n“Two messages need replies.”\n“Five messages are informational only.”",
+    "dependencies": [
+      "communication adapters",
+      "recipient verification",
+      "owner contact policy"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-003",
+    "section": 3,
+    "title": "Conversation Follow-Up Agent",
+    "category": "Communication",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Track approved conversations.\nSupport goals such as:\n- remind owner to reply later\n- detect important unanswered messages\n- detect expected reply arrival\n- convert message to task\n- create follow-up reminder\n- attach conversation to project\nExample:\n“Nova, if he replies about the game project, tell me.”\nUse event-based monitoring where integration supports it.",
+    "dependencies": [
+      "communication adapters",
+      "recipient verification",
+      "owner contact policy"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-004",
+    "section": 4,
+    "title": "Priority Contact System",
+    "category": "Communication",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Allow owner-defined contact priorities.\nExamples:\nFAMILY\nIMPORTANT\nNORMAL\nMUTED\nPROJECT_CONTACT\nPriority may affect:\nnotifications\nauto-reply eligibility\nquiet-hours exceptions\nfollow-up importance\nNever infer sensitive relationships automatically.\nUse owner-provided information.",
+    "dependencies": [
+      "communication adapters",
+      "recipient verification",
+      "owner contact policy"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-005",
+    "section": 5,
+    "title": "Communication Safety Layer",
+    "category": "Communication",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Before external communication verify:\nrecipient\nmessage\nattachments\nprivacy\nduplicate state\nreply context\nconversation destination\nDetect possible mistakes such as:\nwrong Sasmitha\nwrong group\nwrong file attachment\nduplicate send\nsensitive file\nlarge unintended audience",
+    "dependencies": [
+      "communication adapters",
+      "recipient verification",
+      "owner contact policy"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-006",
+    "section": 6,
+    "title": "Personal Workflow Learner",
+    "category": "Workflows",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Observe repeated SAFE workflows with permission.\nExamples:\nowner opens the same apps every morning\nowner organizes files in the same way\nowner repeatedly prepares the same reports\nowner repeatedly opens the same development workspace\nAfter sufficient evidence:\nsuggest an automation.\nDo not silently automate new learned workflows.\nUse:\nOBSERVE\n→ LEARN\n→ SIMULATE\n→ SUGGEST\n→ OWNER APPROVES\n→ AUTOMATE",
+    "dependencies": [
+      "permission grants",
+      "automation graph",
+      "Windows adapters"
+    ],
+    "phase": "1.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-007",
+    "section": 7,
+    "title": "Voice Macro Builder",
+    "category": "Workflows",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Allow the owner to create automations naturally.\nExample:\n“When I say Study Mode:\nopen my study folder,\nopen browser,\nstart focus music,\nturn on Do Not Disturb.”\nNOVA should translate natural language into an automation graph.\nNo coding required.",
+    "dependencies": [
+      "permission grants",
+      "automation graph",
+      "Windows adapters"
+    ],
+    "phase": "1.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-008",
+    "section": 8,
+    "title": "Personal Scene Profiles",
+    "category": "Workflows",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support profiles such as:\nSTUDY\nOFFICE\nGAME_DEV\nGAMING\n3D\nCREATIVE\nMOVIE\nFOCUS\nNIGHT\nTRAVEL\nCUSTOM\nA profile may control permitted:\napps\nworkspaces\nnotifications\nmusic\nsmart-home scene\nNOVA mode\nresource scheduling",
+    "dependencies": [
+      "permission grants",
+      "automation graph",
+      "Windows adapters"
+    ],
+    "phase": "1.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-009",
+    "section": 9,
+    "title": "Screen / Workspace Memory",
+    "category": "Workspace intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "With privacy controls, NOVA may remember useful workspace state:\nactive app\nopen project\nwindow arrangement\nrecent files\nselected project\nrelevant browser tabs\nBlender scene\nVS Code workspace\ngame engine project\nAllow:\n“Restore my workspace.”\n“Continue where I stopped.”",
+    "dependencies": [
+      "authorized file indexing",
+      "project records"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-010",
+    "section": 10,
+    "title": "Visual Desktop Search",
+    "category": "Workspace intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support natural search such as:\n“Find the file with the blue spaceship.”\n“Find that PDF I opened yesterday.”\n“Find the render I was working on last week.”\nCombine:\nfilename\nmetadata\nsemantic content\nproject context\nsafe visual indexing where enabled",
+    "dependencies": [
+      "authorized file indexing",
+      "project records"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-011",
+    "section": 11,
+    "title": "Clipboard Intelligence",
+    "category": "Workspace intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "NOVA may understand current clipboard content when permitted.\nPossible actions:\nsummarize\nrewrite\ntranslate\nformat\nextract table\nconvert text to task\nconvert copied data to spreadsheet\nconvert copied content to presentation\nClipboard content must obey privacy policy.",
+    "dependencies": [
+      "authorized file indexing",
+      "project records"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-012",
+    "section": 12,
+    "title": "Downloads Intelligence",
+    "category": "Workspace intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Optional Downloads organizer.\nCapabilities:\nclassify\nrename safely\ndetect duplicates\nmove to project folders\narchive old files\nidentify installers\nidentify documents\nNever permanently delete automatically by default.",
+    "dependencies": [
+      "authorized file indexing",
+      "project records"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-013",
+    "section": 13,
+    "title": "Smart File Naming",
+    "category": "Workspace intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Suggest meaningful filenames from content.\nExample:\nIMG_9281.png\ncould become a descriptive filename if appropriate.\nAvoid renaming files involved in active software builds without understanding dependencies.",
+    "dependencies": [
+      "authorized file indexing",
+      "project records"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-014",
+    "section": 14,
+    "title": "Automatic Project Detection",
+    "category": "Workspace intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Detect possible project relationships.\nExample:\nnew Blender file\nnew source-code folder\nnew presentation\nnew media assets\nNOVA may suggest:\n“This looks related to the Sci-Fi Game project.”\nDo not attach automatically if confidence is low.",
+    "dependencies": [
+      "authorized file indexing",
+      "project records"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-015",
+    "section": 15,
+    "title": "Project Time Machine",
+    "category": "Project knowledge",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Add project snapshots.\nSupport:\ncurrent snapshot\nprevious snapshots\ncompare\nrestore\nrollback\nUse Git where appropriate.\nUse file/version snapshots where Git is not appropriate.",
+    "dependencies": [
+      "local persistence",
+      "owner review"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-016",
+    "section": 16,
+    "title": "Universal Undo Engine",
+    "category": "Project knowledge",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Only unchanged NOVA-created workspace files can be moved to local trash; arbitrary undo is not implemented.",
+    "requirements": "Track reversible NOVA actions.\nExamples:\nfile moves\nfile renames\ndocument edits\nproject configuration changes\ngenerated files\nautomation changes\nOwner may say:\n“Undo what you did.”\nNOVA should identify the relevant transaction and reverse it safely when possible.",
+    "dependencies": [
+      "local persistence",
+      "owner review"
+    ],
+    "phase": "1.x",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-017",
+    "section": 17,
+    "title": "Decision Memory",
+    "category": "Project knowledge",
+    "kind": "feature",
+    "status": "WORKING",
+    "scope": "Owner-entered project decision, reason, alternatives and UTC timestamps; local search, revision-checked edit and confirmed deletion. Project names are labels, not managed project records.",
+    "requirements": "Store important project decisions.\nRecord:\ndecision\nreason\nalternatives considered\ndate\naffected project\nExample:\nOwner:\n“Why did we choose Unreal Engine?”\nNOVA should retrieve the recorded decision instead of inventing an explanation.",
+    "dependencies": [
+      "local persistence",
+      "owner review"
+    ],
+    "phase": "1.x",
+    "implementation": [
+      "nova/decisions.py",
+      "nova/storage.py",
+      "nova/core.py",
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_decisions.py",
+      "tests/test_expansion_ui.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-018",
+    "section": 18,
+    "title": "Automatic Documentation Agent",
+    "category": "Project knowledge",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Keep project documentation updated.\nPossible documents:\nREADME\nPROJECT_STATUS\nCHANGELOG\narchitecture docs\nAPI docs\nsetup docs\nuser guide\nDo not overwrite carefully written documentation blindly.\nUse diffs and review.",
+    "dependencies": [
+      "local persistence",
+      "owner review"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-019",
+    "section": 19,
+    "title": "Requirement Traceability Engine",
+    "category": "Capabilities",
+    "kind": "feature",
+    "status": "WORKING",
+    "scope": "All 132 additive requirements map to scope, implementation, tests, dependencies and release; static evidence references are not live test results.",
+    "requirements": "Map:\nrequirement\n→ implementation\n→ files/modules\n→ tests\n→ current status\n→ release\nThis is especially important because NOVA has a very large master specification.",
+    "dependencies": [
+      "capability catalog",
+      "verification evidence",
+      "adapter lifecycle"
+    ],
+    "phase": "4.x",
+    "implementation": [
+      "nova/feature_catalog.json",
+      "scripts/sync_roadmap.py"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-020",
+    "section": 20,
+    "title": "Feature Coverage Dashboard",
+    "category": "Capabilities",
+    "kind": "feature",
+    "status": "WORKING",
+    "scope": "Search and filter feature status with coverage counts, evidence and current tool availability in Tools.",
+    "requirements": "Show feature state:\nWORKING\nPARTIAL\nEXPERIMENTAL\nMISSING\nBLOCKED\nDISABLED\nDEPRECATED\nAllow owner to ask:\n“What features are still missing?”",
+    "dependencies": [
+      "capability catalog",
+      "verification evidence",
+      "adapter lifecycle"
+    ],
+    "phase": "4.x",
+    "implementation": [
+      "nova/catalog.py",
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_catalog.py",
+      "tests/test_expansion_ui.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-021",
+    "section": 21,
+    "title": "Real Capability Search",
+    "category": "Capabilities",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Local catalog search includes actual tool scope, current mode and stop state. Provider, integration and hardware discovery are not verified.",
+    "requirements": "Owner:\n“Can you edit video?”\n“Can you control Blender?”\n“Can you send WhatsApp messages?”\nNOVA must inspect actual:\nskills\ntools\nintegrations\npermissions\nproviders\nhardware\nbefore answering.",
+    "dependencies": [
+      "capability catalog",
+      "verification evidence",
+      "adapter lifecycle"
+    ],
+    "phase": "4.x",
+    "implementation": [
+      "nova/catalog.py",
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-022",
+    "section": 22,
+    "title": "Capability Catalog",
+    "category": "Capabilities",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Searchable installed tools, agents, provider adapters and expansion roadmap. No dynamic skill or workflow installation.",
+    "requirements": "Create an internal searchable catalog for:\ntools\nskills\nagents\nintegrations\nproviders\nworkflows\nDo not treat it as a fixed whitelist.\nAllow future expansion.",
+    "dependencies": [
+      "capability catalog",
+      "verification evidence",
+      "adapter lifecycle"
+    ],
+    "phase": "4.x",
+    "implementation": [
+      "nova/catalog.py",
+      "nova/feature_catalog.json"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-023",
+    "section": 23,
+    "title": "Automatic Skill Builder",
+    "category": "Capabilities",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For legitimate missing functionality:\nCAPABILITY GAP\n→ research\n→ find existing integration\n→ design adapter\n→ isolated implementation\n→ test\n→ security review\n→ privacy review\n→ owner approval where required\n→ install\n→ verify\n→ register\nNever bypass core security or privacy.",
+    "dependencies": [
+      "capability catalog",
+      "verification evidence",
+      "adapter lifecycle"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-024",
+    "section": 24,
+    "title": "Skill Quality Score",
+    "category": "Capabilities",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Recent completed/failed tool missions provide a success ratio only; latency, cost and routing scores are not measured.",
+    "requirements": "Track:\nsuccess rate\nfailure rate\nlatency\ncost\nprivacy impact\nverification success\nUse the score in tool selection.",
+    "dependencies": [
+      "capability catalog",
+      "verification evidence",
+      "adapter lifecycle"
+    ],
+    "phase": "4.x",
+    "implementation": [
+      "nova/capabilities.py"
+    ],
+    "tests": [
+      "tests/test_capabilities.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-025",
+    "section": 25,
+    "title": "Tool Health Monitor",
+    "category": "Capabilities",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Core database and scheduler health are available; external dependency monitoring is not implemented.",
+    "requirements": "Monitor important dependencies such as:\nbrowser automation\nFFmpeg\nBlender\ngame engine tools\nOffice integration\nvoice engine\nAI providers\ndatabases\nbackground workers\nShow:\nHEALTHY\nDEGRADED\nFAILED\nAUTH_REQUIRED",
+    "dependencies": [
+      "capability catalog",
+      "verification evidence",
+      "adapter lifecycle"
+    ],
+    "phase": "4.x",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-026",
+    "section": 26,
+    "title": "Integration Self-Repair",
+    "category": "Capabilities",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Detect failures such as:\nexpired auth\nAPI changes\nbrowser selector break\nmissing executable\npath changes\ndependency changes\nCreate repair mission.\nDo not repeatedly retry broken integration forever.",
+    "dependencies": [
+      "capability catalog",
+      "verification evidence",
+      "adapter lifecycle"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-027",
+    "section": 27,
+    "title": "Provider Competition Mode",
+    "category": "Providers and resources",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For difficult high-value tasks, NOVA may optionally request independent candidate solutions from multiple approved models/providers.\nThen:\nReviewer Agent compares results.\nUse only when quality benefit justifies cost.",
+    "dependencies": [
+      "provider health",
+      "budgets",
+      "resource monitoring"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-028",
+    "section": 28,
+    "title": "Model Benchmark Lab",
+    "category": "Providers and resources",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Periodically evaluate approved models for:\nSinhala\ncoding\nreasoning\nvision\nlatency\ncost\ntool use\nreliability\nUse empirical results for routing.",
+    "dependencies": [
+      "provider health",
+      "budgets",
+      "resource monitoring"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-029",
+    "section": 29,
+    "title": "Local Ai Fallback",
+    "category": "Providers and resources",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Ollama adapter exists. Requires an installed running model; no automatic fallback.",
+    "requirements": "Architecture should support optional local models.\nUseful for:\noffline mode\nprivate tasks\nsimple commands\nsummaries\nrouting\nbasic coding support\nDo not claim local capabilities that are not installed.",
+    "dependencies": [
+      "provider health",
+      "budgets",
+      "resource monitoring"
+    ],
+    "phase": "4.x",
+    "implementation": [
+      "nova/providers.py"
+    ],
+    "tests": [
+      "tests/test_providers.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-030",
+    "section": 30,
+    "title": "Offline Mission Queue",
+    "category": "Providers and resources",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "If internet-required work is blocked:\nqueue task\ncontinue local work\ndetect network restoration\nresume queued mission safely",
+    "dependencies": [
+      "provider health",
+      "budgets",
+      "resource monitoring"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-031",
+    "section": 31,
+    "title": "Ai Cost Optimizer",
+    "category": "Providers and resources",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Route:\nsimple tasks\n→ local/fast/cheap models\ncomplex tasks\n→ stronger reasoning models\nvision tasks\n→ vision provider\ncoding tasks\n→ coding-capable provider\nOwner may set:\ndaily budget\nmonthly budget\nper-project budget",
+    "dependencies": [
+      "provider health",
+      "budgets",
+      "resource monitoring"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-032",
+    "section": 32,
+    "title": "Compute Autopilot",
+    "category": "Providers and resources",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Manage heavy:\nrendering\nvideo processing\nAI inference\ngame builds\ntest suites\nUse:\nidle time\nnight schedule\nresource availability",
+    "dependencies": [
+      "provider health",
+      "budgets",
+      "resource monitoring"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-033",
+    "section": 33,
+    "title": "Pc Performance Guardian",
+    "category": "Providers and resources",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Monitor:\nCPU\nGPU\nRAM\ndisk\ntemperature where supported\nnetwork\nIf owner starts gaming or heavy interactive work:\nreduce low-priority background resource consumption.",
+    "dependencies": [
+      "provider health",
+      "budgets",
+      "resource monitoring"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-034",
+    "section": 34,
+    "title": "Battery-Aware Mode",
+    "category": "Providers and resources",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "On portable systems:\ndetect low battery\npause optional heavy jobs\nresume when power returns",
+    "dependencies": [
+      "provider health",
+      "budgets",
+      "resource monitoring"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-035",
+    "section": 35,
+    "title": "Network-Aware Mode",
+    "category": "Providers and resources",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Detect:\noffline\nslow\nmetered where available\nAvoid unnecessary large uploads.\nQueue cloud work if necessary.",
+    "dependencies": [
+      "provider health",
+      "budgets",
+      "resource monitoring"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-036",
+    "section": 36,
+    "title": "Smart Browser Workspace",
+    "category": "Browser and research",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support:\nproject tab grouping\nduplicate detection\nsaved tab sets\nworkspace restore\nresearch session grouping",
+    "dependencies": [
+      "browser adapter",
+      "source provenance"
+    ],
+    "phase": "2.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-037",
+    "section": 37,
+    "title": "Safe Web Workflow Recorder",
+    "category": "Browser and research",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For owner-approved ordinary web workflows:\nobserve steps\nbuild automation template\ntest in shadow mode\nask owner before enabling\nDo not record passwords into workflow steps.",
+    "dependencies": [
+      "browser adapter",
+      "source provenance"
+    ],
+    "phase": "2.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-038",
+    "section": 38,
+    "title": "Website Change Monitor",
+    "category": "Browser and research",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For explicitly selected pages:\ndetect meaningful change\ntrigger mission/event\nExamples:\ndocumentation update\nproduct status change\nproject page update\nDo not create uncontrolled broad surveillance.",
+    "dependencies": [
+      "browser adapter",
+      "source provenance"
+    ],
+    "phase": "2.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-039",
+    "section": 39,
+    "title": "Research Knowledge Graph",
+    "category": "Browser and research",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Track relationships:\nsource\nclaim\ndate\ntopic\nproject\ncontradiction\nconfidence\nfreshness",
+    "dependencies": [
+      "browser adapter",
+      "source provenance"
+    ],
+    "phase": "2.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-040",
+    "section": 40,
+    "title": "Fact Freshness Engine",
+    "category": "Browser and research",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Facts that age quickly should receive freshness metadata.\nMark stale information for re-check when necessary.",
+    "dependencies": [
+      "browser adapter",
+      "source provenance"
+    ],
+    "phase": "2.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-041",
+    "section": 41,
+    "title": "Multi-Agent Research Debate",
+    "category": "Browser and research",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For difficult research questions:\nResearch Agent A\nResearch Agent B\nCritic Agent\nEvidence Verifier\nFinal Synthesizer\nUse only when worthwhile.",
+    "dependencies": [
+      "browser adapter",
+      "source provenance"
+    ],
+    "phase": "2.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-042",
+    "section": 42,
+    "title": "Meeting Assistant",
+    "category": "Personal productivity",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Where consent and integration allow:\ntranscribe\nsummarize\nidentify decisions\nidentify action items\nidentify dates\ncreate follow-up tasks\nNever record people without appropriate consent/legal compliance.",
+    "dependencies": [
+      "consented integrations",
+      "calendar adapter"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-043",
+    "section": 43,
+    "title": "Voice Notes → Structured Data",
+    "category": "Personal productivity",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Example:\n“Nova note this idea for our game.”\nClassify into:\nnote\ntask\nidea\nproject decision\nmemory\ncalendar item\ndepending on context.",
+    "dependencies": [
+      "consented integrations",
+      "calendar adapter"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-044",
+    "section": 44,
+    "title": "Call Summary",
+    "category": "Personal productivity",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For supported and appropriately consented calls:\ntranscribe\nsummarize\nextract tasks\nextract dates\nextract requirements\nattach to correct project",
+    "dependencies": [
+      "consented integrations",
+      "calendar adapter"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-045",
+    "section": 45,
+    "title": "Smart Away Mode",
+    "category": "Personal productivity",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Optional.\nOwner can configure:\nenabled contacts\nmessage\nduration\nquiet hours\nAuto-reply remains OFF unless explicitly enabled.",
+    "dependencies": [
+      "consented integrations",
+      "calendar adapter"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-046",
+    "section": 46,
+    "title": "Calendar Autoplanner",
+    "category": "Personal productivity",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Analyze:\ndeadlines\nmeetings\navailable time\ntask estimates\nSuggest work blocks.\nDo not rearrange important calendar items without owner policy.",
+    "dependencies": [
+      "consented integrations",
+      "calendar adapter"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-047",
+    "section": 47,
+    "title": "Schedule Conflict Resolver",
+    "category": "Personal productivity",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Detect overlap.\nProvide options.\nWhere allowed, prepare rescheduling.",
+    "dependencies": [
+      "consented integrations",
+      "calendar adapter"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-048",
+    "section": 48,
+    "title": "Morning Command Center",
+    "category": "Personal productivity",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Optional morning summary may contain:\ntoday's calendar\nimportant missions\novernight results\nimportant communication\nproject deadlines\npending approvals\nOnly include weather/news if requested or configured.",
+    "dependencies": [
+      "consented integrations",
+      "calendar adapter"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-049",
+    "section": 49,
+    "title": "End-Of-Day Summary",
+    "category": "Personal productivity",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Summarize:\ncompleted work\nproject progress\nimportant decisions\ngenerated artifacts\nfailures\ntomorrow's pending work",
+    "dependencies": [
+      "consented integrations",
+      "calendar adapter"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-050",
+    "section": 50,
+    "title": "Focus Autopilot",
+    "category": "Personal productivity",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Example:\n“Nova, focus mode.”\nPotential permitted actions:\nopen active project\nenable DND\nreduce background notifications\nopen required applications\nplay configured music\nstart work session",
+    "dependencies": [
+      "consented integrations",
+      "calendar adapter"
+    ],
+    "phase": "2.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-051",
+    "section": 51,
+    "title": "Study Intelligence Dashboard",
+    "category": "Education",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Show:\nsubjects\ntopics\npractice completed\nweak topics\nupcoming study tasks\nrecent target papers\nDo not create unhealthy score pressure.",
+    "dependencies": [
+      "study records",
+      "evaluation pipeline"
+    ],
+    "phase": "4.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-052",
+    "section": 52,
+    "title": "Adaptive Practice Generator",
+    "category": "Education",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Adjust future practice using:\nprevious answers\ndifficulty\nweak concepts\nrecent mistakes\nMaintain broad syllabus coverage.",
+    "dependencies": [
+      "study records",
+      "evaluation pipeline"
+    ],
+    "phase": "4.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-053",
+    "section": 53,
+    "title": "Answer Quality Analyzer",
+    "category": "Education",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For practice/homework review:\nidentify missing concepts\nexplain improvement\ncompare against appropriate marking criteria when available\nDo not assist cheating during live restricted exams.",
+    "dependencies": [
+      "study records",
+      "evaluation pipeline"
+    ],
+    "phase": "4.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-054",
+    "section": 54,
+    "title": "Syllabus Knowledge Map",
+    "category": "Education",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Represent:\nsubject\nunit\ntopic\nconcept\nprerequisite\ndifficulty\npractice history\nweakness\nstrength",
+    "dependencies": [
+      "study records",
+      "evaluation pipeline"
+    ],
+    "phase": "4.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-055",
+    "section": 55,
+    "title": "Revision Scheduler",
+    "category": "Education",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Plan reasonable spaced revision.\nAvoid unhealthy excessive study schedules.",
+    "dependencies": [
+      "study records",
+      "evaluation pipeline"
+    ],
+    "phase": "4.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-056",
+    "section": 56,
+    "title": "Paper Difficulty Calibrator",
+    "category": "Education",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Independent Exam Reviewer Agent should check:\ndifficulty balance\nsyllabus coverage\nmark allocation\ntime realism\nquestion originality",
+    "dependencies": [
+      "study records",
+      "evaluation pipeline"
+    ],
+    "phase": "4.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-057",
+    "section": 57,
+    "title": "Originality Checker",
+    "category": "Education",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Practice papers generated from source materials should not merely duplicate the original.\nCheck for excessive overlap.",
+    "dependencies": [
+      "study records",
+      "evaluation pipeline"
+    ],
+    "phase": "4.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-058",
+    "section": 58,
+    "title": "Photo Auto-Editor",
+    "category": "Media",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Classify photo type when useful:\nportrait\nlandscape\nproduct\ndocument\narchitecture\ngame asset\nChoose appropriate editing workflow automatically.",
+    "dependencies": [
+      "media adapters",
+      "artifact verification"
+    ],
+    "phase": "3.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-059",
+    "section": 59,
+    "title": "Batch Image Studio",
+    "category": "Media",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support large image sets:\nconsistent crop\nresize\ncolor treatment\nrename\nformat\nexport\nMaintain originals.",
+    "dependencies": [
+      "media adapters",
+      "artifact verification"
+    ],
+    "phase": "3.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-060",
+    "section": 60,
+    "title": "Video Auto-Director",
+    "category": "Media",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For raw footage:\nunderstand scenes\nspeech\nquality\npacing\ngoal\nThen propose or execute an editing plan.\nDo not rely on a single fixed template.",
+    "dependencies": [
+      "media adapters",
+      "artifact verification"
+    ],
+    "phase": "3.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-061",
+    "section": 61,
+    "title": "Long Video → Shorts Factory",
+    "category": "Media",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Possible pipeline:\nanalyze\nfind strong moments\nselect clips\nvertical crop\ncaptions\naudio cleanup\nexport multiple versions",
+    "dependencies": [
+      "media adapters",
+      "artifact verification"
+    ],
+    "phase": "3.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-062",
+    "section": 62,
+    "title": "Multilingual Subtitle Studio",
+    "category": "Media",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support:\nSinhala\nEnglish\nSinhala-English mixed speech\nSubtitle correction\ntiming\nstyling\nexport",
+    "dependencies": [
+      "media adapters",
+      "artifact verification"
+    ],
+    "phase": "3.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-063",
+    "section": 63,
+    "title": "Thumbnail Intelligence",
+    "category": "Media",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Analyze video/project content.\nGenerate multiple appropriate thumbnail concepts.\nDo not use deceptive/misleading designs by default.",
+    "dependencies": [
+      "media adapters",
+      "artifact verification"
+    ],
+    "phase": "3.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-064",
+    "section": 64,
+    "title": "Media Style Memory",
+    "category": "Media",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Remember approved preferences:\ncinematic style\ncolor style\nsubtitle style\naspect ratio\nintro/outro\nfont preferences\nexport format",
+    "dependencies": [
+      "media adapters",
+      "artifact verification"
+    ],
+    "phase": "3.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-065",
+    "section": 65,
+    "title": "Media Quality Control Agent",
+    "category": "Media",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Inspect final media for:\nresolution\naudio\nblack frames\nbroken encoding\nsubtitle timing\nfile corruption\nunexpected duration\nExport must be verified.",
+    "dependencies": [
+      "media adapters",
+      "artifact verification"
+    ],
+    "phase": "3.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-066",
+    "section": 66,
+    "title": "Distributed Render Architecture",
+    "category": "Media",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Future support for:\nmain PC\nsecondary PC\nGPU worker\nhome server\nJobs may be distributed when securely configured.",
+    "dependencies": [
+      "media adapters",
+      "artifact verification"
+    ],
+    "phase": "3.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-067",
+    "section": 67,
+    "title": "3D Asset Librarian",
+    "category": "3D",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Index authorized assets with:\nname\ntype\nproject\npolycount\nmaterials\ntextures\nformat\nlicense metadata\nlast use",
+    "dependencies": [
+      "Blender adapter",
+      "asset permissions"
+    ],
+    "phase": "5.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-068",
+    "section": 68,
+    "title": "3D Scene Optimizer",
+    "category": "3D",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Detect:\nunused assets\nduplicate textures\nheavy meshes\nunnecessary materials\nperformance issues\nSuggest or execute safe optimization.",
+    "dependencies": [
+      "Blender adapter",
+      "asset permissions"
+    ],
+    "phase": "5.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-069",
+    "section": 69,
+    "title": "Architectural Visualization Mode",
+    "category": "3D",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support pipelines such as:\n2D plan\n→ scene/blockout\n→ walls/openings\n→ materials\n→ lighting\n→ camera\n→ render\nDo not assume every plan can be reconstructed perfectly without dimensions.",
+    "dependencies": [
+      "Blender adapter",
+      "asset permissions"
+    ],
+    "phase": "5.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-070",
+    "section": 70,
+    "title": "Game World Generation Framework",
+    "category": "Game studio",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support controlled procedural assistance for:\nterrain\nprops\nzones\nencounters\nNPC placement\nquest scaffolding\nwhile following game design constraints.",
+    "dependencies": [
+      "engine adapters",
+      "build verification"
+    ],
+    "phase": "5.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-071",
+    "section": 71,
+    "title": "Npc Simulation Architecture",
+    "category": "Game studio",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Possible NPC systems:\nschedules\nbehavior states\nmemory\nrelationships\nreputation\ndialog context\nsimulation\nKeep game-specific systems modular.",
+    "dependencies": [
+      "engine adapters",
+      "build verification"
+    ],
+    "phase": "5.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-072",
+    "section": 72,
+    "title": "Automated Game Qa",
+    "category": "Game studio",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support:\nrepeatable tests\ninput automation\nUI checks\ncrash detection\nsave/load testing\nperformance measurements",
+    "dependencies": [
+      "engine adapters",
+      "build verification"
+    ],
+    "phase": "5.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-073",
+    "section": 73,
+    "title": "Performance Regression Detector",
+    "category": "Game studio",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Compare new builds to baseline:\nFPS\nload time\nmemory\nVRAM\nbuild size\nstartup time",
+    "dependencies": [
+      "engine adapters",
+      "build verification"
+    ],
+    "phase": "5.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-074",
+    "section": 74,
+    "title": "Nightly Game Build Autopilot",
+    "category": "Game studio",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Optional:\nbuild\ntest\narchive\ngenerate report\nDo not publish automatically without policy.",
+    "dependencies": [
+      "engine adapters",
+      "build verification"
+    ],
+    "phase": "5.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-075",
+    "section": 75,
+    "title": "Creative Director Agent",
+    "category": "Creative and web",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Maintain consistent creative identity across:\ngame\nwebsite\nimages\nvideo\npresentation\n3D assets\nUI\nUse project-specific style memory.",
+    "dependencies": [
+      "project style records",
+      "browser QA"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-076",
+    "section": 76,
+    "title": "Brand / Style Memory",
+    "category": "Creative and web",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Remember approved project identity:\nlogos\nfonts\nlayout preferences\nvisual tone\ncolor system\nwriting tone\nNever infer trademark ownership.",
+    "dependencies": [
+      "project style records",
+      "browser QA"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-077",
+    "section": 77,
+    "title": "Website Design Critic",
+    "category": "Creative and web",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Review:\nspacing\nvisual hierarchy\nresponsive behavior\naccessibility\nperformance\nnavigation\ncontent consistency",
+    "dependencies": [
+      "project style records",
+      "browser QA"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-078",
+    "section": 78,
+    "title": "Automatic Website Qa",
+    "category": "Creative and web",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Test:\ndesktop\nmobile\nroutes\nforms\nlinks\nnetwork errors\nbasic accessibility\nconsole errors",
+    "dependencies": [
+      "project style records",
+      "browser QA"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-079",
+    "section": 79,
+    "title": "Deployment Health Agent",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "After approved deployment:\ncheck endpoint\ncheck major routes\ndetect obvious errors\ntrack health where configured",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-080",
+    "section": 80,
+    "title": "Deployment Rollback",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "If deployment is verified broken:\nallow rollback to last known working version according to policy.",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-081",
+    "section": 81,
+    "title": "Domain / Ssl Health",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For owner-managed domains:\ndetect expiry\ncertificate issues\nconfiguration problems\nDNS issues where possible",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-082",
+    "section": 82,
+    "title": "Database Guardian",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support:\nbackup checks\nmigration validation\nschema health\nduplicate detection\ndata integrity checks\nDo not make destructive DB changes without appropriate safeguards.",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-083",
+    "section": 83,
+    "title": "Codebase Knowledge Graph",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Build semantic relationships between:\nmodules\nfunctions\nclasses\ntests\nAPIs\ndata models\nfeatures\nUseful for large NOVA/game/software projects.",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-084",
+    "section": 84,
+    "title": "Multi-Agent Code Review",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For important code:\nAUTHOR AGENT\n≠\nREVIEWER AGENT\n≠\nTESTER AGENT\nAvoid self-approval on critical changes.",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-085",
+    "section": 85,
+    "title": "Bug Reproduction Agent",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Transform vague bug report into:\nreproduction steps\nexpected behavior\nactual behavior\nlogs\nfailing test where possible",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-086",
+    "section": 86,
+    "title": "Performance Profiler Agent",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Detect:\nslow code paths\nCPU bottlenecks\nmemory issues\nslow startup\nexpensive DB queries\nBenchmark before/after optimization.",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-087",
+    "section": 87,
+    "title": "Dependency Migration Agent",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "When library/API deprecated:\nresearch replacement\ncreate migration plan\nimplement in branch\ntest\nverify\ndocument",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-088",
+    "section": 88,
+    "title": "Automatic Release Notes",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Generate human-readable release notes from:\ncommits\nmissions\nfeatures\nfixes\nDo not expose private internal details unnecessarily.",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-089",
+    "section": 89,
+    "title": "Safe Installer / Updater",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Future updater should:\nbackup\nverify package\napply update\ntest launch\nrollback on failure",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-090",
+    "section": 90,
+    "title": "Canary Nova Updates",
+    "category": "Software delivery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Test update in:\nsandbox\ntest profile\nor staged environment\nbefore production activation.",
+    "dependencies": [
+      "isolated build runner",
+      "owner deployment policy",
+      "rollback"
+    ],
+    "phase": "3.5",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-091",
+    "section": 91,
+    "title": "Disaster Recovery Wizard",
+    "category": "Privacy and recovery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "If NOVA becomes unusable:\nsafe mode\nbackup discovery\nconfiguration reset options\nrestore\ndiagnostics\nDo not delete project data automatically.",
+    "dependencies": [
+      "permission policy",
+      "secure credential storage",
+      "recovery checkpoints"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-092",
+    "section": 92,
+    "title": "One-Click Safe Mode",
+    "category": "Privacy and recovery",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "SAFE_MODE blocks tool and memory writes. Full diagnostics-only startup and plugin isolation are not implemented.",
+    "requirements": "Safe Mode:\ndisable third-party plugins\ndisable automations\ndisable background agents\nstart Core + diagnostics only",
+    "dependencies": [
+      "permission policy",
+      "secure credential storage",
+      "recovery checkpoints"
+    ],
+    "phase": "1.x",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-093",
+    "section": 93,
+    "title": "Advanced Privacy Dashboard",
+    "category": "Privacy and recovery",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Local-only controls and limited successful cloud-response history; no system-wide network monitor.",
+    "requirements": "Show:\nexternal providers contacted\ndata categories transmitted\nblocked egress\nprivate apps\nlocal-only state\nrecent privacy decisions",
+    "dependencies": [
+      "permission policy",
+      "secure credential storage",
+      "recovery checkpoints"
+    ],
+    "phase": "1.x",
+    "implementation": [
+      "nova/ui/controller.py",
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_ui_controller.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-094",
+    "section": 94,
+    "title": "Privacy Impact Preview",
+    "category": "Privacy and recovery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Before high-sensitivity external task, optionally display:\nprovider\ndata to be transmitted\nreason\nretention assumptions if known\nalternative local method if available",
+    "dependencies": [
+      "permission policy",
+      "secure credential storage",
+      "recovery checkpoints"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-095",
+    "section": 95,
+    "title": "Secret Rotation Helper",
+    "category": "Privacy and recovery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support secure reminders/workflows for rotating:\nAPI keys\ntokens\ncredentials\nNever expose existing secret unnecessarily.",
+    "dependencies": [
+      "permission policy",
+      "secure credential storage",
+      "recovery checkpoints"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-096",
+    "section": 96,
+    "title": "Account Connection Center",
+    "category": "Privacy and recovery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Central UI for:\nprovider\nconnection state\npermissions\nlast health check\nauth expiry\nreconnect",
+    "dependencies": [
+      "permission policy",
+      "secure credential storage",
+      "recovery checkpoints"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-097",
+    "section": 97,
+    "title": "Fine-Grained Permissions",
+    "category": "Privacy and recovery",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Fixed tool/agent/workspace scopes exist; contact, device, domain and project grants are not implemented.",
+    "requirements": "Permission targets:\napp\nfolder\nfile class\ncontact\ndevice\nwebsite/domain\nintegration\ntool\nproject",
+    "dependencies": [
+      "permission policy",
+      "secure credential storage",
+      "recovery checkpoints"
+    ],
+    "phase": "1.x",
+    "implementation": [
+      "nova/core.py",
+      "nova/agents.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-098",
+    "section": 98,
+    "title": "Temporary Permissions",
+    "category": "Privacy and recovery",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Support:\nALLOW_ONCE\nFOR_THIS_MISSION\nFOR_THIS_SESSION\nUNTIL_TIME\nExample:\n“Give NOVA access to Downloads only for this mission.”",
+    "dependencies": [
+      "permission policy",
+      "secure credential storage",
+      "recovery checkpoints"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-099",
+    "section": 99,
+    "title": "Emergency Lockdown",
+    "category": "Privacy and recovery",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Durable stop pauses the local scheduler; external, financial and remote backends do not exist.",
+    "requirements": "One command should:\npause external sends\npause financial actions\npause background agents\npause remote access\npause selected network integrations\nwithout corrupting mission state.",
+    "dependencies": [
+      "permission policy",
+      "secure credential storage",
+      "recovery checkpoints"
+    ],
+    "phase": "1.x",
+    "implementation": [
+      "nova/core.py"
+    ],
+    "tests": [
+      "tests/test_core.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-100",
+    "section": 100,
+    "title": "Audit Timeline",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Owner:\n“What did NOVA do at 10 PM?”\nShow:\nmissions\nactions\ntools\nexternal effects\nverification",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-101",
+    "section": 101,
+    "title": "Mission Replay",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Allow debugging of a mission through event history.\nDo not rerun external actions automatically while replaying.",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-102",
+    "section": 102,
+    "title": "Explain Action",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Mission goals, tools and verified results are visible; no invented decision rationale or broad explain-action engine.",
+    "requirements": "Owner:\n“Why did you do that?”\nAnswer using:\ngoal\npolicy\ncontext\ndecision\ntool result\nDo not fabricate hidden reasoning.\nProvide concise auditable rationale.",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_dashboard.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-103",
+    "section": 103,
+    "title": "Confidence-Aware Execution",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "High uncertainty + irreversible action\n→ ASK / VERIFY.\nHigh confidence + reversible local action\n→ AUTO where policy allows.",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-104",
+    "section": 104,
+    "title": "Behavior Anomaly Detector",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "If NOVA suddenly behaves unusually:\nreduce autonomy\ndisable suspect integration\ncreate diagnostic incident\nnotify owner if important",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-105",
+    "section": 105,
+    "title": "Agent Loop Detector",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Detect repeated equivalent actions.\nStop wasteful loops.\nCreate failure diagnosis.",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-106",
+    "section": 106,
+    "title": "Agent Deadlock Detector",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Detect agents waiting on each other cyclically.\nResolve or escalate.",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-107",
+    "section": 107,
+    "title": "Mission Budget Guard",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Plans have at most eight steps and providers have request bounds; no aggregate token, cost or runtime budget ledger.",
+    "requirements": "Prevent unlimited:\nAPI calls\nretries\nruntime\ncompute\ntokens\ntool invocations",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [
+      "nova/core.py",
+      "nova/providers.py"
+    ],
+    "tests": [
+      "tests/test_core.py",
+      "tests/test_providers.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-108",
+    "section": 108,
+    "title": "Deadline Risk Predictor",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Estimate whether project/milestone risks missing deadline.\nUse:\nremaining work\nhistorical speed\nblocked dependencies\nresource constraints",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-109",
+    "section": 109,
+    "title": "Automatic Fallback Planner",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For important missions maintain alternatives.\nExample:\npreferred provider unavailable\n→ use approved fallback provider.\nBrowser automation broken\n→ use official API if available.",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-110",
+    "section": 110,
+    "title": "Opportunity Detector",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "NOVA may identify clearly useful next steps.\nExample:\n“Tests are passing but documentation is outdated.”\n“Your build is complete; a backup has not been created.”\nDo not constantly generate unnecessary work.",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-111",
+    "section": 111,
+    "title": "Advanced Project Health Ai",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Combined project health score may consider:\nfeature completion\ntests\nbugs\nsecurity\ndocumentation\nperformance\ndependency health\nroadmap status",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-112",
+    "section": 112,
+    "title": "Technical Debt Planner",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Classify:\nurgent\nimportant\nlater\ncosmetic\nAvoid endless refactoring.",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-113",
+    "section": 113,
+    "title": "Owner Decision Queue",
+    "category": "Mission intelligence",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "During overnight autonomous work:\ncollect nonurgent questions.\nContinue independent work.\nPresent owner with one concise batch later.",
+    "dependencies": [
+      "mission evidence",
+      "bounded scheduling"
+    ],
+    "phase": "4.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-114",
+    "section": 114,
+    "title": "Multi-Device Mission Handoff",
+    "category": "Multi-device",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Future architecture should support moving approved work between:\nPC\nlaptop\nhome server\nGPU worker\nwithout losing mission state.",
+    "dependencies": [
+      "paired authentication",
+      "encrypted transport",
+      "device policy"
+    ],
+    "phase": "7.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-115",
+    "section": 115,
+    "title": "Phone Companion",
+    "category": "Multi-device",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Future secure companion may provide:\nchat\nvoice\napproval cards\nmission status\nnotifications\ncalling bridge\nsecure remote commands",
+    "dependencies": [
+      "paired authentication",
+      "encrypted transport",
+      "device policy"
+    ],
+    "phase": "7.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-116",
+    "section": 116,
+    "title": "Secure Remote Nova",
+    "category": "Multi-device",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Disabled by default.\nRequire:\nauthentication\nencryption\ndevice pairing\nsession management\naudit logs\nNo open unauthenticated remote control.",
+    "dependencies": [
+      "paired authentication",
+      "encrypted transport",
+      "device policy"
+    ],
+    "phase": "7.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-117",
+    "section": 117,
+    "title": "Advanced Smart-Home Routines",
+    "category": "Home and cameras",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Compose:\ntime\npresence information if legitimately available\nowner commands\ndevice state\napproved scenes\nVerify final device state.",
+    "dependencies": [
+      "authorized device adapters",
+      "privacy policy"
+    ],
+    "phase": "6.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-118",
+    "section": 118,
+    "title": "Energy-Aware Home Assistance",
+    "category": "Home and cameras",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "If compatible device energy data exists:\nprovide optimization suggestions.\nDo not sacrifice comfort/safety without owner policy.",
+    "dependencies": [
+      "authorized device adapters",
+      "privacy policy"
+    ],
+    "phase": "6.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-119",
+    "section": 119,
+    "title": "Cctv Daily Digest",
+    "category": "Home and cameras",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "For authorized cameras:\nsummarize meaningful events.\nAvoid unnecessary continuous notifications.",
+    "dependencies": [
+      "authorized device adapters",
+      "privacy policy"
+    ],
+    "phase": "6.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-120",
+    "section": 120,
+    "title": "Camera Health Monitor",
+    "category": "Home and cameras",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Detect:\noffline camera\nstorage failure\nconnection issue\npossible tampering where supported",
+    "dependencies": [
+      "authorized device adapters",
+      "privacy policy"
+    ],
+    "phase": "6.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-121",
+    "section": 121,
+    "title": "Home Privacy Mode",
+    "category": "Home and cameras",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Allow owner to temporarily pause selected:\ncamera analysis\nsmart-home automations\nremote access\nwith clear UI state.",
+    "dependencies": [
+      "authorized device adapters",
+      "privacy policy"
+    ],
+    "phase": "6.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-122",
+    "section": 122,
+    "title": "Universal Command Palette",
+    "category": "Interaction",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Quick find opens existing pages; Tools searches the catalog. No global search of project/file content.",
+    "requirements": "Search:\ncommands\nprojects\nfiles\nagents\ntools\nsettings\nautomations\nintegrations",
+    "dependencies": [
+      "context selection",
+      "permission policy"
+    ],
+    "phase": "1.x",
+    "implementation": [
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_dashboard.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-123",
+    "section": 123,
+    "title": "Contextual Help",
+    "category": "Interaction",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Installed tool scope and local help are available; no active-app or selected-file context inspection.",
+    "requirements": "Owner:\n“What can you do here?”\nNOVA should inspect:\ncurrent app\nselected file\nactive project\navailable tools\nand explain relevant capabilities.",
+    "dependencies": [
+      "context selection",
+      "permission policy"
+    ],
+    "phase": "1.x",
+    "implementation": [
+      "nova/core.py",
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-124",
+    "section": 124,
+    "title": "Teach-Me Mode",
+    "category": "Interaction",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Optional mode.\nNOVA performs the task and explains the important steps simply.\nUseful for learning.\nDefault should remain concise.",
+    "dependencies": [
+      "context selection",
+      "permission policy"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-125",
+    "section": 125,
+    "title": "Silent Executive Mode",
+    "category": "Interaction",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Routine approved work:\nbackground execution.\nOnly show:\nimportant failure\nrequired approval\ncritical result\ncompletion summary",
+    "dependencies": [
+      "context selection",
+      "permission policy"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-126",
+    "section": 126,
+    "title": "Preview-Before-Action Mode",
+    "category": "Interaction",
+    "kind": "feature",
+    "status": "PARTIAL",
+    "scope": "Prepared local mission approval includes a preview. Per-category external action policies are not implemented.",
+    "requirements": "Owner may configure categories to always preview:\nmessages\nemails\nfile deletion\npublic posting\ndeployments\netc.",
+    "dependencies": [
+      "context selection",
+      "permission policy"
+    ],
+    "phase": "1.x",
+    "implementation": [
+      "nova_app.py"
+    ],
+    "tests": [
+      "tests/test_dashboard.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-127",
+    "section": 127,
+    "title": "Action Templates",
+    "category": "Interaction",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Save reusable complex workflows.\nExample:\n“YouTube Upload Preparation”\nmay include:\nvideo quality check\nthumbnail generation\ndescription draft\nsubtitle export\nfile organization\nPublishing still obeys external-action policy.",
+    "dependencies": [
+      "context selection",
+      "permission policy"
+    ],
+    "phase": "1.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-128",
+    "section": 128,
+    "title": "Daily Memory Consolidation",
+    "category": "Memory",
+    "kind": "feature",
+    "status": "NOT_STARTED",
+    "scope": "Roadmap requirement only; no executable implementation.",
+    "requirements": "Periodically consolidate:\nrepeated preferences\nproject decisions\ncompleted missions\ntemporary context\nAvoid storing every trivial conversation forever.",
+    "dependencies": [
+      "explicit provenance",
+      "retention policy"
+    ],
+    "phase": "8.x",
+    "implementation": [],
+    "tests": [],
+    "release": null,
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-129",
+    "section": 129,
+    "title": "Future Roadmap",
+    "category": "Roadmap governance",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Documentation and development guidance maintained; not a runtime capability.",
+    "requirements": "Maintain the following broad roadmap.\nNOVA 0.x\n- core\n- white-glass UI\n- basic chat\n- project status\nNOVA 1.x\n- mission engine\n- memory\n- permissions\n- PC/file control\n- browser\nNOVA 1.5\n- Sinhala voice\n- wake word\n- barge-in\n- workspace restore\nNOVA 2.x\n- Office\n- documents\n- research\n- PowerPoint\n- Excel\nNOVA 2.5\n- email\n- calendar\n- messaging\n- optional Auto Reply\nNOVA 3.x\n- image/video/audio studio\nNOVA 3.5\n- software factory\n- web development\n- deployment\n- advanced debugging\nNOVA 4.x\n- capability registry\n- Skill Factory\n- provider routing\n- controlled self-improvement\nNOVA 4.5\n- advanced Education Agent\n- personalized practice\n- target paper intelligence\nNOVA 5.x\n- Blender\n- 3D\n- architecture visualization\nNOVA 5.5\n- Game Studio\n- multi-agent game pipeline\n- automated game QA\nNOVA 6.x\n- smart home\n- authorized CCTV intelligence\nNOVA 7.x\n- phone companion\n- secure multi-device worker system\nNOVA 8.x\n- stronger workflow learning\n- predictive project management\n- advanced world model\n- stronger local AI\nNOVA 9.x+\n- mature highly autonomous personal AI operating system",
+    "dependencies": [
+      "preserved master specification",
+      "traceable evidence"
+    ],
+    "phase": "0.x",
+    "implementation": [
+      "docs/FUTURE_ROADMAP.md",
+      "docs/EXPANSION_TRACEABILITY.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-130",
+    "section": 130,
+    "title": "Implementation Rule",
+    "category": "Roadmap governance",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Documentation and development guidance maintained; not a runtime capability.",
+    "requirements": "DO NOT try to implement all of these features at once.\nThat will create a huge number of incomplete modules.\nInstead:\n1. Add these requirements to the NOVA feature registry / roadmap.\n2. Update docs/FUTURE_ROADMAP.md.\n3. Update requirement traceability.\n4. Identify which features require shared infrastructure.\n5. Build shared infrastructure first.\n6. Implement complete vertical slices.\n7. Test each slice.\n8. Verify each slice.\n9. Update status.\n10. Continue according to value and dependency order.",
+    "dependencies": [
+      "preserved master specification",
+      "traceable evidence"
+    ],
+    "phase": "0.x",
+    "implementation": [
+      "docs/FUTURE_ROADMAP.md",
+      "docs/EXPANSION_TRACEABILITY.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-131",
+    "section": 131,
+    "title": "Preserve Existing Nova",
+    "category": "Roadmap governance",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Documentation and development guidance maintained; not a runtime capability.",
+    "requirements": "This is critical:\nAll previously defined NOVA functionality remains required.\nThis expansion must NOT remove or replace:\n- existing NOVA Core\n- existing premium white glass UI\n- Sinhala-first behavior\n- voice architecture\n- memory\n- missions\n- multi-agent architecture\n- Windows PC control\n- files\n- browser\n- research\n- Office\n- email\n- messaging\n- calling\n- pizza ordering architecture\n- websites\n- hosting\n- coding\n- software development\n- image editing\n- video editing\n- audio editing\n- 3D\n- Blender\n- game development\n- education\n- target paper generation\n- smart home\n- CCTV\n- privacy\n- security\n- permissions\n- Secrets Vault\n- API Provider Hub\n- controlled self-improvement\n- Skill Factory\n- recovery\n- backups\n- audit\n- white transparent NOVA UI\nThe purpose of this prompt is:\nOLD NOVA\n+\nTHESE NEW CAPABILITIES\n=\nMORE ADVANCED NOVA",
+    "dependencies": [
+      "preserved master specification",
+      "traceable evidence"
+    ],
+    "phase": "0.x",
+    "implementation": [
+      "docs/FUTURE_ROADMAP.md",
+      "docs/EXPANSION_TRACEABILITY.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  },
+  {
+    "id": "EXP-132",
+    "section": 132,
+    "title": "Final Additive Directive",
+    "category": "Roadmap governance",
+    "kind": "guidance",
+    "status": "WORKING",
+    "scope": "Documentation and development guidance maintained; not a runtime capability.",
+    "requirements": "Now inspect the existing NOVA repository.\nDo NOT rebuild it.\nDo NOT remove current working features.\nMerge these additional requirements into the existing specification and roadmap.\nCreate/update:\ndocs/FUTURE_ROADMAP.md\ncapability registry\nfeature/status matrix\nrequirement traceability\nPROJECT_STATUS.md\nDo not fake implementation status.\nMark new features honestly as:\nNOT_STARTED\nDESIGNING\nIMPLEMENTING\nPARTIAL\nEXPERIMENTAL\nWORKING\nSTABLE\nBLOCKED\nThen continue the CURRENT active NOVA development mission first.\nDo not abandon the feature currently being built just to start 130 new modules.\nAfter the current milestone is complete:\nselect the highest-value new capability whose dependencies are ready,\nimplement a complete vertical slice,\ntest,\nverify,\ndocument,\ncheckpoint,\nand continue.\nTHIS DOCUMENT IS AN ADDITIVE EXPANSION.\nIT DOES NOT REPLACE NOVA_MASTER_SPEC.\nALL PREVIOUS NOVA REQUIREMENTS REMAIN ACTIVE.\nBEGIN BY MERGING THESE REQUIREMENTS INTO THE EXISTING NOVA ROADMAP WITHOUT REGRESSING CURRENT WORK.",
+    "dependencies": [
+      "preserved master specification",
+      "traceable evidence"
+    ],
+    "phase": "0.x",
+    "implementation": [
+      "docs/FUTURE_ROADMAP.md",
+      "docs/EXPANSION_TRACEABILITY.md"
+    ],
+    "tests": [
+      "tests/test_catalog.py"
+    ],
+    "release": "0.3.0",
+    "source": "docs/spec/NOVA_ADVANCED_EXPANSION.md"
+  }
+]

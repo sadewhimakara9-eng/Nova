@@ -36,10 +36,13 @@ class CapabilityRegistry:
         outputs = {"files.list": ("file_paths",), "files.read": ("utf8_text", "sha256"),
                    "files.create": ("file_path", "sha256", "byte_count"),
                    "system.info": ("operating_system", "python_version")}
+        outputs.update({"apps.open": ("application", "window_verification"), "web.open": ("site", "handoff_or_window_verification")})
         verification = {"files.list": "Bounded workspace enumeration",
                         "files.read": "Regular-file validation, UTF-8 decoding, SHA-256",
                         "files.create": "Exclusive creation followed by read-back SHA-256 comparison",
                         "system.info": "Read Python platform runtime information"}
+        verification.update({"apps.open": "Match a visible window by executable path or application identity",
+                             "web.open": "Verify installed app window; browser handoff alone is BLOCKED pending owner inspection"})
         for descriptor in self.tools.descriptions():
             name = descriptor["name"]
             # A tool is not executable without a specialist authorized for it.
@@ -57,11 +60,12 @@ class CapabilityRegistry:
                                   "required": list(tool.fields), "additionalProperties": False},
                 supported_outputs=outputs.get(name, ("verified_result",)), required_tools=(name,),
                 required_agents=(agent.id,), required_integrations=(),
-                required_permissions=("workspace.create" if tool.mutating else "workspace.read",) if name.startswith("files.") else ("system.info",),
-                privacy_level="LOCAL", risk_level="INTERNAL_REVERSIBLE" if tool.mutating else "READ_ONLY",
+                required_permissions=("workspace.create" if tool.mutating else "workspace.read",) if name.startswith("files.") else
+                                     ("desktop.launch",) if name == "apps.open" else ("browser.navigate", "mode.NORMAL") if name == "web.open" else ("system.info",),
+                privacy_level="EXTERNAL_WEBSITE" if name == "web.open" else "LOCAL", risk_level="APP_OR_NETWORK_EFFECT" if name in {"apps.open", "web.open"} else "INTERNAL_REVERSIBLE" if tool.mutating else "READ_ONLY",
                 estimated_cost="No external service charge", estimated_latency="Not benchmarked",
                 verification_method=verification.get(name, "Tool-specific result verification"),
-                reliability_score=reliability, status="WORKING", version="1.0",
+                reliability_score=reliability, status="EXPERIMENTAL" if name in {"apps.open", "web.open"} else "WORKING", version="1.0",
             )
             records.append(asdict(capability))
         return records

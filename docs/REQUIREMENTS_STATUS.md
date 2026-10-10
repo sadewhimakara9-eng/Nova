@@ -1,6 +1,6 @@
-# NOVA v8 requirement/status matrix
+# Preserved NOVA v8 requirement/status matrix
 
-Primary specification: [NOVA_MASTER_SPEC.md](NOVA_MASTER_SPEC.md). Runtime release: **0.2.0**, not a completed v8 product.
+Historical source: [v8 specification](spec/NOVA_V8_MASTER_SPEC.md). This matrix records the **0.2.0** milestone. The current canonical specification is v10; see [current requirement matrix](REQUIREMENT_MATRIX.md) and [project status](PROJECT_STATUS.md) for 0.3 changes. Earlier requirements remain active unless explicitly superseded by v10.
 
 **WORKING** means implemented and verified within the stated scope. **PARTIAL** names precisely what exists and what does not. **NOT_STARTED** means no executable feature is offered. **GUIDANCE** is an engineering constraint rather than a separate runtime feature. Model HTTP fixtures and Windows mocks never establish a live connection or real Windows readiness.
 

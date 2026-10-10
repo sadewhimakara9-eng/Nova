@@ -11,6 +11,9 @@ from pathlib import Path
 from .config import MAX_PLAN_STEPS, MAX_TEXT, WORKERS, data_directory
 from .agents import AgentRegistry
 from .capabilities import CapabilityRegistry
+from .catalog import catalog, capability_answer
+from .decisions import DecisionMemory
+from .local_commands import local_intent
 from .providers import contains_credentials
 from .storage import Store, now
 from .tools import ToolError, ToolRegistry
@@ -77,6 +80,7 @@ class NovaCore:
         self.agents = AgentRegistry()
         self.capability_registry = CapabilityRegistry(self.registry, self.agents)
         self.store = Store(self.data_dir / "nova.sqlite3")
+        self.decision_memory = DecisionMemory(self.store, self._text)
         self._guard = threading.RLock()
         self._closing = threading.Event()
         self._paused = threading.Event()
@@ -124,10 +128,33 @@ class NovaCore:
         """Return only registered, executable capabilities with measured history."""
         return self.capability_registry.describe(self.missions())
 
+    def feature_catalog(self, query="", status="ALL", mode="LOCAL_ONLY") -> list[dict]:
+        return catalog(self, query, status, mode)
+
+    def decisions(self, query="", project="") -> list[dict]:
+        return self.decision_memory.search(query, project)
+
+    def _decision_write_policy(self, mode):
+        self._policy(mode)
+        if self.stopped or self._closing.is_set() or mode in {"READ_ONLY", "DRY_RUN", "SAFE_MODE"}:
+            raise NovaError("Resume Nova and select a mode allowing changes before changing decisions.")
+
+    def save_decision(self, project, decision, reason, alternatives="", *, decision_id=None, revision=None, mode="LOCAL_ONLY"):
+        with self._guard:
+            self._decision_write_policy(mode)
+            return self.decision_memory.save(project, decision, reason, alternatives, decision_id=decision_id, revision=revision)
+
+    def forget_decision(self, decision_id, revision, mode="LOCAL_ONLY"):
+        with self._guard:
+            self._decision_write_policy(mode)
+            return self.decision_memory.delete(decision_id, revision)
+
     def enqueue(self, tool: str, args: dict, goal: str = "", *, mode="LOCAL_ONLY",
                 idempotency_key=None, dependency=None) -> str:
         self._policy(mode)
         spec = self.registry.validate(tool, args)
+        if tool == "web.open" and mode != "NORMAL":
+            raise NovaError("Opening a website requires NORMAL mode. Change it explicitly in Settings; no browser request was sent.")
         if mode == "DRY_RUN" or (mode in {"READ_ONLY", "SAFE_MODE"} and spec.mutating):
             raise NovaError("This mode does not permit that action. Review the plan or change the mode explicitly.")
         for value in args.values():
@@ -198,6 +225,10 @@ class NovaCore:
             # as an ordinary mission result or expose it to a model.
             if contains_credentials(json.dumps(result, ensure_ascii=False)):
                 raise NovaError("The result appears to contain credentials and was withheld.")
+            if tool.name == "web.open" and result.get("verification") == "OS_HANDOFF_ONLY":
+                self._finish(mid, "BLOCKED", result=result,
+                             error="Browser handoff accepted; page loading is not verified. Check your browser. Nova will not repeat this automatically.")
+                return
             if result.get("verified") is not True:
                 raise NovaError("The tool did not verify its result.")
             self._finish(mid, "COMPLETED", result=result)
@@ -303,7 +334,7 @@ class NovaCore:
             database = db.execute("PRAGMA quick_check").fetchone()[0] == "ok"
         return {"database": database, "scheduler": self._scheduler.is_alive(), "stopped": self.stopped,
                 "tools": len(self.tools()), "agents": len(self.agents.agents), "workers": WORKERS, "workspace": str(self.workspace),
-                "voice": "NOT_STARTED", "windows_control": "NOT_STARTED"}
+                "voice": "NOT_STARTED", "windows_control": "EXPERIMENTAL" if 'apps.open' in {t['name'] for t in self.tools()} else "UNAVAILABLE_ON_THIS_PLATFORM"}
 
     def chat(self, text: str, provider=None, mode="LOCAL_ONLY", classification="PERSONAL", language="si") -> str:
         text = self._text(text)
@@ -318,10 +349,17 @@ class NovaCore:
         self._policy(mode, classification)
         if lower in {"/help", "help", "උදව්"}:
             return ("ආයුබෝවන්! Try /files, /read notes.txt, /write notes.txt | your text, "
-                    "/remember language = Sinhala, /recall, /status, /stop, or /resume. "
+                    "/remember language = Sinhala, /recall, /capabilities video, /decisions, /open app name (Windows), /status, /stop, or /resume. "
                     "Use Plan a mission for AI-assisted file tasks. Configure a model in Settings for open-ended chat.")
         if lower in {"/status", "check yourself", "status"}:
             return json.dumps(self.health(), ensure_ascii=False, indent=2)
+        if lower == "/capabilities" or lower.startswith("/capabilities "):
+            return capability_answer(self, command[len("/capabilities"):].strip(), mode)
+        if lower == "/decisions" or lower.startswith("/decisions "):
+            rows = self.decisions(command[len("/decisions"):].strip())
+            return "\n\n".join(f"• {r['project']}: {r['decision']}\nRecorded reason: {r['reason']}\n"
+                               f"Alternatives: {r['alternatives'] or 'Not recorded'}\nRecorded: {r['created_at']}"
+                               for r in rows[:20]) or "No recorded decisions match. Add an explicit decision in Projects → Decision memory; no reason will be invented."
         if lower in {"/recall", "what do you remember about me?", "what do you remember about me"} or lower.startswith("/recall "):
             rows = self.memories(command[8:].strip() if lower.startswith("/recall ") else "")
             return "\n".join(f"• {r['key']}: {r['value']}" for r in rows) or "No saved memories yet."
@@ -358,10 +396,30 @@ class NovaCore:
             return "ආයුබෝවන්! මම Nova. අද මොනවද කරමු? Type /help to see working local commands."
         if "mata mahansiyi" in lower or "මහන්සියි" in lower:
             return "ටිකක් විවේක ගන්න. මම මෙතන ඉන්නවා—කරන්න තියෙන වැඩයක් කියන්න."
+        intent = local_intent(text)
+        if intent:
+            if intent.action != "OPEN_APP":
+                return "Window close/focus controls are not installed yet. No action was taken. Opening installed Windows apps is supported on Windows."
+            names = {tool['name'] for tool in self.tools()}
+            if 'apps.open' not in names:
+                return "Windows app control is unavailable on this computer. No app was launched and no request was sent to an AI provider."
+            if self.stopped:
+                raise NovaError("Resume Nova before opening an application.")
+            website = intent.target.casefold() in {'gemini', 'youtube'}
+            tool = 'web.open' if website else 'apps.open'
+            args = {'site': intent.target.casefold()} if website else {'name': intent.target}
+            mid = self.enqueue(tool, args, goal='Owner requested an application or official website', mode=mode)
+            return f"Mission {mid[:8]} queued locally. Check Missions for window verification or browser handoff status."
         if not provider:
             return "Free-form AI is not connected yet. Choose a local Ollama model or opt in to Groq in Settings. Local commands work now; type /help."
         answer = provider.complete([
-            {"role": "system", "content": SYSTEM_PROMPT + f"\nPreferred response language: {'Sinhala' if language == 'si' else 'English'}."},
+            {"role": "system", "content": SYSTEM_PROMPT + f"\nPreferred response language: {'Sinhala' if language == 'si' else 'English'}." +
+             "\nInstalled executable tools: " + json.dumps([c["capability_id"] for c in self.capabilities()]) +
+             "\nLocal feature search is available via /capabilities <keywords>. Explicit project decision retrieval is available via /decisions <keywords>. "
+             "Decision records are not included in this conversation. Never invent a recorded project reason; direct the owner to that local lookup. "
+             "Only the listed tools may act: Windows builds may offer bounded app opening and official website handoff; full PC/browser automation is not installed. "
+             "Voice, messaging/auto-reply, video editing and Blender editing are not installed. "
+             "Other roadmap features are not proof of executable support; say unverified when evidence is missing."},
             {"role": "user", "content": text},
         ], mode=mode, classification=classification)
         self.store.event("MODEL_RESPONSE", provider=provider.provider)
@@ -371,6 +429,12 @@ class NovaCore:
         goal = self._text(goal, "Goal")
         self._policy(mode, classification)
         step = None
+        intent = local_intent(goal)
+        if intent and intent.action == 'OPEN_APP':
+            website = intent.target.casefold() in {'gemini', 'youtube'}
+            step = {'tool': 'web.open' if website else 'apps.open',
+                    'args': {'site': intent.target.casefold()} if website else {'name': intent.target},
+                    'goal': 'Open the requested application or official website'}
         if goal.casefold() == "/files":
             step = {"tool": "files.list", "args": {}, "goal": "List workspace files"}
         elif goal.casefold().startswith("/read "):
@@ -415,7 +479,7 @@ class NovaCore:
 
     def _validate_plan(self, steps):
         if not isinstance(steps, list) or not 1 <= len(steps) <= MAX_PLAN_STEPS:
-            raise NovaError("No supported plan was produced. This release supports workspace files and system information only.")
+            raise NovaError("No supported plan was produced. Only tools listed in the installed registry may be used.")
         for step in steps:
             if not isinstance(step, dict) or set(step) != {"tool", "args", "goal"} or not isinstance(step["tool"], str):
                 raise NovaError("A plan step does not match the tool contract.")
@@ -427,6 +491,8 @@ class NovaCore:
     def submit_plan(self, steps, mode="LOCAL_ONLY") -> list[str]:
         self._policy(mode)
         self._validate_plan(steps)
+        if mode != "NORMAL" and any(s['tool'] == 'web.open' for s in steps):
+            raise NovaError("This plan opens a website and requires NORMAL mode. No steps were submitted.")
         if mode == "DRY_RUN" or (mode in {"READ_ONLY", "SAFE_MODE"} and any(
                 self.registry.validate(s["tool"], s["args"]).mutating for s in steps)):
             raise NovaError("This mode does not permit the prepared plan.")

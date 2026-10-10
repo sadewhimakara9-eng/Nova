@@ -8,6 +8,10 @@ import sys
 import venv
 
 
+def hidden_process_options():
+    return {"creationflags": getattr(subprocess, 'CREATE_NO_WINDOW', 0)} if sys.platform == 'win32' else {}
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Install and launch Nova.")
     parser.add_argument("--browser", action="store_true", help="Open the browser dashboard without installing native desktop components.")
@@ -25,22 +29,24 @@ def main(argv=None):
     check = subprocess.run(
         [str(python), "-c", "import importlib.metadata; assert importlib.metadata.version('streamlit') == '1.65.0'"],
         capture_output=True, check=False,
+        **hidden_process_options(),
     )
     if check.returncode:
         print("Installing the dashboard. Internet access is needed on the first launch.")
         subprocess.run([str(python), "-m", "pip", "install", "--disable-pip-version-check",
-                        "-r", str(root / "nova-requirements.txt")], check=True)
+                        "-r", str(root / "nova-requirements.txt")], check=True, **hidden_process_options())
     use_desktop = sys.platform == "win32" and not args.browser
     if use_desktop:
         desktop_check = subprocess.run(
             [str(python), "-c", "import importlib.metadata; assert importlib.metadata.version('pywebview') == '6.2.1'; import webview"],
             capture_output=True, check=False,
+            **hidden_process_options(),
         )
         if desktop_check.returncode:
             print("Installing the optional Windows desktop window. First launch needs internet access.")
             try:
                 subprocess.run([str(python), "-m", "pip", "install", "--disable-pip-version-check",
-                                "-r", str(root / "nova-desktop-requirements.txt")], check=True)
+                                "-r", str(root / "nova-desktop-requirements.txt")], check=True, **hidden_process_options())
             except (OSError, subprocess.CalledProcessError):
                 use_desktop = False
                 print("The optional desktop component could not be installed. Nova will open in your browser.")
@@ -49,7 +55,7 @@ def main(argv=None):
     if not use_desktop:
         command.append("--browser")
     # The child owns its Streamlit process and reliably cleans it up on exit.
-    return subprocess.call(command, cwd=root)
+    return subprocess.call(command, cwd=root, **hidden_process_options())
 
 
 if __name__ == "__main__":

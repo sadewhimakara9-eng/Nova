@@ -5,6 +5,7 @@ from pathlib import Path
 import socket
 import subprocess
 import sys
+import runpy
 import tempfile
 import unittest
 from unittest.mock import Mock, patch
@@ -13,6 +14,15 @@ from scripts import desktop, run_nova
 
 
 class LauncherTests(unittest.TestCase):
+    def test_gui_entry_hides_child_and_redirects_startup_output(self):
+        entry = runpy.run_path(str(Path(__file__).resolve().parents[1] / 'Start Nova.pyw'))
+        with tempfile.TemporaryDirectory() as directory, patch.dict(desktop.os.environ, {'NOVA_DATA_DIR': directory}), patch.object(subprocess, 'CREATE_NO_WINDOW', 0x08000000, create=True), patch.object(subprocess, 'call', return_value=0) as launch:
+            entry['main']()
+            self.assertEqual(launch.call_args.kwargs['creationflags'], 0x08000000)
+            self.assertEqual(launch.call_args.kwargs['env']['NOVA_GUI'], '1')
+            self.assertIs(launch.call_args.kwargs['stdout'], launch.call_args.kwargs['stderr'])
+            self.assertTrue((Path(directory) / 'logs/startup.log').exists())
+
     def test_theme_and_security_flags_are_shared_by_both_windows(self):
         command = desktop.StreamlitServer(Path.cwd()).command()
         for flag, value in (

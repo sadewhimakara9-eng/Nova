@@ -41,6 +41,12 @@ class Store:
                     kind TEXT NOT NULL, mission_id TEXT,
                     detail TEXT NOT NULL, created_at TEXT NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS decisions (
+                    id TEXT PRIMARY KEY, project TEXT NOT NULL,
+                    decision TEXT NOT NULL, reason TEXT NOT NULL,
+                    alternatives TEXT NOT NULL, revision INTEGER NOT NULL,
+                    created_at TEXT NOT NULL, updated_at TEXT NOT NULL
+                );
             """)
 
     @contextmanager

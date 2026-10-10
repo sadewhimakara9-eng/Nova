@@ -4,6 +4,7 @@ import hashlib
 import os
 import platform
 import stat
+import sys
 from dataclasses import dataclass
 from pathlib import Path, PureWindowsPath
 from typing import Callable
@@ -34,6 +35,25 @@ class ToolRegistry:
             "files.create": Tool("files.create", "Create a new UTF-8 file, never overwrite. args: {path, content}", ("path", "content"), True, self.create_file),
             "system.info": Tool("system.info", "Read OS and Python version. args: {}", (), False, self.system_info),
         }
+        if sys.platform == "win32":
+            self._tools.update({
+                "apps.open": Tool("apps.open", "Open a discovered Windows app by name; verify a visible window. args: {name}", ("name",), True, self.open_app),
+                "web.open": Tool("web.open", "Open Gemini or YouTube via installed app or official browser destination. Browser page loading requires owner verification. args: {site}", ("site",), True, self.open_site),
+            })
+
+    def open_app(self, args, mission_id):
+        from .windows_apps import AppError, WindowsApps
+        try:
+            return WindowsApps().open(args["name"])
+        except AppError as exc:
+            raise ToolError(str(exc)) from None
+
+    def open_site(self, args, mission_id):
+        from .windows_apps import AppError, WindowsApps
+        try:
+            return WindowsApps().open_site(args["site"])
+        except AppError as exc:
+            raise ToolError(str(exc)) from None
 
     def descriptions(self) -> list[dict]:
         return [{"name": t.name, "description": t.description, "mutating": t.mutating} for t in self._tools.values()]

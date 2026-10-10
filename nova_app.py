@@ -9,8 +9,10 @@ from html import escape
 import streamlit as st
 
 from nova.core import NovaCore, NovaError
+from nova.catalog import STATUSES, coverage
+from nova.local_commands import local_intent
 from nova.providers import BLOCKED_CLASSIFICATIONS, ModelProvider, contains_credentials
-from nova.ui.controller import (APPEARANCE_DEFAULTS, PAGES, ORB_STATES, UIController,
+from nova.ui.controller import (APPEARANCE_DEFAULTS, ACCENTS, PAGES, PRIMARY_PAGES, ORB_STATES, UIController,
                                 assistant_state, greeting, mission_group, elapsed_label)
 from nova.ui.glass import apply_theme, orb, header, badge, empty_state, icon
 
@@ -24,7 +26,7 @@ def get_core(data_dir: str) -> NovaCore:
 
 def initialize_state(controller):
     defaults = {
-        "nova_page": "Home", "nova_nav_expanded": False,
+        "nova_page": "Chat", "nova_primary_page": "Chat", "nova_nav_expanded": False,
         "nova_provider": "Built-in commands", "nova_ollama_model": "llama3.2",
         "nova_groq_model": "llama-3.3-70b-versatile", "nova_api_key": "",
         "nova_mode": "LOCAL_ONLY", "nova_classification": "PERSONAL", "nova_language": "si",
@@ -38,6 +40,7 @@ def initialize_state(controller):
             st.session_state[key] = value
     if st.session_state.get("nova_next_page"):
         st.session_state.nova_page = st.session_state.pop("nova_next_page")
+        st.session_state.nova_primary_page = st.session_state.nova_page if st.session_state.nova_page in PRIMARY_PAGES else "Settings"
     if st.session_state.pop("nova_clear_key", False):
         st.session_state.nova_api_key = ""
     if st.session_state.pop("nova_end_preview", False):
@@ -86,7 +89,7 @@ def is_control_command(text):
 
 
 def request_options(text=""):
-    return {"provider": None if text.lstrip().startswith("/") or is_control_command(text) else selected_provider(),
+    return {"provider": None if text.lstrip().startswith("/") or is_control_command(text) or local_intent(text) else selected_provider(),
             "mode": st.session_state.nova_mode, "classification": st.session_state.nova_classification,
             "language": st.session_state.nova_language}
 
@@ -98,7 +101,10 @@ def changes_allowed(core):
 def sidebar(core):
     with st.sidebar:
         st.html('<div class="nova-brand">' + icon("sparkles", 28) + '<span>NOVA<small>PERSONAL INTELLIGENCE</small></span></div>')
-        page = st.radio("Workspace", PAGES, key="nova_page", label_visibility="collapsed")
+        def select_primary():
+            st.session_state.nova_page = st.session_state.nova_primary_page
+        st.radio("Workspace", PRIMARY_PAGES, key="nova_primary_page", on_change=select_primary, label_visibility="collapsed")
+        page = st.session_state.nova_page
         st.toggle("Expand navigation", key="nova_nav_expanded")
         with st.popover("Privacy & language", icon=":material/shield:", use_container_width=True):
             st.selectbox("Operating mode", ["LOCAL_ONLY", "NORMAL", "OFFLINE", "PRIVATE", "READ_ONLY", "DRY_RUN", "SAFE_MODE"], key="nova_mode")
@@ -112,7 +118,7 @@ def sidebar(core):
         elif st.button("Emergency stop", icon=":material/stop_circle:", use_container_width=True, help="Pause new work. An atomic file operation already running may finish safely."):
             core.stop()
             st.rerun()
-        st.html('<div class="nova-sidebar-foot">' + icon("shield", 14) + ' Local workspace · v0.2</div>')
+        st.html('<div class="nova-sidebar-foot">' + icon("shield", 14) + ' Local workspace · v0.3</div>')
     return page
 
 
@@ -288,6 +294,8 @@ def plan_details(steps):
         st.markdown(f"**{index}. {step['goal']}**")
         path = step["args"].get("path")
         if path: st.write("File: " + path)
+        if 'name' in step['args']: st.write('Application: ' + step['args']['name'])
+        if 'site' in step['args']: st.write('Official website: ' + step['args']['site'])
         st.caption(step["tool"].replace(".", " → "))
         if "content" in step["args"]:
             with st.expander("View file contents", expanded=False): st.text(step["args"]["content"])
@@ -301,10 +309,11 @@ def approval_dialog(core):
         return
     plan_details(steps)
     st.divider()
-    st.write("**Target:** your local Nova workspace")
-    st.write("**Data leaving this device:** none during tool execution")
+    desktop_action = any(s['tool'] in {'apps.open', 'web.open'} for s in steps)
+    st.write("**Target:** installed Windows application / official website" if desktop_action else "**Target:** your local Nova workspace")
+    st.write("**Data leaving this device:** launched apps and browsers use their own network settings; NOVA does not control their traffic." if desktop_action else "**Data leaving this device:** none during tool execution")
     st.write("**Cost:** no API call or payment during execution")
-    st.write("**Reversibility:** new files can be undone while their contents remain unchanged. Existing files are never overwritten.")
+    st.write("**Reversibility:** app launches and website handoffs have no automatic undo. Browser page loading is not verified by the launcher." if desktop_action else "**Reversibility:** new files can be undone while their contents remain unchanged. Existing files are never overwritten.")
     cancel, approve = st.columns(2)
     if cancel.button("Cancel", use_container_width=True):
         st.session_state.nova_show_approval = False
@@ -356,6 +365,9 @@ def result_view(result):
     if "bytes" in result: st.caption(f"{result['bytes']:,} bytes · content hash checked")
     if "os" in result: st.write(f"{result['os']} · Python {result['python']}")
     if "trash" in result: st.caption("Retained in Nova's local trash.")
+    if "application" in result: st.write("Application: " + result['application'])
+    if "verification" in result: st.caption(result['verification'])
+    if result.get('state') == 'CHECK_BROWSER': st.write("Website request handed to your browser. Check that the correct page loaded.")
 
 
 @st.fragment(run_every="3s")
@@ -387,6 +399,10 @@ def missions(core):
 
 def projects(core):
     header("Room for your next big idea.", "A calm home for the work you want to continue.", "PROJECTS")
+    view = st.segmented_control("Project view", ["Workspace", "Decision memory"], default="Workspace", required=True)
+    if view == "Decision memory":
+        decision_panel(core)
+        return
     if not st.session_state.nova_project_open:
         with st.container(border=True):
             st.html(badge("LOCAL WORKSPACE", "blue"))
@@ -417,10 +433,64 @@ def projects(core):
     if st.button("Prepare your next mission", type="primary"): go("Missions")
 
 
+def decision_panel(core):
+    st.subheader("Remember why you chose it.")
+    st.caption("Owner-entered decisions stay local. Project names are labels; they do not create or link folders. Records are never automatically sent to a model.")
+    with st.expander("Record a decision"):
+        with st.form("new_decision", clear_on_submit=True):
+            project = st.text_input("Project label", max_chars=100)
+            decision = st.text_area("Decision", max_chars=20000)
+            reason = st.text_area("Reason", max_chars=20000)
+            alternatives = st.text_area("Alternatives considered (optional)", max_chars=20000)
+            st.caption("Local SQLite is not an encrypted vault. Do not enter credentials.")
+            save = st.form_submit_button("Save decision", disabled=not changes_allowed(core))
+        if save:
+            try:
+                core.save_decision(project, decision, reason, alternatives, mode=st.session_state.nova_mode)
+                st.success("Decision saved locally.")
+            except Exception as exc: show_error(exc)
+    query = st.text_input("Search decisions", max_chars=200, placeholder="Project, decision, reason or alternative…")
+    project_filter = st.text_input("Exact project label (optional)", max_chars=100)
+    records = core.decisions(query, project_filter)
+    if not records:
+        empty_state("No recorded decisions.", "Save the reason behind an important choice. NOVA will retrieve that record instead of inventing an explanation.", "memory")
+    st.caption("Up to 100 matching decisions, newest first. Dates are UTC. Deletion is logical, not secure erasure.")
+    for item in records:
+        with st.expander(f"{item['project']} · {item['decision'][:90]}"):
+            st.write(item["decision"])
+            st.markdown("**Recorded reason**")
+            st.write(item["reason"])
+            st.markdown("**Alternatives considered**")
+            st.write(item["alternatives"] or "Not recorded")
+            st.caption(f"Owner-entered · Created {item['created_at'][:19]} UTC · Updated {item['updated_at'][:19]} UTC · Revision {item['revision']}")
+            key = f"decision_{item['id']}_{item['revision']}"
+            with st.form("edit_" + key):
+                project = st.text_input("Edit project label", item["project"], max_chars=100)
+                decision = st.text_area("Edit decision", item["decision"], max_chars=20000)
+                reason = st.text_area("Edit reason", item["reason"], max_chars=20000)
+                alternatives = st.text_area("Edit alternatives", item["alternatives"], max_chars=20000)
+                edit = st.form_submit_button("Save changes", disabled=not changes_allowed(core))
+            if edit:
+                try:
+                    core.save_decision(project, decision, reason, alternatives, decision_id=item["id"], revision=item["revision"], mode=st.session_state.nova_mode)
+                    st.session_state.nova_notice = "Decision updated."
+                    st.rerun()
+                except Exception as exc: show_error(exc)
+            confirm = st.checkbox("Delete this decision", key="confirm_" + key)
+            if st.button("Forget decision", key="delete_" + key, disabled=not confirm or not changes_allowed(core)):
+                try:
+                    core.forget_decision(item["id"], item["revision"], mode=st.session_state.nova_mode)
+                    st.session_state.nova_notice = "Decision removed from local records."
+                    st.rerun()
+                except Exception as exc: show_error(exc)
+
+
 def agents(core):
     header("A small team. A shared purpose.", "Specialists with clear responsibilities and bounded permissions.", "YOUR AGENTS")
     cards = UIController(core).agents()
-    for column, agent in zip(st.columns(2), cards):
+    columns = st.columns(2)
+    for index, agent in enumerate(cards):
+        column = columns[index % 2]
         with column, st.container(border=True):
             st.html(icon("agents", 28) + " " + badge("WORKING" if agent["active"] else "LOCAL", "blue"))
             st.subheader(agent["name"])
@@ -472,6 +542,10 @@ def unavailable(title, description, symbol, action):
 
 def tools_page(core):
     header("A few good tools.", "Real capabilities, with a clear scope and a verified result.", "TOOLS")
+    view = st.segmented_control("Tools view", ["Installed tools", "Feature coverage"], default="Installed tools", required=True)
+    if view == "Feature coverage":
+        coverage_panel(core)
+        return
     query = st.text_input("Find a capability", placeholder="Files, text, system information…")
     capabilities = {item["capability_id"]: item for item in core.capabilities()}
     names = {"files.list": ("Browse your files", "List the files in your Nova workspace.", {}),
@@ -479,23 +553,50 @@ def tools_page(core):
              "files.create": ("Create a file", "Write a new file without overwriting existing work.", None),
              "system.info": ("System information", "Check your OS and Python runtime.", {})}
     for tool in core.tools():
-        title, description, args = names[tool["name"]]
+        title, description, args = names.get(tool['name'], (tool['name'].replace('.', ' ').title(), tool['description'], None))
         if query.casefold() not in (title + " " + description + " " + tool["name"]).casefold():
             continue
         with st.container(border=True):
-            st.html(badge("LOCAL", "blue"))
+            st.html(badge("EXTERNAL WEBSITE" if tool['name'] == 'web.open' else "LOCAL", "blue"))
             st.subheader(title)
             st.write(description)
             capability = capabilities[tool["name"]]
             with st.expander("Scope & verification"):
                 st.write("Agent: " + capability["required_agents"][0].replace("-", " ").title())
                 st.write(capability["verification_method"])
-                st.caption("Local only · " + capability["risk_level"].replace("_", " ").lower())
+                st.caption(capability['privacy_level'].replace('_', ' ').title() + " · " + capability["risk_level"].replace("_", " ").lower())
             if args is not None:
                 if st.button("Run " + title.lower(), key="tool_" + tool["name"], disabled=core.stopped or st.session_state.nova_mode == "DRY_RUN"):
                     core.enqueue(tool["name"], args, title, mode=st.session_state.nova_mode)
                     go("Missions")
             elif st.button("Prepare " + title.lower(), key="tool_" + tool["name"]): go("Missions")
+
+
+def coverage_panel(core):
+    st.subheader("What works. What comes next.")
+    counts = coverage()
+    a, b, c = st.columns(3)
+    a.metric("Working expansion features", counts.get("WORKING", 0))
+    b.metric("Partial expansion features", counts.get("PARTIAL", 0))
+    c.metric("Not started", counts.get("NOT_STARTED", 0))
+    st.caption("Counts cover 128 expansion features. Four governance requirements and existing runtime tools are listed separately. Partial scope is stated for each record; evidence references are not live test runs.")
+    query = st.text_input("Search feature catalog", max_chars=200, placeholder="WhatsApp, Blender, decision, EXP-017…")
+    left, right = st.columns(2)
+    status = left.selectbox("Feature status", ["ALL", *STATUSES])
+    kind = right.selectbox("Catalog type", ["All", "tool", "agent", "provider", "feature", "guidance"])
+    records = [r for r in core.feature_catalog(query, status, st.session_state.nova_mode) if kind == "All" or r["kind"] == kind]
+    st.caption(f"{len(records)} matches · Showing up to 25; narrow your search for more. No connection checks or installations run during search.")
+    if not records: st.info("No recorded match. Missing evidence does not establish support.")
+    for item in records[:25]:
+        with st.expander(f"{item['title']} · {item['status']} · {item['id']}"):
+            st.html(badge(item["availability"], "blue" if item["availability"] in {"AVAILABLE", "AVAILABLE_IN_UI"} else "neutral"))
+            st.write(item["scope"])
+            st.caption(f"{item['category']} · {item['kind']} · Roadmap phase {item['phase']}")
+            st.write("Dependencies / permissions: " + ", ".join(item["dependencies"]))
+            st.write("Implementation: " + (", ".join(item["implementation"]) or "Not implemented"))
+            st.write("Test references: " + (", ".join(item["tests"]) or "No implementation tests yet"))
+            st.caption(f"Source: {item['source']} · Documented in release: {item['release'] or 'Future'}")
+    st.info("Auto-reply: OFF. Messaging transports are not installed. Catalog records cannot enable tools, integrations or permissions.")
 
 
 def integrations(core):
@@ -511,6 +612,7 @@ def integrations(core):
     st.markdown("**On the horizon**")
     for name in ("Browser", "GitHub", "Email & calendar", "WhatsApp", "Blender & Unreal", "Smart home"):
         st.html('<div class="nova-integration-row"><span>' + escape(name) + '</span>' + badge("DISCONNECTED", "neutral") + '</div>')
+    st.caption("Auto-reply is OFF. OFF, DRAFT_ONLY, ASK_BEFORE_SEND, TRUSTED_CONTACTS, AWAY_MODE and SMART_AUTO are roadmap modes; none can send messages in this release.")
 
 
 def privacy(core):
@@ -559,6 +661,7 @@ def settings(core):
         def update_appearance():
             values = {k: st.session_state.get("appearance_" + k, current[k]) for k in APPEARANCE_DEFAULTS}
             st.session_state.nova_appearance = UIController(core).save_appearance(values)
+        st.selectbox('Accent', list(ACCENTS), index=list(ACCENTS).index(current['accent']), key='appearance_accent', on_change=update_appearance)
         for name, label, low, high in (("glass", "Glass intensity", 20, 90), ("transparency", "Transparency", 20, 90), ("blur", "Blur strength", 0, 24), ("scale", "UI scale", 85, 120)):
             st.slider(label, low, high, value=current[name], key="appearance_" + name, on_change=update_appearance)
         for name, label in (("animation", "Calm animations"), ("orb_effects", "Orb light effects"), ("performance", "Performance mode")):
@@ -580,13 +683,18 @@ def settings(core):
                 st.session_state.nova_clear_key = True
                 st.rerun()
     with advanced:
+        st.subheader("Advanced workspaces")
+        st.caption("The full mission, tool and privacy workspaces remain available here.")
+        columns = st.columns(2)
+        for index, page in enumerate(p for p in PAGES if p not in PRIMARY_PAGES):
+            if columns[index % 2].button("Open " + page, key="advanced_" + page, use_container_width=True): go(page)
         st.caption("Developer information · optional")
         with st.expander("Runtime details"):
             st.json(core.health())
             st.text(str(core.workspace))
         with st.expander("Recent diagnostic events"):
             st.json(core.events()[:20])
-        st.caption("Release 0.2 · automatic updates are not enabled. This interface uses the existing Nova core.")
+        st.caption("Release 0.3 · automatic updates are not enabled. This interface uses the existing Nova core.")
 
 
 def palette():
@@ -605,6 +713,8 @@ def main():
         apply_theme(st.session_state.nova_appearance, compact=not st.session_state.nova_nav_expanded)
         page = sidebar(core)
         shell_header(core, page)
+        if page not in PRIMARY_PAGES:
+            if st.button("Back to Settings", icon=":material/arrow_back:"): go("Settings")
         if st.session_state.nova_notice:
             st.toast(st.session_state.nova_notice)
             st.session_state.nova_notice = ""

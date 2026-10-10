@@ -37,7 +37,16 @@ class DashboardTests(unittest.TestCase):
             self.assertFalse(app.error)
 
             def navigate(page):
-                app.sidebar.radio[0].set_value(page).run()
+                primary = {'Chat', 'Voice', 'Projects', 'Memory', 'Settings'}
+                if page not in primary:
+                    app.sidebar.radio[0].set_value('Settings').run()
+                    if app.session_state.nova_page != 'Settings':
+                        next(item for item in app.button if item.label == 'Back to Settings').click().run()
+                    next(item for item in app.button if item.label == 'Open ' + page).click().run()
+                else:
+                    app.sidebar.radio[0].set_value(page).run()
+                    if page == 'Settings' and app.session_state.nova_page != 'Settings':
+                        next(item for item in app.button if item.label == 'Back to Settings').click().run()
                 self.assertFalse(app.exception)
                 self.assertFalse(app.error)
 
@@ -53,6 +62,10 @@ class DashboardTests(unittest.TestCase):
             self.assertTrue(any("Simulated animation only" in item.value for item in app.caption))
             button("Stop preview").click().run()
             navigate("Chat")
+            app.chat_input[0].set_value('Gemini eka open karanna').run()
+            self.assertFalse(app.error)
+            self.assertTrue(any('unavailable' in item.value for item in app.markdown))
+            button('Clear this conversation').click().run()
             app.chat_input[0].set_value("/help").run()
             self.assertFalse(app.exception)
             self.assertEqual(len(app.chat_message), 2)

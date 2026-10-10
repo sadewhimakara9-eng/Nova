@@ -14,6 +14,8 @@
   --nova-font: "Segoe UI Variable", "Segoe UI", "Nirmala UI", "Iskoola Pota", "Noto Sans Sinhala", system-ui, sans-serif;
 }
 html, body, [data-testid="stApp"] { color-scheme: light; color: var(--nova-ink); font-family: var(--nova-font); }
+[data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input:checked) { color: var(--nova-accent)!important; }
+[data-testid="stButton"] button[kind="primary"] { background-color: var(--nova-accent)!important; border-color: var(--nova-accent)!important; }
 [data-testid="stAppViewContainer"] {
   background: radial-gradient(ellipse at 78% 6%, rgba(200,233,251,.54), transparent 42%),
     radial-gradient(ellipse at 10% 92%, rgba(213,242,252,.46), transparent 45%),

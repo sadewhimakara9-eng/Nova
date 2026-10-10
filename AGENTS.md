@@ -1,6 +1,9 @@
 # NOVA development instructions
 
-- Read `docs/NOVA_MASTER_SPEC.md` (v8 is the primary specification), `docs/PROJECT_STATUS.md`, `docs/REQUIREMENTS_STATUS.md`, and `docs/architecture.md` before extending the agent. The older v6 and glass UI prompts remain reference material.
+- Read `docs/NOVA_MASTER_SPEC.md` (v10 is canonical), `docs/PROJECT_STATUS.md`, `docs/REQUIREMENT_MATRIX.md`, and `docs/ARCHITECTURE.md` before extending the agent. The v8, v6, glass UI and expansion requirements remain preserved reference material.
+- The advanced expansion in `docs/spec/NOVA_ADVANCED_EXPANSION.md` is additive. Preserve the master specification; maintain `docs/FUTURE_ROADMAP.md` and generate `docs/EXPANSION_TRACEABILITY.md` from `nova/feature_catalog.json` with `scripts/sync_roadmap.py`. Roadmap records never grant tool permissions.
+- Decision records are owner-entered local data, not implicit model context. Preserve revision checks, mode gates and content-free audit metadata. Auto-reply remains OFF until its transport and policy protections actually exist.
+- Keep only Chat, Voice, Projects, Memory and Settings in primary navigation. Preserve internal pages under Settings/Advanced. Windows launch tools are experimental until tested on Windows; never treat OS browser handoff as verified page loading. No owner input may enter the fixed discovery script or shell arguments.
 - Use the existing isolated checkout. Do not create a Git worktree unless the user explicitly asks for one.
 - The new entry point is `nova_app.py`; `app.py` is a legacy application. Never print or reuse embedded credentials from legacy source. Do not modify legacy source as an incidental cleanup.
 - Implement working vertical slices and maintain truthful feature status. Do not portray mocked integrations, configured providers, or untested Windows behavior as verified.
