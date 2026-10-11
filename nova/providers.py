@@ -13,6 +13,10 @@ import urllib.request
 class ProviderError(RuntimeError):
     """A provider is unavailable or returned an invalid response."""
 
+    def __init__(self, message, status="DEGRADED"):
+        super().__init__(message)
+        self.status = status
+
 
 class PrivacyError(ProviderError):
     """The selected route is forbidden by NOVA's data policy."""
@@ -68,15 +72,17 @@ class ModelProvider:
     def __init__(
         self, provider: str = "ollama", model: str = "llama3.2", api_key: str | None = None,
     ):
-        if provider not in {"ollama", "groq"}:
-            raise ProviderError("Choose the ollama or groq provider.")
+        if provider not in {"ollama", "groq", "openai", "gemini"}:
+            raise ProviderError("Choose a supported provider: ollama, groq, openai or gemini.")
         if not isinstance(model, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}", model):
             raise ProviderError("The model name is invalid.")
         if contains_credentials(model):
             raise PrivacyError("Credential-like data cannot be used as a model name.")
+        if provider == "gemini" and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}", model):
+            raise ProviderError("Gemini requires a simple model ID.")
         self.provider = provider
         self.model = model
-        self._api_key = api_key if api_key is not None else os.environ.get("GROQ_API_KEY", "")
+        self._api_key = api_key if api_key is not None else os.environ.get({"groq": "GROQ_API_KEY", "openai": "OPENAI_API_KEY", "gemini": "GEMINI_API_KEY"}.get(provider, "NOVA_UNUSED_KEY"), "")
         if not isinstance(self._api_key, str) or any(char in self._api_key for char in "\r\n"):
             raise ProviderError("The provider credential configuration is invalid.")
 
@@ -91,14 +97,17 @@ class ModelProvider:
 
     def complete(
         self, messages: list[dict], mode: str = "LOCAL_ONLY", classification: str = "PERSONAL",
+        *, max_output_tokens: int = 2048,
     ) -> str:
+        if type(max_output_tokens) is not int or not 1 <= max_output_tokens <= 2048:
+            raise ProviderError("Invalid output token limit.")
         if not isinstance(mode, str) or mode not in MODES:
             raise PrivacyError("Unknown operating mode; model access was blocked.")
         if not isinstance(classification, str) or classification not in CLASSIFICATIONS:
             raise PrivacyError("Unknown data classification; model access was blocked.")
         if classification in BLOCKED_CLASSIFICATIONS:
             raise PrivacyError("This data classification cannot be sent to a model.")
-        if self.provider == "groq" and (mode != "NORMAL" or classification not in {"PUBLIC", "INTERNAL"}):
+        if self.provider != "ollama" and (mode != "NORMAL" or classification not in {"PUBLIC", "INTERNAL"}):
             raise PrivacyError("Cloud inference requires NORMAL mode and PUBLIC or INTERNAL data.")
         if not isinstance(messages, list) or not 1 <= len(messages) <= 128:
             raise ProviderError("Provide between 1 and 128 text messages.")
@@ -124,13 +133,29 @@ class ModelProvider:
         headers = {"Content-Type": "application/json", "Accept": "application/json"}
         if self.provider == "ollama":
             url = "http://127.0.0.1:11434/api/chat"
-            payload["options"] = {"num_predict": 2048}
+            payload["options"] = {"num_predict": max_output_tokens}
         else:
             if not self._api_key:
-                raise ProviderError("Set GROQ_API_KEY in secure environment settings to use Groq.")
-            url = "https://api.groq.com/openai/v1/chat/completions"
+                raise ProviderError("Configure " + self.provider.upper() + "_API_KEY in secure settings.", "DISCONNECTED")
+            url = "https://api.groq.com/openai/v1/chat/completions" if self.provider == "groq" else "https://api.openai.com/v1/chat/completions"
             headers["Authorization"] = "Bearer " + self._api_key
-            payload["max_tokens"] = 2048
+            payload["max_tokens"] = max_output_tokens
+        if self.provider == "gemini":
+            url = "https://generativelanguage.googleapis.com/v1beta/models/" + self.model + ":generateContent"
+            headers.pop("Authorization", None)
+            headers["x-goog-api-key"] = self._api_key
+            payload = {
+                "contents": [{"role": "model" if m["role"] == "assistant" else "user",
+                              "parts": [{"text": m["content"]}]} for m in clean_messages if m["role"] != "system"],
+                "generationConfig": {"maxOutputTokens": max_output_tokens},
+            }
+            if self.model == "gemini-2.5-flash" and max_output_tokens <= 32:
+                payload["generationConfig"]["thinkingConfig"] = {"thinkingBudget": 0}
+            system = [m["content"] for m in clean_messages if m["role"] == "system"]
+            if system:
+                payload["systemInstruction"] = {"parts": [{"text": "\n".join(system)}]}
+            if not payload["contents"]:
+                raise ProviderError("Gemini requires a user or assistant message.")
         request = urllib.request.Request(
             url, data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
             headers=headers, method="POST",
@@ -152,6 +177,8 @@ class ModelProvider:
             result = json.loads(body.decode("utf-8"))
             if self.provider == "ollama":
                 answer = result["message"]["content"]
+            elif self.provider == "gemini":
+                answer = "".join(part.get("text", "") for part in result["candidates"][0]["content"]["parts"])
             else:
                 answer = result["choices"][0]["message"]["content"]
             if not isinstance(answer, str) or not answer.strip():
@@ -161,7 +188,10 @@ class ModelProvider:
             if contains_credentials(answer):
                 raise PrivacyError("The model response was withheld because it resembles credential data.")
             return answer
+        except urllib.error.HTTPError as error:
+            status = "AUTH_EXPIRED" if error.code in {401, 403} else "RATE_LIMITED" if error.code == 429 else "DEGRADED"
+            raise ProviderError("The provider refused the request (" + status + ").", status) from None
         except (urllib.error.URLError, OSError, TimeoutError):
             raise ProviderError("The model service could not be reached or refused the request.") from None
-        except (ValueError, UnicodeError, KeyError, IndexError, TypeError, RecursionError):
+        except (ValueError, UnicodeError, KeyError, IndexError, TypeError, AttributeError, RecursionError):
             raise ProviderError("The model service returned an invalid response.") from None

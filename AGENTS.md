@@ -1,7 +1,7 @@
 # NOVA development instructions
 
-- Read `docs/NOVA_MASTER_SPEC.md` (v10 is canonical), `docs/PROJECT_STATUS.md`, `docs/REQUIREMENT_MATRIX.md`, and `docs/ARCHITECTURE.md` before extending the agent. The v8, v6, glass UI and expansion requirements remain preserved reference material.
-- The advanced expansion in `docs/spec/NOVA_ADVANCED_EXPANSION.md` is additive. Preserve the master specification; maintain `docs/FUTURE_ROADMAP.md` and generate `docs/EXPANSION_TRACEABILITY.md` from `nova/feature_catalog.json` with `scripts/sync_roadmap.py`. Roadmap records never grant tool permissions.
+- Read `docs/NOVA_MASTER_SPEC.md` (Omega 12 is canonical), `docs/PROJECT_STATUS.md`, `docs/REQUIREMENT_MATRIX.md`, and `docs/ARCHITECTURE.md` before extending the agent. The v8, v6, glass UI and expansion requirements remain preserved reference material.
+- Earlier prompts are historical references; Omega 12 supersedes their requirements. Preserve verified working code; maintain `docs/FUTURE_ROADMAP.md` and generate `docs/EXPANSION_TRACEABILITY.md` from `nova/feature_catalog.json` with `scripts/sync_roadmap.py`. Roadmap records never grant tool permissions.
 - Decision records are owner-entered local data, not implicit model context. Preserve revision checks, mode gates and content-free audit metadata. Auto-reply remains OFF until its transport and policy protections actually exist.
 - Keep only Chat, Voice, Projects, Memory and Settings in primary navigation. Preserve internal pages under Settings/Advanced. Windows launch tools are experimental until tested on Windows; never treat OS browser handoff as verified page loading. No owner input may enter the fixed discovery script or shell arguments.
 - Use the existing isolated checkout. Do not create a Git worktree unless the user explicitly asks for one.

@@ -36,7 +36,7 @@ def check_release(root, files):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", default="downloads/Nova-agent-v0.3.zip")
+    parser.add_argument("--output", default="downloads/Nova-agent-v0.4.zip")
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
     destination = root / args.output

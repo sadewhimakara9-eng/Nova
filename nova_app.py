@@ -8,6 +8,7 @@ from html import escape
 
 import streamlit as st
 
+from nova import __version__
 from nova.core import NovaCore, NovaError
 from nova.catalog import STATUSES, coverage
 from nova.local_commands import local_intent
@@ -28,8 +29,8 @@ def initialize_state(controller):
     defaults = {
         "nova_page": "Chat", "nova_primary_page": "Chat", "nova_nav_expanded": False,
         "nova_provider": "Built-in commands", "nova_ollama_model": "llama3.2",
-        "nova_groq_model": "llama-3.3-70b-versatile", "nova_api_key": "",
-        "nova_mode": "LOCAL_ONLY", "nova_classification": "PERSONAL", "nova_language": "si",
+        "nova_groq_model": "llama-3.3-70b-versatile",
+        "nova_mode": "LOCAL_ONLY", "nova_classification": "PERSONAL", "nova_language": "auto",
         "nova_messages": [], "nova_prepared_plan": None, "nova_notice": "",
         "nova_show_approval": False,
         "nova_voice_preview": False, "nova_voice_demo_state": "listening",
@@ -41,8 +42,9 @@ def initialize_state(controller):
     if st.session_state.get("nova_next_page"):
         st.session_state.nova_page = st.session_state.pop("nova_next_page")
         st.session_state.nova_primary_page = st.session_state.nova_page if st.session_state.nova_page in PRIMARY_PAGES else "Settings"
-    if st.session_state.pop("nova_clear_key", False):
-        st.session_state.nova_api_key = ""
+    # Discard any legacy session credential when upgrading a running UI.
+    st.session_state.pop("nova_api_key", None)
+    st.session_state.pop("widget_nova_api_key", None)
     if st.session_state.pop("nova_end_preview", False):
         st.session_state.nova_voice_preview = False
     if st.session_state.get("nova_pending_mode"):
@@ -59,27 +61,25 @@ def show_error(exc):
         message = str(exc)[:600] or "That action could not be completed."
     else:
         message = "That action could not be completed. Please check Settings and try again."
-    secret = st.session_state.get("nova_api_key", "")
-    if secret:
-        message = message.replace(secret, "[redacted]")
     if contains_credentials(message):
         message = "The action was stopped because sensitive information was detected."
     st.error(message)
 
 
+PROVIDER_CHOICES = {"Built-in commands": None, "OpenAI / GPT": "openai", "Google Gemini": "gemini",
+                    "Ollama (local)": "ollama", "Groq (cloud)": "groq"}
+PROVIDER_MODELS = {"openai": "gpt-4.1-mini", "gemini": "gemini-2.5-flash", "ollama": "llama3.2", "groq": "llama-3.3-70b-versatile"}
+
+
 def selected_provider():
-    choice = st.session_state.nova_provider
-    if choice == "Built-in commands":
+    provider = PROVIDER_CHOICES[st.session_state.nova_provider]
+    if provider is None:
         return None
-    if choice == "Ollama (local)":
-        return ModelProvider("ollama", st.session_state.nova_ollama_model)
-    if st.session_state.nova_mode != "NORMAL":
-        raise NovaError("Groq needs NORMAL mode. Choose it explicitly in Privacy.")
-    if st.session_state.nova_classification not in {"PUBLIC", "INTERNAL"}:
+    if provider != "ollama" and st.session_state.nova_mode != "NORMAL":
+        raise NovaError("Cloud AI needs NORMAL mode. Choose it explicitly in Settings → General.")
+    if provider != "ollama" and st.session_state.nova_classification not in {"PUBLIC", "INTERNAL"}:
         raise NovaError("Cloud requests need PUBLIC or INTERNAL classification. Personal content stays local.")
-    if not st.session_state.nova_api_key and not os.environ.get("GROQ_API_KEY"):
-        raise NovaError("Add your Groq API key in Settings before using the cloud model.")
-    return ModelProvider("groq", st.session_state.nova_groq_model, st.session_state.nova_api_key or None)
+    return get_core(os.environ.get("NOVA_DATA_DIR", "")).provider_hub.client(provider)
 
 
 def is_control_command(text):
@@ -105,12 +105,12 @@ def sidebar(core):
             st.session_state.nova_page = st.session_state.nova_primary_page
         st.radio("Workspace", PRIMARY_PAGES, key="nova_primary_page", on_change=select_primary, label_visibility="collapsed")
         page = st.session_state.nova_page
-        st.toggle("Expand navigation", key="nova_nav_expanded")
-        with st.popover("Privacy & language", icon=":material/shield:", use_container_width=True):
-            st.selectbox("Operating mode", ["LOCAL_ONLY", "NORMAL", "OFFLINE", "PRIVATE", "READ_ONLY", "DRY_RUN", "SAFE_MODE"], key="nova_mode")
-            st.selectbox("Request classification", ["PERSONAL", "SECRET", "PRIVATE", "INTERNAL", "PUBLIC"], key="nova_classification")
-            st.selectbox("Response language", ["si", "en"], key="nova_language", format_func=lambda v: "සිංහල · Sinhala" if v == "si" else "English")
-            st.caption("These choices apply to new requests. Running missions keep their approved scope.")
+        with st.popover("Appearance", icon=":material/palette:"):
+            current = st.session_state.nova_appearance
+            accent = st.selectbox("Accent colour", list(ACCENTS), index=list(ACCENTS).index(current["accent"]))
+            if accent != current["accent"]:
+                st.session_state.nova_appearance = UIController(core).save_appearance({**current, "accent": accent})
+                st.rerun()
         if core.stopped:
             if st.button("Resume agent", icon=":material/play_arrow:", use_container_width=True):
                 core.resume()
@@ -118,7 +118,7 @@ def sidebar(core):
         elif st.button("Emergency stop", icon=":material/stop_circle:", use_container_width=True, help="Pause new work. An atomic file operation already running may finish safely."):
             core.stop()
             st.rerun()
-        st.html('<div class="nova-sidebar-foot">' + icon("shield", 14) + ' Local workspace · v0.3</div>')
+        st.html('<div class="nova-sidebar-foot">' + icon("shield", 14) + ' Local workspace · v' + __version__ + '</div>')
     return page
 
 
@@ -144,7 +144,7 @@ def shell_header(core, page):
     with st.container(key="shell-header"):
         left, right = st.columns([3, 1.35], vertical_alignment="center")
         with left:
-            st.html('<div class="nova-kicker">YOUR SPACE, INTELLIGENTLY CONNECTED</div><div class="nova-breadcrumb">NOVA <span>/</span> ' + escape(page) + '</div>')
+            if page not in {"Chat", "Voice"}: st.html('<div class="nova-kicker">YOUR SPACE, INTELLIGENTLY CONNECTED</div><div class="nova-breadcrumb">NOVA <span>/</span> ' + escape(page) + '</div>')
         with right:
             activity, stop = st.columns([3, 1])
             with activity: live_indicator(core)
@@ -226,7 +226,21 @@ def attachment_menu(core):
                 st.error("Please choose a UTF-8 text file.")
             except Exception as exc:
                 show_error(exc)
-        for name in ("Image", "Document / PDF", "Screenshot", "Folder", "Clipboard"):
+        st.divider()
+        st.write("Read image text")
+        health = core.vision.health()
+        st.caption("Local OCR only. This does not interpret images or capture your screen. Extracted text is not saved to conversation history.")
+        if not health["available"]: st.caption(health["detail"])
+        image_upload = st.file_uploader("Image for local OCR", type=["png", "jpg", "jpeg"], max_upload_size=8, key="nova_ocr_upload")
+        languages = health.get("languages") or ["eng"]
+        language = st.selectbox("OCR language", languages)
+        if st.button("Read image text", disabled=image_upload is None or not health["available"] or core.stopped):
+            try:
+                receipt = core.inspect_image(image_upload.getvalue(), language=language, mode=st.session_state.nova_mode, classification=st.session_state.nova_classification)
+                st.caption("Local OCR · " + receipt["engine"])
+                st.text(receipt["text"] or "No text found in this image.")
+            except Exception as exc: show_error(exc)
+        for name in ("Document / PDF", "Screenshot", "Folder", "Clipboard"):
             st.button(name + " · coming soon", disabled=True, key="attachment_" + name)
 
 
@@ -236,28 +250,26 @@ def composer(core):
             attach, message, microphone = st.columns([1.1, 7, 1], vertical_alignment="center")
             with attach: attachment_menu(core)
             with message:
-                text = st.chat_input("Type /resume to continue" if core.stopped else "Ask NOVA anything… /help", key="nova_composer", max_chars=20_000)
+                text = st.chat_input("Resume NOVA to continue" if core.stopped else "Message NOVA…", key="nova_composer", max_chars=20_000)
             with microphone:
                 if st.button("Voice", icon=":material/mic:", help="Open voice workspace; speech engine not connected", key="composer_voice"):
                     go("Voice")
             if text: receive_message(core, text)
-            st.html('<div class="nova-composer-note">' + icon("shield", 12) + ' ' + escape(st.session_state.nova_mode.replace("_", " ").title()) + ' · ' + escape(st.session_state.nova_provider) + '</div>')
+
 
 
 def chat(core):
     switch_assistant("Chat")
-    with st.expander("Conversation options"):
-        left, right = st.columns(2)
-        with left:
+    if st.session_state.nova_messages:
+        with st.popover("Conversation options"):
             if st.button("Clear this conversation"):
                 st.session_state.nova_messages = []
                 st.rerun()
-        with right:
             st.caption("Conversation is session-only. Save lasting facts in Memory.")
-        st.code("/help    /files    /read notes.txt\n/write notes.txt | Text to save\n/remember language = Sinhala    /recall", language="text")
-    if not st.session_state.nova_messages:
-        orb("privacy" if st.session_state.nova_mode != "NORMAL" else "idle", 230, "Ready when you are")
-        header("කියන්න, මම ඒක බලන්නම්." if st.session_state.nova_language == "si" else "A little help, a conversation away.", "Start with /help, or connect your preferred model in Settings.")
+    else:
+        with st.container(key="chat-welcome"):
+            orb("privacy" if st.session_state.nova_mode != "NORMAL" else "idle", 230, "Ready when you are")
+            header(greeting(st.session_state.nova_language), "අද මම ඔබට උදව් කරන්නේ කොහොමද?" if st.session_state.nova_language == "si" else "What can I help you with today?")
     for message in st.session_state.nova_messages:
         with st.chat_message(message["role"], avatar=":material/person:" if message["role"] == "user" else ":material/auto_awesome:"):
             st.write(message["content"])
@@ -266,27 +278,12 @@ def chat(core):
 
 def voice(core):
     switch_assistant("Voice")
-    preview = st.session_state.nova_voice_preview
-    state = st.session_state.nova_voice_demo_state if preview else "offline"
-    orb(state, 300, (state.title() + " · visual preview") if preview else "Voice engine not connected")
-    with st.container(border=True, key="voice-panel"):
-        st.html('<div class="nova-voice-label">' + icon("voice", 22) + ' ' + badge("VISUAL PREVIEW" if preview else "DISCONNECTED", "amber" if preview else "neutral") + '</div>')
-        st.subheader(state.title() + "…" if preview else "Your voice, when you’re ready.")
-        if preview:
-            st.caption("Simulated animation only. No microphone is open, no transcription is running, and no command is executed.")
-            st.write('“Nova, මගේ project එක දිගටම කරගෙන යන්න.”')
-            st.caption("Example transcript · not recorded audio")
-        else:
-            st.write("හඬ සේවාව තවම සම්බන්ධ කර නැහැ. Chat හරහා NOVA භාවිත කරන්න පුළුවන්.")
-            st.caption("Live transcription will appear here when a speech engine is connected.")
-        st.button("Microphone unavailable", icon=":material/mic_off:", disabled=True, help="STT and audio capture are not implemented")
-    st.toggle("Visual preview only", key="nova_voice_preview", help="Try the orb states without accessing your microphone or backend")
-    if st.session_state.nova_voice_preview:
-        st.selectbox("Preview orb state", ORB_STATES, key="nova_voice_demo_state")
-        if st.button("Stop preview", icon=":material/stop:"):
-            st.session_state.nova_end_preview = True
-            st.rerun()
-    if st.button("Continue in Chat", icon=":material/chat_bubble:"): go("Chat")
+    orb("offline", 300, "Voice unavailable")
+    st.markdown('<p class="nova-voice-unavailable">Voice unavailable</p>', unsafe_allow_html=True)
+    left, center, right = st.columns([1, 1, 1])
+    with center:
+        if st.button("Voice setup", icon=":material/settings_voice:", use_container_width=True): go("Settings")
+        if st.button("Continue in Chat", icon=":material/chat_bubble:", use_container_width=True): go("Chat")
 
 
 def plan_details(steps):
@@ -601,14 +598,13 @@ def coverage_panel(core):
 
 def integrations(core):
     header("Connected, on your terms.", "Choose what NOVA can use. Nothing connects without your setup.", "INTEGRATIONS")
-    left, right = st.columns(2)
-    for column, name, desc in ((left, "Ollama", "Local AI on your computer"), (right, "Groq", "Optional cloud language models")):
-        with column, st.container(border=True):
-            st.html(badge("NOT VERIFIED", "neutral"))
-            st.subheader(name)
-            st.write(desc)
-            st.caption("Availability is checked when you send a request. A saved choice is not proof of connection.")
-            if st.button("Configure " + name): go("Settings")
+    for item in core.provider_hub.providers():
+        with st.container(border=True):
+            health = item["health"]
+            st.subheader(next(label for label, name in PROVIDER_CHOICES.items() if name == item["provider"]))
+            st.html(badge(health["status"], "blue" if health["status"] == "CONNECTED" else "neutral"))
+            st.caption(health["detail"])
+            if st.button("Configure", key="integration_" + item["provider"]): go("Settings")
     st.markdown("**On the horizon**")
     for name in ("Browser", "GitHub", "Email & calendar", "WhatsApp", "Blender & Unreal", "Smart home"):
         st.html('<div class="nova-integration-row"><span>' + escape(name) + '</span>' + badge("DISCONNECTED", "neutral") + '</div>')
@@ -629,7 +625,7 @@ def privacy(core):
         st.subheader("Recent external data activity")
         activity = UIController(core).external_activity()
         if activity:
-            for event in activity[:10]: st.write("Groq response received · " + event["created_at"][:16].replace("T", " ") + " UTC")
+            for event in activity[:10]: st.write("Cloud response received · " + event["created_at"][:16].replace("T", " ") + " UTC")
         else: st.write("No successful cloud responses recorded in the recent activity window.")
         st.caption("This history covers the last 200 Nova events. It does not record every attempted request or monitor other apps on your computer.")
     a, b = st.columns(2)
@@ -639,7 +635,7 @@ def privacy(core):
     with b:
         st.subheader("Private by default")
         st.write("Memory and file history are not automatically sent to a model. Sensitive classifications and common credential patterns are blocked.")
-    st.caption("Per-app protection, custom folder policies, a full network ledger and an encrypted secrets vault are coming soon.")
+    st.caption("Per-app protection, custom folder policies, a full network ledger and cross-platform secret storage are coming soon. Windows provider keys use the OS-backed vault.")
 
 
 def widget_options(key):
@@ -648,14 +644,68 @@ def widget_options(key):
     return {"key": "widget_" + key, "on_change": preserve}
 
 
+def provider_settings(core):
+    hub = core.provider_hub
+    st.subheader("AI providers")
+    st.selectbox("Assistant provider", list(PROVIDER_CHOICES), **widget_options("nova_provider"))
+    st.caption("Local commands work without an AI provider. Cloud AI requires your explicit privacy choices in General.")
+    if not hub.vault_available:
+        st.info("Secure key storage is unavailable on this platform. Cloud keys can only be saved with the Windows-backed vault. Local AI remains available.")
+    for label, provider in PROVIDER_CHOICES.items():
+        if provider is None: continue
+        with st.container(border=True):
+            st.subheader(label)
+            status = hub.status(provider)
+            st.html(badge(status.get("status", "DISCONNECTED"), "blue" if status.get("status") == "CONNECTED" else "neutral"))
+            if status.get("detail"): st.caption(status["detail"])
+            if status.get("checked_at"): st.caption("Last check: " + str(status["checked_at"]))
+            model_key = "provider_model_" + provider
+            secret_key = "provider_secret_" + provider
+            def save_provider(provider=provider, model_key=model_key, secret_key=secret_key):
+                # Widget data is consumed only by this callback and cleared before rerender.
+                secret = st.session_state.pop(secret_key, None)
+                try:
+                    hub.configure(provider, st.session_state[model_key], key=secret or None)
+                    st.session_state.nova_notice = "Provider saved. Use Check connection to verify it."
+                except Exception:
+                    st.session_state.nova_notice = "Provider could not be saved. Check the model and secure storage availability."
+                finally:
+                    secret = None
+            with st.form("provider_setup_" + provider, clear_on_submit=True):
+                st.text_input("Model", value=next((item["model"] for item in hub.providers() if item["provider"] == provider), None) or PROVIDER_MODELS[provider], key=model_key)
+                if provider != "ollama":
+                    st.text_input("New API key", type="password", key=secret_key, disabled=not hub.vault_available,
+                                  help="Enter only here on your local computer. The field is cleared when you save.")
+                st.form_submit_button("Save provider", key="save_" + provider, on_click=save_provider,
+                                      disabled=provider != "ollama" and not hub.vault_available)
+            check, forget = st.columns(2)
+            if check.button("Check connection", key="check_" + provider, disabled=core.stopped or (provider != "ollama" and st.session_state.nova_mode != "NORMAL")):
+                try:
+                    hub.check(provider, mode=st.session_state.nova_mode)
+                    st.rerun()
+                except Exception as exc: show_error(exc)
+            def forget_provider(provider=provider, secret_key=secret_key):
+                st.session_state.pop(secret_key, None)
+                try:
+                    hub.forget(provider)
+                    st.session_state.nova_notice = "Provider credential forgotten."
+                except Exception:
+                    st.session_state.nova_notice = "Provider credential could not be removed."
+            forget.button("Forget provider", key="forget_" + provider, on_click=forget_provider)
+            st.caption("Connection checks contact this provider only when you press Check connection. A saved configuration is not a verified connection.")
+
+
 def settings(core):
     header("Make a little space for you.", "Your preferences, your models, your way of working.", "SETTINGS")
-    general, appearance, models, advanced = st.tabs(["General", "Appearance", "Models & APIs", "Advanced"])
+    general, appearance, models, advanced = st.tabs(["General", "Appearance", "AI", "Advanced"])
     with general:
         st.subheader("NOVA Glass White")
         st.write("A quiet, light workspace for your personal AI.")
-        st.caption("Change response language and request privacy using Privacy & language in the navigation.")
-        st.info("Voice, notification schedules, personality presets, OS permissions, system tray and global overlay are coming soon.")
+        st.selectbox("Operating mode", ["LOCAL_ONLY", "NORMAL", "OFFLINE", "PRIVATE", "READ_ONLY", "DRY_RUN", "SAFE_MODE"], **widget_options("nova_mode"))
+        st.selectbox("Request classification", ["PERSONAL", "SECRET", "PRIVATE", "INTERNAL", "PUBLIC"], **widget_options("nova_classification"))
+        st.selectbox("Response language", ["auto", "si", "en", "singlish"], **widget_options("nova_language"), format_func=lambda v: {"auto": "Match my message", "si": "සිංහල · Sinhala", "en": "English", "singlish": "Singlish"}[v])
+        st.caption("These choices apply to new requests. Running missions keep their approved scope.")
+        st.info("Voice unavailable. Microphone capture and speech are not implemented. Notification schedules, system tray and global overlay are coming soon.")
     with appearance:
         current = st.session_state.nova_appearance
         def update_appearance():
@@ -668,20 +718,7 @@ def settings(core):
             st.toggle(label, value=current[name], key="appearance_" + name, on_change=update_appearance)
         st.caption("Preferences are saved locally. Performance mode removes blur and motion. Your system's reduced-motion preference is always respected.")
     with models:
-        st.selectbox("Assistant provider", ["Built-in commands", "Ollama (local)", "Groq (cloud)"], **widget_options("nova_provider"))
-        choice = st.session_state.nova_provider
-        if choice == "Built-in commands": st.info("Local commands are ready. Choose a model for free-form conversation and planning.")
-        elif choice == "Ollama (local)":
-            st.text_input("Installed Ollama model", **widget_options("nova_ollama_model"))
-            st.caption("Keep Ollama running locally with this model installed. No connection is assumed until a request succeeds.")
-        else:
-            st.text_input("Groq model", **widget_options("nova_groq_model"))
-            st.text_input("Groq API key", type="password", **widget_options("nova_api_key"))
-            if os.environ.get("GROQ_API_KEY"): st.caption("An environment key is available; leave the field empty to use it.")
-            st.caption("The key stays in this running session and is not saved to the database. Cloud requests need NORMAL mode and PUBLIC or INTERNAL classification.")
-            if st.button("Clear API key"):
-                st.session_state.nova_clear_key = True
-                st.rerun()
+        provider_settings(core)
     with advanced:
         st.subheader("Advanced workspaces")
         st.caption("The full mission, tool and privacy workspaces remain available here.")
@@ -710,7 +747,7 @@ def main():
         core = get_core(os.environ.get("NOVA_DATA_DIR", ""))
         controller = UIController(core)
         initialize_state(controller)
-        apply_theme(st.session_state.nova_appearance, compact=not st.session_state.nova_nav_expanded)
+        apply_theme(st.session_state.nova_appearance, compact=True)
         page = sidebar(core)
         shell_header(core, page)
         if page not in PRIMARY_PAGES:
@@ -724,7 +761,7 @@ def main():
                  "Automations": lambda c: unavailable("A little less on your list.", "Routines that will make room for what matters.", "automations", "Create automation"),
                  "Devices": lambda c: unavailable("Your world, connected.", "Your trusted devices will have a home here.", "devices", "Connect a device")}
         pages[page](core)
-        if page not in {"Home", "Chat"}: palette()
+        if page not in {"Home", "Chat", "Voice"}: palette()
     except Exception as exc: show_error(exc)
 
 

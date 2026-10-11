@@ -14,6 +14,8 @@ from .capabilities import CapabilityRegistry
 from .catalog import catalog, capability_answer
 from .decisions import DecisionMemory
 from .local_commands import local_intent
+from .provider_hub import ProviderHub
+from .vision import VisionGateway
 from .providers import contains_credentials
 from .storage import Store, now
 from .tools import ToolError, ToolRegistry
@@ -80,6 +82,8 @@ class NovaCore:
         self.agents = AgentRegistry()
         self.capability_registry = CapabilityRegistry(self.registry, self.agents)
         self.store = Store(self.data_dir / "nova.sqlite3")
+        self.provider_hub = ProviderHub(self.store, self.data_dir)
+        self.vision = VisionGateway()
         self.decision_memory = DecisionMemory(self.store, self._text)
         self._guard = threading.RLock()
         self._closing = threading.Event()
@@ -119,7 +123,7 @@ class NovaCore:
         if mode not in MODES or classification not in CLASSIFICATIONS:
             raise NovaError("Unknown privacy mode or data classification.")
         if classification in PROTECTED:
-            raise NovaError("This data classification is not accepted in chat or missions. Secure vault support is not implemented.")
+            raise NovaError("This data classification is not accepted in chat or missions. Use provider settings for supported credentials.")
 
     def tools(self) -> list[dict]:
         return self.registry.descriptions()
@@ -130,6 +134,12 @@ class NovaCore:
 
     def feature_catalog(self, query="", status="ALL", mode="LOCAL_ONLY") -> list[dict]:
         return catalog(self, query, status, mode)
+
+    def inspect_image(self, data, *, language="eng", mode="LOCAL_ONLY", classification="PERSONAL"):
+        self._policy(mode, classification)
+        if self.stopped or self._closing.is_set() or mode == "DRY_RUN":
+            raise NovaError("Resume Nova and leave dry-run mode before reading an image.")
+        return self.vision.analyze_image(data, policy="LOCAL_VISION_ONLY", language=language)
 
     def decisions(self, query="", project="") -> list[dict]:
         return self.decision_memory.search(query, project)
@@ -336,7 +346,7 @@ class NovaCore:
                 "tools": len(self.tools()), "agents": len(self.agents.agents), "workers": WORKERS, "workspace": str(self.workspace),
                 "voice": "NOT_STARTED", "windows_control": "EXPERIMENTAL" if 'apps.open' in {t['name'] for t in self.tools()} else "UNAVAILABLE_ON_THIS_PLATFORM"}
 
-    def chat(self, text: str, provider=None, mode="LOCAL_ONLY", classification="PERSONAL", language="si") -> str:
+    def chat(self, text: str, provider=None, mode="LOCAL_ONLY", classification="PERSONAL", language="auto") -> str:
         text = self._text(text)
         command = re.sub(r"^nova[\s,]+", "", text, flags=re.I).strip()
         lower = command.casefold().rstrip(".! ")
@@ -411,9 +421,9 @@ class NovaCore:
             mid = self.enqueue(tool, args, goal='Owner requested an application or official website', mode=mode)
             return f"Mission {mid[:8]} queued locally. Check Missions for window verification or browser handoff status."
         if not provider:
-            return "Free-form AI is not connected yet. Choose a local Ollama model or opt in to Groq in Settings. Local commands work now; type /help."
+            return "Free-form AI is not connected yet. Choose a local Ollama model or set up OpenAI, Gemini or Groq in Settings. Local commands work now; type /help."
         answer = provider.complete([
-            {"role": "system", "content": SYSTEM_PROMPT + f"\nPreferred response language: {'Sinhala' if language == 'si' else 'English'}." +
+            {"role": "system", "content": SYSTEM_PROMPT + '\nResponse language: ' + {'auto': 'Match the latest owner message: Sinhala script, English, or romanized Sinhala (Singlish). Do not infer language from the UI or old messages.', 'si': 'Sinhala', 'en': 'English', 'singlish': 'Romanized Sinhala (Singlish)'}.get(language, 'Match the latest owner message') + '.' +
              "\nInstalled executable tools: " + json.dumps([c["capability_id"] for c in self.capabilities()]) +
              "\nLocal feature search is available via /capabilities <keywords>. Explicit project decision retrieval is available via /decisions <keywords>. "
              "Decision records are not included in this conversation. Never invent a recorded project reason; direct the owner to that local lookup. "

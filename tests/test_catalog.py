@@ -36,7 +36,7 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual((root / 'docs/EXPANSION_TRACEABILITY.md').read_text(), traceability(root))
         self.assertEqual((root / 'docs/REQUIREMENT_MATRIX.md').read_text(), master_traceability(root))
         master = master_requirements()
-        self.assertEqual([r['section'] for r in master], list(range(136)))
+        self.assertEqual([r['section'] for r in master], list(range(365)))
         self.assertEqual(len(re.findall(r'^# \d+\. ', (root / 'docs/NOVA_MASTER_SPEC.md').read_text(), re.M)), len(master))
         for row in master:
             for path in row['implementation'] + row['tests']:

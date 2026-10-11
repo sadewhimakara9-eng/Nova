@@ -1,6 +1,6 @@
 # NOVA Glass — personal AI workspace
 
-A working **v0.3 release** following the [NOVA v10 master specification](docs/NOVA_MASTER_SPEC.md). The white-glass desktop interface connects to the existing local agent core: Sinhala-aware chat, memory, missions, safe file tools and optional AI providers. The complete v10 operating-system vision is a staged roadmap, not a completed product.
+A working **v0.4 release** following the [NOVA Omega 12 master specification](docs/NOVA_MASTER_SPEC.md). The white-glass desktop interface connects to the existing local agent core: Sinhala-aware chat, memory, missions, safe file tools and optional AI providers. The complete Omega operating-system vision is a staged roadmap, not a completed product.
 
 ![NOVA Glass chat screen](docs/images/nova-glass-chat.png)
 
@@ -38,41 +38,41 @@ In that **Missions** workspace, enter `/write welcome.txt | ආයුබෝව�
 ## New in 0.3
 
 - **Projects → Decision memory:** save the project label, decision, reason and alternatives. Search, edit and explicitly delete records. `/decisions Unreal` retrieves recorded reasons locally; no model invents an explanation or receives these records automatically.
-- **Settings → Advanced → Open Tools → Feature coverage:** search installed capabilities, all 132 expansion requirements and all 136 v10 sections. Status filters distinguish working, partial and missing scope. `/capabilities video` works without a model.
+- **Settings → Advanced → Open Tools → Feature coverage:** search installed capabilities, all 132 expansion requirements and all 365 Omega sections. Status filters distinguish working, partial and missing scope. `/capabilities video` works without a model.
 - **Experimental Windows local commands:** try `open Notepad`, `Chrome eka open karanna`, or an arbitrary installed app name. Discovery reads local registrations/Start Menu/packaged apps; ambiguous names are refused. No AI model is needed. Shortcuts requiring arguments, some portable apps, focus/close and arbitrary file/folder opening remain unsupported.
 - `Gemini eka open karanna` and `YouTube yanna` require **NORMAL** mode because they may open a website. An exact installed app is preferred; otherwise the official site is handed to the default browser. That handoff remains **BLOCKED / check browser**, because page loading is not verified. NOVA will not automatically repeat it. Other apps can use their own network settings when launched; NOVA does not control their traffic.
 
-Windows app/GUI APIs are tested with mocks only. This Linux environment cannot establish that Notepad, Gemini or YouTube actually opens on your PC. Use Settings → Advanced → Open Missions to inspect real results. Voice, computer vision, secure device mesh and automatic reply are not implemented; auto-reply stays OFF. Provider keys and live model quality still require owner setup.
+Windows app/GUI APIs are tested with mocks only. This Linux environment cannot establish that Notepad, Gemini or YouTube actually opens on your PC. Use Settings → Advanced → Open Missions to inspect real results. Voice, full computer vision, secure device mesh and automatic reply are not implemented; uploaded-image local OCR is available; auto-reply stays OFF. Provider keys and live model quality still require owner setup.
 
 ## Connect an AI model
 
 Built-in commands work immediately without an AI connection. Free-form conversation and natural-language planning require a provider:
 
 - **Local Ollama:** install [Ollama](https://ollama.com/), download a model using its app, and keep it running. In Nova **Settings**, select **Ollama (local)** and enter the exact installed model name. Default endpoint: `127.0.0.1:11434`. Sinhala quality depends on your chosen model.
-- **Groq:** in **Settings**, select **Groq (cloud)** and enter your own key into the password field. Select **NORMAL** privacy mode and explicitly classify the request **PUBLIC** or **INTERNAL**. Only then can a request leave your computer. Alternatively supply `GROQ_API_KEY` through a secure process environment.
+- **OpenAI / Gemini / Groq:** on Windows, open **Settings → AI**, enter your model and key in the local secure form, then Save provider. Keys use Windows DPAPI; the field clears after saving. In **General**, select NORMAL to enable the explicit Check connection action. For cloud chat also choose PUBLIC or INTERNAL. Never send keys in chat.
 
-Keys entered in Settings stay in the current Streamlit session, are not written to the database, and can be cleared there. Provider settings are session-local. The `.env.example` is documentation, not an automatically loaded secret file. The old app's embedded key is never used by the new agent.
+A saved configuration is not a verified connection. Secure cloud-key setup is unavailable on non-Windows platforms; local Ollama remains available. See [provider setup and limits](docs/PROVIDER_SYSTEM.md). The legacy app's embedded key is never used.
 
 Cloud requests receive the current prompt and fixed system instructions only. Nova does not automatically send saved memory, mission history, or files to a model. Model answers are conversational text, not executed commands. A generated mission queries the installed capability registry, must pass the tool allowlist, and is reviewed before execution. Missing capabilities are reported without scheduling a misleading partial result. Built-in commands remain shortcuts; natural-language planning uses the selected model rather than an exact-phrase command list. Live model inference was not tested in this environment; provider tests use mocked HTTP responses.
 
 ## Explore the new interface
 
 - **Home:** the original glass orb, a Sinhala greeting, actual mission/memory counts, and a floating composer.
-- **Chat / Voice:** switch modes with the pill control. Voice says **not connected**; its optional visual preview never opens a microphone or executes sample text.
+- **Chat / Voice:** switch modes with the pill control. Voice says **Voice unavailable** and offers setup; it never opens a microphone.
 - **Missions:** filter running/queued/waiting/completed work, inspect verified results, and review a local-action approval dialog.
 - **Projects:** open the actual local workspace or record/search explicit project decisions and their reasons; named project management is marked coming soon.
 - **Agents / Tools:** inspect installed workers, their permissions, measured recent reliability, and capability metadata.
 - **Privacy:** change local-only protection and inspect the limited history of successful cloud responses. It is not a system-wide network monitor.
 - **Settings → Appearance:** persist glass intensity, transparency, blur, scale, animations, performance mode and six accent choices locally.
-- **Attach:** import UTF-8 text into the workspace through a reviewed file-creation plan. Image/PDF/screenshot/folder/clipboard actions are visibly disabled.
+- **Attach:** import UTF-8 text into the workspace through a reviewed file-creation plan. PNG/JPEG local OCR is also available with an installed Tesseract engine; PDF/screenshot/folder/clipboard actions remain unavailable.
 
-The primary sidebar has **Chat, Voice, Projects, Memory and Settings**. All previous internal destinations remain available through **Settings → Advanced**. Missing automation, device, vision, speech and messaging backends remain honestly disconnected. The latest reference upload contained text only; the original glass artwork follows its written visual direction.
+The primary sidebar has **Chat, Voice, Projects, Memory and Settings**. All previous internal destinations remain available through **Settings → Advanced**. Missing automation, device, scene vision, speech and messaging backends remain honestly disconnected. The latest reference upload contained text only; the original glass artwork follows its written visual direction.
 
 ## Data and privacy
 
 Windows defaults to `%LOCALAPPDATA%\NovaAgent`; Linux/macOS defaults to `~/.local/share/NovaAgent`. `NOVA_DATA_DIR` can select another local folder. This folder contains SQLite state, the workspace, runtime lock, and rollback trash. Stop Nova before copying the **entire data folder** for a manual backup.
 
-Memory is explicit: you choose what to save and can forget it in **Memory**. New explicit preferences override old ones; inferred preferences cannot replace explicit ones. Memory and mission content are local **unencrypted SQLite data**, so protect your OS account and disk. Forgetting removes a live memory row; this is not forensic secure erasure of backups or SQLite pages. Secure vault, automatic backup/restore, and full privacy redaction are later milestones. Do not store credentials in chat or memory. Common credential formats are rejected, but detection is heuristic.
+Memory is explicit: you choose what to save and can forget it in **Memory**. New explicit preferences override old ones; inferred preferences cannot replace explicit ones. Memory and mission content are local **unencrypted SQLite data**, so protect your OS account and disk. Forgetting removes a live memory row; this is not forensic secure erasure of backups or SQLite pages. Provider keys use Windows DPAPI; automatic backup/restore and full privacy redaction are later milestones. Do not store credentials in chat or memory. Common credential formats are rejected, but detection is heuristic.
 
 Emergency stop persists across restarts and pauses queued work. An atomic operation already in progress may finish and record its actual result. Restart retries interrupted read-only missions; interrupted writes are **BLOCKED** for inspection rather than silently repeated. Independently submitted missions run on up to three workers. Steps in one prepared plan run sequentially, and a failed prerequisite blocks its dependents.
 
@@ -81,20 +81,22 @@ Emergency stop persists across restarts and pauses queued work. An atomic operat
 | Capability | Status |
 | --- | --- |
 | White-glass Home, Chat, Missions, Memory, Privacy and Settings | Working; tested |
-| Orb states, Chat/Voice switch, appearance controls, reduced motion | Working; voice animation preview is explicitly simulated |
+| Orb states, Chat/Voice switch, appearance controls, reduced motion | Working UI; audio backend unavailable |
 | Projects, Agents, Tools and integration status views | Connected to existing workspace/agents; future services clearly disconnected |
 | Native Windows window + browser fallback | Implemented; Windows calls tested with mocks, real Windows test pending |
 | Sinhala text and selected Sinhala/Singlish commands | Working; tested; not general language understanding without a model |
 | File listing, UTF-8 reading/creation, system info | Working in Nova's workspace |
 | Concurrent missions, durable stop, recovery, verified file receipts | Working; tested |
 | File/system specialist workers and reviewed AI plans | Implemented; deterministic tools tested; live AI planning unverified |
-| Ollama and Groq adapters | Implemented; mocked HTTP tests; need a running model or your key |
+| Ollama, Groq, OpenAI and Gemini adapters | Implemented; mocked HTTP tests; need a running model or your key |
+| Local uploaded-image OCR | Real English Tesseract check passed; Windows engine installation needed |
+| Windows provider vault | Implemented with mocked DPAPI tests; native Windows check pending |
 | Voice, wake word, natural Sinhala speech | Not implemented |
 | Windows app opening / official website handoff | Experimental Windows adapter; real Windows validation pending |
-| General Windows UI control, browser automation, vision, device mesh, Office, email, payments, smart home | Not implemented |
-| Self-updates, plugin sandbox, encrypted vault, native installer | Not implemented |
+| General Windows UI control, browser automation, scene vision, device mesh, Office, email, payments, smart home | Not implemented |
+| Self-updates, plugin sandbox, native installer | Not implemented |
 
-This is a modular monolith, not the complete autonomous operating system in the specification. [Current requirement matrix](docs/REQUIREMENT_MATRIX.md) distinguishes working, partial and not-started v10 requirements and preserved earlier requirements. See [project status](docs/PROJECT_STATUS.md) for the next milestones and [architecture](docs/ARCHITECTURE.md) for design details.
+This is a modular monolith, not the complete autonomous operating system in the specification. [Current requirement matrix](docs/REQUIREMENT_MATRIX.md) distinguishes working, partial and not-started Omega requirements and preserved earlier requirements. See [project status](docs/PROJECT_STATUS.md) for the next milestones and [architecture](docs/ARCHITECTURE.md) for design details.
 
 ## Development and tests
 
@@ -109,4 +111,4 @@ The suite covers functional tools, concurrency, recovery, permissions, credentia
 
 ## Release packaging
 
-`python scripts/package_release.py` creates `downloads/Nova-agent-v0.3.zip` from an explicit source allowlist, verifies the ZIP, and checks high-confidence credential formats. It excludes legacy `app.py`, runtime data, virtual environments and previous archives. This narrow scanner is not a full repository secret audit.
+`python scripts/package_release.py` creates `downloads/Nova-agent-v0.4.zip` from an explicit source allowlist, verifies the ZIP, and checks high-confidence credential formats. It excludes legacy `app.py`, runtime data, virtual environments and previous archives. This narrow scanner is not a full repository secret audit.

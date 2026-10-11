@@ -237,3 +237,12 @@ a { color: #2879bc; }
   .st-key-floating-composer [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:last-child { flex: 0 0 44px!important; }
   .st-key-floating-composer [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(2) { flex: 1 1 0!important; }
 }
+
+/* Short messages retain conversational scale rather than dashboard card width. */
+[data-testid="stChatMessage"] { width: fit-content; max-width: 88%; padding: .7rem 1rem; }
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) { margin-left: auto; }
+.nova-voice-unavailable { text-align: center; color: #607e94; font-size: 1rem; }
+
+.st-key-chat-welcome .nova-page-header { text-align: center; }
+button[data-variant="segmented_control"] { border: 1px solid rgba(192,219,238,.7)!important; color: #49667f!important; }
+button[data-variant="segmented_control"][aria-checked="true"] { border-color: var(--nova-accent)!important; background: rgba(215,238,255,.85)!important; color: #2676b9!important; }

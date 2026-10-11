@@ -66,8 +66,8 @@ def greeting(language="si", hour=None):
     if hour is None:
         hour = datetime.now().astimezone().hour
     if language == "si":
-        return "සුභ උදෑසනක්." if 5 <= hour < 12 else "සුභ දවසක්." if 12 <= hour < 17 else "සුභ සන්ධ්‍යාවක්."
-    return "Good morning." if 5 <= hour < 12 else "Good afternoon." if 12 <= hour < 17 else "Good evening."
+        return "සුභ උදෑසනක්." if 5 <= hour < 12 else "සුභ දවසක්." if 12 <= hour < 17 else "සුභ සන්ධ්‍යාවක්." if 17 <= hour < 22 else "සුභ රාත්‍රියක්."
+    return "Good morning." if 5 <= hour < 12 else "Good afternoon." if 12 <= hour < 17 else "Good evening." if 17 <= hour < 22 else "Good night."
 
 
 def mission_group(status):
@@ -130,6 +130,6 @@ class UIController:
                     metadata = json.loads(event["detail"])
                 except (TypeError, ValueError):
                     continue
-                if metadata.get("provider") == "groq":
+                if metadata.get("provider") in {"groq", "openai", "gemini"}:
                     activity.append(event)
         return activity

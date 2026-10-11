@@ -1,6 +1,6 @@
 # NOVA 0.3 security model
 
-This is the implemented boundary, not the complete v10 security architecture.
+This is the implemented boundary, not the complete Omega security architecture.
 
 - One local owner, loopback Streamlit, CORS/XSRF enabled, one scheduler lock per data directory. No authenticated multi-user or remote interface exists.
 - Models return conversation text or schema-validated plans. Only registered tools with an authorized specialist may run. Catalog and roadmap records never install or grant capabilities. Plan validation precedes submission; NORMAL-only website plans are rejected atomically in other modes.
@@ -11,6 +11,6 @@ This is the implemented boundary, not the complete v10 security architecture.
 - Decision edits/deletes require the current revision and permitted mode. Audit records omit decision content. Schema migration is additive.
 - The Windows GUI entry redirects bootstrap output to local logs and sets hidden child flags. Actual Windows no-terminal/native-window behavior still requires target-machine testing. The diagnostic batch launcher intentionally retains its console.
 
-Not implemented: encrypted vault, per-resource temporary grants, OS sandbox, signed auto-updater, automatic backups, general browser automation, external-send policy engine, remote node agent or device pairing. No network listener for device control is introduced. Vision, audio capture and device mesh remain unavailable; their future adapters must enforce explicit capture/pairing grants, redaction, revocation and verifiable receipts before becoming executable.
+Windows DPAPI supports provider keys only; native validation pending. Not implemented: per-resource temporary grants, OS sandbox, signed auto-updater, automatic backups, general browser automation, external-send policy engine, remote node agent or device pairing. No network listener for device control is introduced. Screen perception, audio capture and device mesh remain unavailable; their future adapters must enforce explicit capture/pairing grants, redaction, revocation and verifiable receipts before becoming executable.
 
 Tests use temporary local state and mocked Windows/model APIs. They do not establish Windows readiness or a successful external connection.

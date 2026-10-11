@@ -46,6 +46,9 @@ class PresentationTests(unittest.TestCase):
                 self.assertEqual(controller.external_activity(), [])
                 core.store.event("MODEL_RESPONSE", provider="groq")
                 self.assertEqual(len(controller.external_activity()), 1)
+                core.store.event("MODEL_RESPONSE", provider="openai")
+                core.store.event("MODEL_RESPONSE", provider="gemini")
+                self.assertEqual(len(controller.external_activity()), 3)
                 self.assertEqual(len(controller.agents()), len(core.agents.agents))
                 self.assertEqual(controller.agents()[0]["reliability"], "Not measured yet")
             finally:
@@ -57,6 +60,8 @@ class PresentationTests(unittest.TestCase):
         self.assertEqual(mission_group("COMPLETED"), "Completed")
         self.assertEqual(greeting("si", 8), "සුභ උදෑසනක්.")
         self.assertEqual(greeting("en", 20), "Good evening.")
+        self.assertEqual(greeting("en", 23), "Good night.")
+        self.assertEqual(greeting("si", 1), "සුභ රාත්‍රියක්.")
         self.assertEqual(elapsed_label({}), "—")
 
     def test_presentational_html_escapes_text_and_appearance_cannot_inject_css(self):

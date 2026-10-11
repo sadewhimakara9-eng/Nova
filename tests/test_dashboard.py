@@ -35,6 +35,7 @@ class DashboardTests(unittest.TestCase):
             app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / "nova_app.py"), default_timeout=10).run()
             self.assertFalse(app.exception)
             self.assertFalse(app.error)
+            self.assertEqual(app.session_state.nova_language, "auto")
 
             def navigate(page):
                 primary = {'Chat', 'Voice', 'Projects', 'Memory', 'Settings'}
@@ -56,11 +57,8 @@ class DashboardTests(unittest.TestCase):
             for page in ("Projects", "Agents", "Automations", "Tools", "Integrations", "Devices", "Privacy"):
                 navigate(page)
             navigate("Voice")
-            self.assertTrue(any("Microphone unavailable" == item.label and item.disabled for item in app.button))
-            app.toggle(key="nova_voice_preview").set_value(True).run()
-            app.selectbox(key="nova_voice_demo_state").set_value("listening").run()
-            self.assertTrue(any("Simulated animation only" in item.value for item in app.caption))
-            button("Stop preview").click().run()
+            self.assertTrue(any("Voice unavailable" in item.value for item in app.markdown))
+            self.assertFalse(app.toggle)
             navigate("Chat")
             app.chat_input[0].set_value('Gemini eka open karanna').run()
             self.assertFalse(app.error)
@@ -99,30 +97,28 @@ class DashboardTests(unittest.TestCase):
             self.assertFalse(output.exists())
 
             navigate("Memory")
-            app.selectbox(key="nova_mode").set_value("READ_ONLY").run()
+            navigate("Settings")
+            app.selectbox(key="widget_nova_mode").set_value("READ_ONLY").run()
+            navigate("Memory")
             self.assertTrue(button("Save memory").disabled)
-            app.selectbox(key="nova_mode").set_value("LOCAL_ONLY").run()
+            navigate("Settings")
+            app.selectbox(key="widget_nova_mode").set_value("LOCAL_ONLY").run()
+            navigate("Memory")
             app.checkbox[0].check().run()
             button("Forget").click().run()
             self.assertFalse(any("language" in item.label for item in app.expander))
 
             navigate("Settings")
             app.selectbox(key="widget_nova_provider").set_value("Ollama (local)").run()
-            app.text_input(key="widget_nova_ollama_model").set_value("example-local-model").run()
-            navigate("Home")
-            app.run()
+            app.text_input(key="provider_model_ollama").set_value("example-local-model")
+            app.button(key="save_ollama").click().run()
+            navigate("Chat")
             navigate("Settings")
             self.assertEqual(app.selectbox(key="widget_nova_provider").value, "Ollama (local)")
-            self.assertEqual(app.text_input(key="widget_nova_ollama_model").value, "example-local-model")
-
+            self.assertEqual(app.selectbox(key="widget_nova_language").value, "auto")
+            self.assertEqual(app.text_input(key="provider_model_ollama").value, "example-local-model")
             app.selectbox(key="widget_nova_provider").set_value("Groq (cloud)").run()
-            app.text_input(key="widget_nova_api_key").set_value("test-session-value").run()
-            navigate("Home")
-            navigate("Settings")
-            self.assertEqual(app.text_input(key="widget_nova_api_key").value, "test-session-value")
-            button("Clear API key").click().run()
-            self.assertEqual(app.text_input(key="widget_nova_api_key").value, "")
-
+            self.assertTrue(app.text_input(key="provider_secret_groq").disabled)
             navigate("Chat")
             app.chat_input[0].set_value("/help").run()
             self.assertFalse(app.error)
@@ -132,7 +128,9 @@ class DashboardTests(unittest.TestCase):
             self.assertTrue(app.warning)
             self.assertEqual(app.session_state.nova_messages, history)
             self.assertFalse(any(sensitive in item.value for item in app.markdown))
-            app.selectbox(key="nova_classification").set_value("SECRET").run()
+            navigate("Settings")
+            app.selectbox(key="widget_nova_classification").set_value("SECRET").run()
+            navigate("Chat")
             protected = "A protected personal fact"
             app.chat_input[0].set_value(protected).run()
             self.assertTrue(app.warning)
@@ -144,7 +142,9 @@ class DashboardTests(unittest.TestCase):
             app.chat_input[0].set_value("Nova resume").run()
             self.assertFalse(app.exception)
             self.assertTrue(any(item.label == "Emergency stop" for item in app.button))
-            app.selectbox(key="nova_classification").set_value("PERSONAL").run()
+            navigate("Settings")
+            app.selectbox(key="widget_nova_classification").set_value("PERSONAL").run()
+            navigate("Chat")
             app.chat_input[0].set_value("Please introduce yourself").run()
             self.assertTrue(any("NORMAL" in item.value for item in app.error))
             app.run()
@@ -155,6 +155,54 @@ class DashboardTests(unittest.TestCase):
             button("Resume agent").click().run()
             self.assertFalse(app.exception)
             network.assert_not_called()
+
+
+    def test_mocked_secure_provider_save_clears_field_and_check_is_explicit(self):
+        """Mock vault and HTTP model: validates UI handling, not Windows or live auth."""
+        from nova.core import NovaCore
+        from nova.provider_hub import ProviderHub
+        from streamlit import cache_resource
+        with tempfile.TemporaryDirectory() as directory, ExitStack() as resources:
+            resources.enter_context(patch.dict(os.environ, {"NOVA_DATA_DIR": directory}))
+            resources.callback(cache_resource.clear)
+            cores = []
+            def create_core(*args, **kwargs):
+                core = NovaCore(*args, **kwargs)
+                cores.append(core)
+                resources.callback(core.close)
+                return core
+            resources.enter_context(patch("nova.core.NovaCore", side_effect=create_core))
+            from unittest.mock import PropertyMock
+            resources.enter_context(patch.object(ProviderHub, "vault_available", new_callable=PropertyMock, return_value=True))
+            save = resources.enter_context(patch("nova.vault.SecretVault.put"))
+            resources.enter_context(patch("nova.vault.SecretVault.get", return_value="synthetic-test-value"))
+            complete = resources.enter_context(patch("nova.providers.ModelProvider.complete", return_value="OK"))
+            app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / "nova_app.py"), default_timeout=10).run()
+            self.assertFalse(app.exception)
+            self.assertFalse(any(x.label == "Expand navigation" for x in app.toggle))
+            self.assertFalse(any(x.label == "Operating mode" for x in app.selectbox))
+            self.assertFalse(any("/help" in x.value for x in app.markdown))
+            app.sidebar.radio[0].set_value("Settings").run()
+            self.assertFalse(app.exception)
+            complete.assert_not_called()
+            self.assertTrue(app.button(key="check_openai").disabled)
+            app.text_input(key="provider_secret_openai").set_value("synthetic-test-value")
+            app.button(key="save_openai").click().run()
+            self.assertFalse(app.exception)
+            save.assert_called_once_with("openai", "synthetic-test-value")
+            self.assertEqual(app.text_input(key="provider_secret_openai").value, "")
+            self.assertNotIn("synthetic-test-value", str(app.session_state))
+            self.assertFalse(any("synthetic-test-value" in x.value for x in app.markdown))
+            complete.assert_not_called()
+            self.assertEqual(cores[0].provider_hub.status("openai")["status"], "DISCONNECTED")
+            app.selectbox(key="widget_nova_mode").set_value("NORMAL").run()
+            app.button(key="check_openai").click().run()
+            self.assertFalse(app.exception)
+            complete.assert_called_once()
+            self.assertEqual(cores[0].provider_hub.status("openai")["status"], "CONNECTED")
+            app.sidebar.radio[0].set_value("Chat").run()
+            app.sidebar.radio[0].set_value("Settings").run()
+            self.assertEqual(app.text_input(key="provider_secret_openai").value, "")
 
 
 if __name__ == "__main__":

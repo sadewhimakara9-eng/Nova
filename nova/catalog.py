@@ -23,7 +23,7 @@ def expansion_requirements():
 
 @lru_cache(maxsize=1)
 def master_requirements():
-    return json.loads(Path(__file__).with_name('v10_requirements.json').read_text(encoding='utf-8'))
+    return json.loads(Path(__file__).with_name('omega_requirements.json').read_text(encoding='utf-8'))
 
 
 def catalog(core, query="", status="ALL", mode="LOCAL_ONLY"):
@@ -51,10 +51,10 @@ def catalog(core, query="", status="ALL", mode="LOCAL_ONLY"):
                          availability="PAUSED" if core.stopped else "MODE_GATED", dependencies=sorted(agent.tools),
                          implementation=["nova/agents.py"], tests=["tests/test_foundation.py"],
                          release="0.3.0" if agent.id == 'desktop-agent' else "0.1.0", source="Installed agent registry", phase="Installed", requirements=""))
-    for provider in ("Ollama", "Groq"):
+    for provider in ("Ollama", "Groq", "OpenAI", "Gemini"):
         rows.append(dict(id="provider." + provider.lower(), title=provider + " model adapter", category="Providers",
                          kind="provider", status="PARTIAL", scope="Adapter implemented; a running model or authorized key is required. Connection has not been checked by this catalog.",
-                         availability="RESTRICTED" if provider == "Groq" and mode != "NORMAL" else "NOT_VERIFIED",
+                         availability="RESTRICTED" if provider != "Ollama" and mode != "NORMAL" else "NOT_VERIFIED",
                          dependencies=["Running local model" if provider == "Ollama" else "Owner key, NORMAL mode, PUBLIC or INTERNAL request"],
                          implementation=["nova/providers.py"], tests=["tests/test_providers.py"], release="0.1.0",
                          source="Provider adapter implementation", phase="Installed", requirements="No automatic fallback or connection probing."))

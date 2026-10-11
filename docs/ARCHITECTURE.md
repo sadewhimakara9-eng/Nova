@@ -13,7 +13,7 @@ nova_app.py (owner input, settings, review)
     → ToolRegistry (validated arguments and dedicated workspace)
     → actual result verification → persisted receipt
 
-Chat/planning → ModelProvider → privacy gate → fixed Ollama/Groq endpoint
+Chat/planning → ModelProvider → privacy gate → ProviderHub health/vault → fixed Ollama/Groq/OpenAI/Gemini endpoint
 Model text → no direct execution
 Prepared plan → schema validation → owner review → mission submission
 ```
@@ -92,3 +92,7 @@ Windows builds add a scoped desktop worker and two experimental tools. Website h
 Chat, Voice, Projects, Memory and Settings are the only primary sidebar pages. All existing Home/Missions/Agents/Tools/Integrations/Devices/Automations/Privacy workspaces remain reachable through Settings → Advanced and the internal quick finder. Six validated accent choices affect small selection/action accents rather than recoloring the workspace. Greeting uses host local time.
 
 `Start Nova.pyw` runs the existing bootstrap with hidden Windows child flags and local log redirection. Native window close still stops only its owned server. If GUI mode falls back to a browser, a visible session dialog owns shutdown; closing only the browser tab does not terminate the service. The diagnostic batch entry remains available. No tray service or global overlay is claimed. Full native/no-flash behavior is unverified on this Linux host.
+
+## Omega provider and image boundaries
+
+ProviderHub owns secure configuration, observed text requests and explicit probes. SecretVault uses Windows DPAPI with no unsupported-platform fallback. VisionGateway separately performs bounded local OCR on explicitly uploaded images; its output never becomes model context automatically. See PROVIDER_SYSTEM.md and VISION_SYSTEM.md for limits.

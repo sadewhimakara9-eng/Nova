@@ -25,6 +25,26 @@ class CoreTests(unittest.TestCase):
         self.core.close()
         self.temp.cleanup()
 
+    def test_image_entry_obeys_stop_dryrun_and_classification(self):
+        self.core.vision = Mock()
+        for kwargs in ({"mode": "DRY_RUN"}, {"classification": "SECRET"}, {"mode": "unknown"}):
+            with self.assertRaises(NovaError):
+                self.core.inspect_image(b"image", **kwargs)
+        self.core.stop()
+        with self.assertRaises(NovaError): self.core.inspect_image(b"image")
+        self.core.vision.analyze_image.assert_not_called()
+        self.core.resume()
+        self.core.inspect_image(b"image", mode="OFFLINE")
+        self.core.vision.analyze_image.assert_called_once_with(b"image", policy="LOCAL_VISION_ONLY", language="eng")
+
+    def test_language_instruction_defaults_to_latest_message_with_explicit_override(self):
+        provider = Mock(provider="ollama")
+        provider.complete.return_value = "Answer"
+        self.core.chat("mama kohomada karanne", provider)
+        self.assertIn("Match the latest owner message", provider.complete.call_args.args[0][0]["content"])
+        self.core.chat("Explain the water cycle", provider, language="si")
+        self.assertIn("Response language: Sinhala.", provider.complete.call_args.args[0][0]["content"])
+
     def reopen(self):
         self.core.close()
         self.core = NovaCore(self.data, self.workspace)
